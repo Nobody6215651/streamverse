@@ -70,6 +70,51 @@
                 </div>
             </div>
 
+            <div class="movie-card" data-title="scarface" data-category="Hollywood" onclick="openPlayer('111', 'Scarface', 'movie')">
+                <span class="badge">1080p Bluray</span>
+                <img class="movie-poster" src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400">
+                <div class="movie-info">
+                    <strong>Scarface</strong>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 1983 | Hollywood</div>
+                </div>
+            </div>
+
+            <div class="movie-card" data-title="mad max fury road" data-category="Hollywood" onclick="openPlayer('76341', 'Mad Max: Fury Road', 'movie')">
+                <span class="badge">4K UHD</span>
+                <img class="movie-poster" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400">
+                <div class="movie-info">
+                    <strong>Mad Max: Fury Road</strong>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2015 | Hollywood</div>
+                </div>
+            </div>
+
+            <div class="movie-card" data-title="spectre james bond" data-category="Hollywood" onclick="openPlayer('140607', 'Spectre', 'movie')">
+                <span class="badge">1080p FHD</span>
+                <img class="movie-poster" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400">
+                <div class="movie-info">
+                    <strong>Spectre (James Bond)</strong>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2015 | Hollywood</div>
+                </div>
+            </div>
+
+            <div class="movie-card" data-title="the matrix" data-category="Hollywood" onclick="openPlayer('603', 'The Matrix', 'movie')">
+                <span class="badge">4K UHD</span>
+                <img class="movie-poster" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=400">
+                <div class="movie-info">
+                    <strong>The Matrix</strong>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 1999 | Hollywood</div>
+                </div>
+            </div>
+
+            <div class="movie-card" data-title="jawan shah rukh khan srk" data-category="Bollywood" onclick="openPlayer('857598', 'Jawan', 'movie')">
+                <span class="badge">1080p FHD</span>
+                <img class="movie-poster" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400">
+                <div class="movie-info">
+                    <strong>Jawan</strong>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2023 | Bollywood</div>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -120,7 +165,7 @@
             let buttons = document.querySelectorAll('.server-btn');
             
             buttons.forEach((btn, i) => {
-                if(i === (serverNum - 1)) btn.classList.add('active');
+                if (i === (serverNum - 1)) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
