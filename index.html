@@ -12,13 +12,13 @@
     <header class="navbar">
         <div class="logo">Stream<span>Verse</span></div>
         <nav class="nav-links">
-            <a href="#" class="active">Home</a>
-            <a href="#">Hollywood</a>
-            <a href="#">Bollywood</a>
-            <a href="#">Web Series</a>
+            <a href="#" class="nav-item active" onclick="filterCategory('all', event)">Home</a>
+            <a href="#" class="nav-item" onclick="filterCategory('Hollywood', event)">Hollywood</a>
+            <a href="#" class="nav-item" onclick="filterCategory('Bollywood', event)">Bollywood</a>
+            <a href="#" class="nav-item" onclick="filterCategory('Web Series', event)">Web Series</a>
         </nav>
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search movies...">
+            <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="searchMovies()">
             <i class="fas fa-search search-icon"></i>
         </div>
     </header>
@@ -34,10 +34,10 @@
     </section>
 
     <main class="main-content">
-        <h2 class="section-title">All Movies & Web Series</h2>
-        <div class="movie-grid">
+        <h2 class="section-title" id="current-category-title">All Movies & Web Series</h2>
+        <div class="movie-grid" id="movie-grid-container">
             
-            <div class="movie-card" onclick="openPlayer('76600', 'Avatar: The Way of Water', 'movie')">
+            <div class="movie-card" data-title="avatar the way of water" data-category="Hollywood" onclick="openPlayer('76600', 'Avatar: The Way of Water', 'movie')">
                 <span class="badge">4K UHD</span>
                 <img class="movie-poster" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400">
                 <div class="movie-info">
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="movie-card" onclick="openPlayer('868759', 'Pathaan', 'movie')">
+            <div class="movie-card" data-title="pathaan scarface mad max spectre matrix" data-category="Bollywood" onclick="openPlayer('868759', 'Pathaan', 'movie')">
                 <span class="badge">1080p FHD</span>
                 <img class="movie-poster" src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400">
                 <div class="movie-info">
@@ -55,12 +55,12 @@
                 </div>
             </div>
 
-            <div class="movie-card" onclick="openPlayer('66732', 'Stranger Things (S01E01)', 'tv', '1', '1')">
+            <div class="movie-card" data-title="stranger things s01e01" data-category="Web Series" onclick="openPlayer('66732', 'Stranger Things (S01E01)', 'tv', '1', '1')">
                 <span class="badge">HDR 10bit</span>
                 <img class="movie-poster" src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400">
                 <div class="movie-info">
                     <strong>Stranger Things (S01E01)</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2016 | Series</div>
+                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2016 | Web Series</div>
                 </div>
             </div>
 
@@ -85,8 +85,8 @@
         let currentServer1 = "";
         let currentServer2 = "";
 
-        // Modal automatically handles clicks from standard dynamic mapping
-        window.openPlayer = function(tmdbId, title, type = "movie", season = "1", episode = "1") {
+        // 1. PLAYER MECHANICS
+        function openPlayer(tmdbId, title, type = "movie", season = "1", episode = "1") {
             document.getElementById('videoPlayerModal').style.display = 'flex';
             document.getElementById('modal-video-title').innerText = "Streaming via Public Node: " + title;
             
@@ -103,13 +103,13 @@
             videoWrapper.innerHTML = `<iframe src="${currentServer1}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
         }
 
-        window.closePlayer = function() {
+        function closePlayer() {
             let videoWrapper = document.querySelector('.video-wrapper');
             videoWrapper.innerHTML = ""; 
             document.getElementById('videoPlayerModal').style.display = 'none';
         }
 
-        window.switchServer = function(serverNum) {
+        function switchServer(serverNum) {
             let videoWrapper = document.querySelector('.video-wrapper');
             let buttons = document.querySelectorAll('.server-btn');
             
@@ -123,6 +123,48 @@
             } else {
                 videoWrapper.innerHTML = `<iframe src="${currentServer2}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
             }
+        }
+
+        // 2. LIVE FILTERING LOGIC
+        function filterCategory(cat, event) {
+            if (event) {
+                event.preventDefault(); // Browser refresh hone se rokne ke liye
+                // Purani active links se red color hatayein
+                document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+                // Nayi clicked link ko active (red) karein
+                event.target.classList.add('active');
+            }
+
+            let cards = document.querySelectorAll('.movie-card');
+            
+            if (cat === 'all') {
+                document.getElementById('current-category-title').innerText = "All Movies & Web Series";
+                cards.forEach(card => card.style.display = "block");
+            } else {
+                document.getElementById('current-category-title').innerText = cat + " Section";
+                cards.forEach(card => {
+                    if (card.getAttribute('data-category') === cat) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
+        }
+
+        // 3. SEARCH BAR INSTANT MECHANICS
+        function searchMovies() {
+            let query = document.getElementById('search-bar').value.toLowerCase().trim();
+            let cards = document.querySelectorAll('.movie-card');
+            
+            cards.forEach(card => {
+                let title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
         }
     </script>
 </body>
