@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVerse OTT - Test Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">Stream<span>Verse</span></div>
+        <nav class="nav-links">
+            <a href="#" class="active" onclick="filterCategory('all')">Home</a>
+            <a href="#" onclick="filterCategory('Hollywood')">Hollywood</a>
+            <a href="#" onclick="filterCategory('Bollywood')">Bollywood</a>
+            <a href="#" onclick="filterCategory('South Indian')">South Indian</a>
+            <a href="#" onclick="filterCategory('Punjabi')">Punjabi</a>
+        </nav>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="searchMovies()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1>Featured Movie</h1>
+            <p>Click Play to start testing public streaming high-quality nodes instantly.</p>
+            <button class="play-btn" onclick="openPlayer('76600', 'Avatar: The Way of Water', 'movie')">
+                <i class="fas fa-play"></i> Play Now
+            </button>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <h2 class="section-title" id="current-category-title">All Movies & Web Series</h2>
+        <div class="movie-grid" id="movie-grid-container">
+            </div>
+    </main>
+
+    <div class="video-modal" id="videoPlayerModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePlayer()">&times;</span>
+            <h3 id="modal-video-title" style="color: #fff; margin-bottom: 15px;">Playing</h3>
+            <div class="video-wrapper">
+                </div>
+            <div class="server-options" style="margin-top: 15px;">
+                <span>Servers: </span>
+                <button class="server-btn active" onclick="switchServer(1)">Server 1</button>
+                <button class="server-btn" onclick="switchServer(2)">Server 2</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="movies_data.js"></script>
+    <script src="player.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
