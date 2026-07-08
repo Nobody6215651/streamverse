@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - Automated Platform</title>
+    <title>StreamVerse OTT - Automated Platform with Creator AI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .loading-text { color: #aaa; padding: 20px; font-size: 18px; text-align: center; width: 100%; }
         .movie-card { cursor: pointer; }
+        
+        /* Creator AI Interface Panel Styling */
+        .ai-fab { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, #e50914, #ff414d); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(229, 9, 20, 0.4); z-index: 9999; transition: transform 0.3s; border: 2px solid rgba(255,255,255,0.2); }
+        .ai-fab:hover { transform: scale(1.1) rotate(15deg); }
+        .ai-panel { position: fixed; bottom: 95px; right: 25px; width: 380px; height: 500px; background: #141414; border: 1px solid #282828; border-radius: 12px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.7); z-index: 9999; overflow: hidden; font-family: sans-serif; }
+        .ai-header { background: #1f1f1f; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #282828; }
+        .ai-header h4 { margin: 0; font-size: 16px; letter-spacing: 0.5px; }
+        .ai-header h4 span { color: #e50914; }
+        .ai-chat-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #0a0a0a; }
+        .chat-msg { padding: 10px 14px; border-radius: 8px; max-width: 80%; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+        .chat-msg.user { background: #e50914; color: white; align-self: flex-end; }
+        .chat-msg.bot { background: #222; color: #eee; align-self: flex-start; border: 1px solid #333; }
+        .chat-msg pre { background: #000; padding: 8px; border-radius: 4px; overflow-x: auto; color: #00ffcc; font-family: monospace; font-size: 11px; margin-top: 5px; }
+        .ai-input-area { display: flex; padding: 10px; background: #1f1f1f; border-top: 1px solid #282828; }
+        .ai-input-area input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 6px; font-size: 13px; outline: none; }
+        .ai-input-area button { background: #e50914; border: none; color: white; padding: 0 15px; margin-left: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .ai-input-area button:hover { background: #b80710; }
     </style>
 </head>
 <body>
@@ -27,7 +44,7 @@
 
     <section class="hero-banner" id="hero-section">
         <div class="hero-content">
-            <h1 id="hero-title">Streaming Hub</h1>
+            <h1>Streaming Hub</h1>
             <p>Dunya ki koi bhi movie upar search karein, original poster aur high quality nodes ke sath instantly hazir ho jayegi.</p>
         </div>
     </section>
@@ -53,31 +70,46 @@
         </div>
     </div>
 
+    <div class="ai-fab" id="aiBtn" onclick="toggleAIPanel()">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="ai-panel" id="aiPanel">
+        <div class="ai-header">
+            <h4>StreamVerse <span>Creator AI</span></h4>
+            <i class="fas fa-times" style="cursor:pointer;" onclick="toggleAIPanel()"></i>
+        </div>
+        <div class="ai-chat-box" id="aiChatBox">
+            <div class="chat-msg bot">
+                Bhai! Main aapka personal StreamVerse Assistant hoon. Mujhse poochein ke layout ko Netflix ya Movie-Box jaisa professional kaise banana hai, main aapko ready-made code blocks bana kar doon ga!
+            </div>
+        </div>
+        <div class="ai-input-area">
+            <input type="text" id="aiInputField" placeholder="Ask for design changes / ready scripts..." onkeypress="handleKeyPress(event)">
+            <button onclick="askCreatorAI()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <script>
-        // Aapki API key yahan permanent save kar di hai
         const API_KEY = "82e880c89dbf119b940e034ed32a3498"; 
-        
         let currentServer1 = "";
         let currentServer2 = "";
         let searchTimeout = null;
 
-        // Automatically load trending movies on startup
         document.addEventListener("DOMContentLoaded", () => {
             loadTrending('movie');
         });
 
-        // Fetch Trending content from global databases
+        // 1. TMDB CORE STREAMING CODE
         async function loadTrending(type = 'movie', event = null) {
             if(event) {
                 event.preventDefault();
                 document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
                 event.target.classList.add('active');
             }
-            
             const container = document.getElementById('movie-grid-container');
             container.innerHTML = "<div class='loading-text'>Fetching trending records...</div>";
             document.getElementById('current-category-title').innerText = type === 'movie' ? "Trending Movies" : "Trending Web Series";
-
             try {
                 let response = await fetch(`https://api.themoviedb.org/3/trending/${type}/day?api_key=${API_KEY}`);
                 let data = await response.json();
@@ -87,25 +119,17 @@
             }
         }
 
-        // Global Universal Search functionality
         function searchTMDB() {
             clearTimeout(searchTimeout);
             let query = document.getElementById('search-bar').value.trim();
             const container = document.getElementById('movie-grid-container');
-
-            if (!query) {
-                loadTrending('movie');
-                return;
-            }
-
+            if (!query) { loadTrending('movie'); return; }
             searchTimeout = setTimeout(async () => {
                 container.innerHTML = "<div class='loading-text'>Searching global servers...</div>";
                 document.getElementById('current-category-title').innerText = `Search Results for "${query}"`;
-
                 try {
                     let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
                     let data = await response.json();
-                    
                     let validResults = data.results.filter(item => item.poster_path && (item.media_type === 'movie' || item.media_type === 'tv'));
                     displayMovies(validResults, 'mixed');
                 } catch (err) {
@@ -114,16 +138,13 @@
             }, 500);
         }
 
-        // Display results into the HTML Grid dynamic templates
         function displayMovies(movies, defaultType) {
             const container = document.getElementById('movie-grid-container');
             container.innerHTML = "";
-
             if(!movies || movies.length === 0) {
                 container.innerHTML = "<div class='loading-text'>No matching titles found in world database.</div>";
                 return;
             }
-
             movies.forEach(movie => {
                 let title = movie.title || movie.name;
                 let date = movie.release_date || movie.first_air_date || "N/A";
@@ -131,17 +152,11 @@
                 let type = movie.media_type || defaultType;
                 let posterUrl = `https://image.tmdb.org/t/p/w400${movie.poster_path}`;
                 let quality = type === 'movie' ? '4K UHD' : 'HD Series';
-
-                // TMDB types filter to standard player configuration
-                let mediaType = type;
-                if(type === 'mixed') {
-                    mediaType = movie.title ? 'movie' : 'tv';
-                }
+                let mediaType = type === 'mixed' ? (movie.title ? 'movie' : 'tv') : type;
 
                 const card = document.createElement('div');
                 card.className = 'movie-card';
                 card.onclick = () => openPlayer(movie.id, title, mediaType);
-
                 card.innerHTML = `
                     <span class="badge">${quality}</span>
                     <img class="movie-poster" src="${posterUrl}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
@@ -154,13 +169,10 @@
             });
         }
 
-        // 3. STREAMING PLAYER CONTROLLER
         function openPlayer(tmdbId, title, type) {
             document.getElementById('videoPlayerModal').style.display = 'flex';
             document.getElementById('modal-video-title').innerText = "Streaming: " + title;
-            
             let videoWrapper = document.querySelector('.video-wrapper');
-            
             if (type === "movie") {
                 currentServer1 = `https://vidsrc.to/embed/movie/${tmdbId}`;
                 currentServer2 = `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1`;
@@ -168,30 +180,81 @@
                 currentServer1 = `https://vidsrc.to/embed/tv/${tmdbId}/1/1`;
                 currentServer2 = `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1&s=1&e=1`;
             }
-
             videoWrapper.innerHTML = `<iframe src="${currentServer1}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
         }
 
         function closePlayer() {
-            let videoWrapper = document.querySelector('.video-wrapper');
-            videoWrapper.innerHTML = ""; 
+            document.querySelector('.video-wrapper').innerHTML = ""; 
             document.getElementById('videoPlayerModal').style.display = 'none';
         }
 
         function switchServer(serverNum) {
             let videoWrapper = document.querySelector('.video-wrapper');
             let buttons = document.querySelectorAll('.server-btn');
-            
-            buttons.forEach((btn, i) => {
-                if (i === (serverNum - 1)) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
+            buttons.forEach((btn, i) => { if (i === (serverNum - 1)) btn.classList.add('active'); else btn.classList.remove('active'); });
+            videoWrapper.innerHTML = `<iframe src="${serverNum === 1 ? currentServer1 : currentServer2}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
+        }
 
-            if (serverNum === 1) {
-                videoWrapper.innerHTML = `<iframe src="${currentServer1}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
-            } else {
-                videoWrapper.innerHTML = `<iframe src="${currentServer2}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
+        // 2. 🤖 CREATOR AI LOGIC SUBSYSTEM
+        function toggleAIPanel() {
+            const panel = document.getElementById('aiPanel');
+            panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') askCreatorAI();
+        }
+
+        async function askCreatorAI() {
+            const inputField = document.getElementById('aiInputField');
+            const chatBox = document.getElementById('aiChatBox');
+            let prompt = inputField.value.trim();
+            if(!prompt) return;
+
+            // Render user message
+            let userDiv = document.createElement('div');
+            userDiv.className = "chat-msg user";
+            userDiv.innerText = prompt;
+            chatBox.appendChild(userDiv);
+            inputField.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Render loader message
+            let botDiv = document.createElement('div');
+            botDiv.className = "chat-msg bot";
+            botDiv.innerText = "Analyzing code structures & frameworks...";
+            chatBox.appendChild(botDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                // Free serverless routing engine targeting Meta Llama 3 infrastructure on HuggingFace endpoints
+                let response = await fetch("https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        inputs: `<|system|>\nYou are the expert master web engineer of StreamVerse OTT platform. Suggest code optimizations compared to Netflix, Movie-box, and Prime Video. Keep replies concise and always output high quality copy-paste HTML/CSS code blocks when requested.\n<|user|>\n${prompt}\n<|assistant|>\n`,
+                        parameters: { max_new_tokens: 450, temperature: 0.7 }
+                    })
+                });
+                
+                let data = await response.json();
+                let outputText = data[0]?.generated_text || "Bhai, brain infrastructure busy hai. Ek baar dobara message send karein.";
+                
+                // Extracting assistant reply token streams clean
+                if(outputText.includes("<|assistant|>")) {
+                    outputText = outputText.split("<|assistant|>").pop().trim();
+                }
+
+                // Super basic markdown wrapper code block processing
+                if(outputText.includes("```")) {
+                    outputText = outputText.replace(/```html|```css|```javascript/g, "<pre>").replace(/```/g, "</pre>");
+                }
+
+                botDiv.innerHTML = outputText;
+            } catch (err) {
+                botDiv.innerText = "Bhai, global routing node overflow ho raha hai. Is direct UI module ko apply karne ke liye main ready hoon, aap poochein!";
             }
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
 </body>
