@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - Test Platform</title>
+    <title>StreamVerse OTT - Automated Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Forcefully hidden elements without messing up layout engines */
-        .movie-card.hidden-card {
-            display: none !important;
-        }
+        .loading-text { color: #aaa; padding: 20px; font-size: 18px; text-align: center; width: 100%; }
+        .movie-card { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -18,103 +16,26 @@
     <header class="navbar">
         <div class="logo">Stream<span>Verse</span></div>
         <nav class="nav-links">
-            <a href="#" class="nav-item active" onclick="filterCategory('all', event)">Home</a>
-            <a href="#" class="nav-item" onclick="filterCategory('Hollywood', event)">Hollywood</a>
-            <a href="#" class="nav-item" onclick="filterCategory('Bollywood', event)">Bollywood</a>
-            <a href="#" class="nav-item" onclick="filterCategory('Web Series', event)">Web Series</a>
+            <a href="#" class="nav-item active" onclick="loadTrending('movie', event)">Movies</a>
+            <a href="#" class="nav-item" onclick="loadTrending('tv', event)">Web Series</a>
         </nav>
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="searchMovies()">
+            <input type="text" id="search-bar" placeholder="Type ANY movie name..." onkeyup="searchTMDB()">
             <i class="fas fa-search search-icon"></i>
         </div>
     </header>
 
-    <section class="hero-banner">
+    <section class="hero-banner" id="hero-section">
         <div class="hero-content">
-            <h1>Featured Movie</h1>
-            <p>Click Play to start testing public streaming high-quality nodes instantly.</p>
-            <button class="play-btn" onclick="openPlayer('76600', 'Avatar: The Way of Water', 'movie')">
-                <i class="fas fa-play"></i> Play Now
-            </button>
+            <h1 id="hero-title">Streaming Hub</h1>
+            <p>Dunya ki koi bhi movie upar search karein, original poster aur high quality nodes ke sath instantly hazir ho jayegi.</p>
         </div>
     </section>
 
     <main class="main-content">
-        <h2 class="section-title" id="current-category-title">All Movies & Web Series</h2>
+        <h2 class="section-title" id="current-category-title">Trending Today (Auto-Updated)</h2>
         <div class="movie-grid" id="movie-grid-container">
-            
-            <div class="movie-card" data-title="avatar the way of water" data-category="Hollywood" onclick="openPlayer('76600', 'Avatar: The Way of Water', 'movie')">
-                <span class="badge">4K UHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Avatar: The Way of Water</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2022 | Hollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="pathaan" data-category="Bollywood" onclick="openPlayer('868759', 'Pathaan', 'movie')">
-                <span class="badge">1080p FHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Pathaan</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2023 | Bollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="stranger things s01e01" data-category="Web Series" onclick="openPlayer('66732', 'Stranger Things (S01E01)', 'tv', '1', '1')">
-                <span class="badge">HDR 10bit</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Stranger Things (S01E01)</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2016 | Web Series</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="scarface" data-category="Hollywood" onclick="openPlayer('111', 'Scarface', 'movie')">
-                <span class="badge">1080p Bluray</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Scarface</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 1983 | Hollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="mad max fury road" data-category="Hollywood" onclick="openPlayer('76341', 'Mad Max: Fury Road', 'movie')">
-                <span class="badge">4K UHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Mad Max: Fury Road</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2015 | Hollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="spectre james bond" data-category="Hollywood" onclick="openPlayer('140607', 'Spectre', 'movie')">
-                <span class="badge">1080p FHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Spectre (James Bond)</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2015 | Hollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="the matrix" data-category="Hollywood" onclick="openPlayer('603', 'The Matrix', 'movie')">
-                <span class="badge">4K UHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=400">
-                <div class="movie-info">
-                    <strong>The Matrix</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 1999 | Hollywood</div>
-                </div>
-            </div>
-
-            <div class="movie-card" data-title="jawan shah rukh khan srk" data-category="Bollywood" onclick="openPlayer('857598', 'Jawan', 'movie')">
-                <span class="badge">1080p FHD</span>
-                <img class="movie-poster" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=400">
-                <div class="movie-info">
-                    <strong>Jawan</strong>
-                    <div style="color: #888; font-size:11px; margin-top:5px;">Year: 2023 | Bollywood</div>
-                </div>
-            </div>
-
+            <div class="loading-text">Loading latest movies from global databases...</div>
         </div>
     </main>
 
@@ -133,13 +54,110 @@
     </div>
 
     <script>
+        // Aapki API key yahan permanent save kar di hai
+        const API_KEY = "82e880c89dbf119b940e034ed32a3498"; 
+        
         let currentServer1 = "";
         let currentServer2 = "";
+        let searchTimeout = null;
 
-        // 1. PLAYER MECHANICS
-        function openPlayer(tmdbId, title, type = "movie", season = "1", episode = "1") {
+        // Automatically load trending movies on startup
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTrending('movie');
+        });
+
+        // Fetch Trending content from global databases
+        async function loadTrending(type = 'movie', event = null) {
+            if(event) {
+                event.preventDefault();
+                document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+            
+            const container = document.getElementById('movie-grid-container');
+            container.innerHTML = "<div class='loading-text'>Fetching trending records...</div>";
+            document.getElementById('current-category-title').innerText = type === 'movie' ? "Trending Movies" : "Trending Web Series";
+
+            try {
+                let response = await fetch(`https://api.themoviedb.org/3/trending/${type}/day?api_key=${API_KEY}`);
+                let data = await response.json();
+                displayMovies(data.results, type);
+            } catch (err) {
+                container.innerHTML = "<p style='color:red; text-align:center; width:100%;'>Failed to load live data stream.</p>";
+            }
+        }
+
+        // Global Universal Search functionality
+        function searchTMDB() {
+            clearTimeout(searchTimeout);
+            let query = document.getElementById('search-bar').value.trim();
+            const container = document.getElementById('movie-grid-container');
+
+            if (!query) {
+                loadTrending('movie');
+                return;
+            }
+
+            searchTimeout = setTimeout(async () => {
+                container.innerHTML = "<div class='loading-text'>Searching global servers...</div>";
+                document.getElementById('current-category-title').innerText = `Search Results for "${query}"`;
+
+                try {
+                    let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+                    let data = await response.json();
+                    
+                    let validResults = data.results.filter(item => item.poster_path && (item.media_type === 'movie' || item.media_type === 'tv'));
+                    displayMovies(validResults, 'mixed');
+                } catch (err) {
+                    container.innerHTML = "<p style='color:red; text-align:center; width:100%;'>Search node communication failure.</p>";
+                }
+            }, 500);
+        }
+
+        // Display results into the HTML Grid dynamic templates
+        function displayMovies(movies, defaultType) {
+            const container = document.getElementById('movie-grid-container');
+            container.innerHTML = "";
+
+            if(!movies || movies.length === 0) {
+                container.innerHTML = "<div class='loading-text'>No matching titles found in world database.</div>";
+                return;
+            }
+
+            movies.forEach(movie => {
+                let title = movie.title || movie.name;
+                let date = movie.release_date || movie.first_air_date || "N/A";
+                let year = date.split("-")[0];
+                let type = movie.media_type || defaultType;
+                let posterUrl = `https://image.tmdb.org/t/p/w400${movie.poster_path}`;
+                let quality = type === 'movie' ? '4K UHD' : 'HD Series';
+
+                // TMDB types filter to standard player configuration
+                let mediaType = type;
+                if(type === 'mixed') {
+                    mediaType = movie.title ? 'movie' : 'tv';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.onclick = () => openPlayer(movie.id, title, mediaType);
+
+                card.innerHTML = `
+                    <span class="badge">${quality}</span>
+                    <img class="movie-poster" src="${posterUrl}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
+                    <div class="movie-info">
+                        <strong>${title}</strong>
+                        <div style="color: #888; font-size:11px; margin-top:5px;">Year: ${year} | ${mediaType.toUpperCase()}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 3. STREAMING PLAYER CONTROLLER
+        function openPlayer(tmdbId, title, type) {
             document.getElementById('videoPlayerModal').style.display = 'flex';
-            document.getElementById('modal-video-title').innerText = "Streaming via Public Node: " + title;
+            document.getElementById('modal-video-title').innerText = "Streaming: " + title;
             
             let videoWrapper = document.querySelector('.video-wrapper');
             
@@ -147,8 +165,8 @@
                 currentServer1 = `https://vidsrc.to/embed/movie/${tmdbId}`;
                 currentServer2 = `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1`;
             } else {
-                currentServer1 = `https://vidsrc.to/embed/tv/${tmdbId}/${season}/${episode}`;
-                currentServer2 = `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1&s=${season}&e=${episode}`;
+                currentServer1 = `https://vidsrc.to/embed/tv/${tmdbId}/1/1`;
+                currentServer2 = `https://multiembed.to/get.php?video_id=${tmdbId}&tmdb=1&s=1&e=1`;
             }
 
             videoWrapper.innerHTML = `<iframe src="${currentServer1}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
@@ -174,46 +192,6 @@
             } else {
                 videoWrapper.innerHTML = `<iframe src="${currentServer2}" style="width: 100%; height: 400px; border: none;" allowfullscreen></iframe>`;
             }
-        }
-
-        // 2. LIVE CLASS-BASED FILTERING
-        function filterCategory(cat, event) {
-            if (event) {
-                event.preventDefault();
-                document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-                event.target.classList.add('active');
-            }
-
-            let cards = document.querySelectorAll('.movie-card');
-            
-            if (cat === 'all') {
-                document.getElementById('current-category-title').innerText = "All Movies & Web Series";
-                cards.forEach(card => card.classList.remove('hidden-card'));
-            } else {
-                document.getElementById('current-category-title').innerText = cat + " Section";
-                cards.forEach(card => {
-                    if (card.getAttribute('data-category') === cat) {
-                        card.classList.remove('hidden-card');
-                    } else {
-                        card.classList.add('hidden-card');
-                    }
-                });
-            }
-        }
-
-        // 3. SEARCH BAR CLASS-BASED MECHANICS
-        function searchMovies() {
-            let query = document.getElementById('search-bar').value.toLowerCase().trim();
-            let cards = document.querySelectorAll('.movie-card');
-            
-            cards.forEach(card => {
-                let title = card.getAttribute('data-title').toLowerCase();
-                if (title.includes(query)) {
-                    card.classList.remove('hidden-card');
-                } else {
-                    card.classList.add('hidden-card');
-                }
-            });
         }
     </script>
 </body>
