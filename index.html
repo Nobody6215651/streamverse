@@ -6,6 +6,12 @@
     <title>StreamVerse OTT - Test Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Forcefully hidden elements without messing up layout engines */
+        .movie-card.hidden-card {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -46,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="movie-card" data-title="pathaan scarface mad max spectre matrix" data-category="Bollywood" onclick="openPlayer('868759', 'Pathaan', 'movie')">
+            <div class="movie-card" data-title="pathaan" data-category="Bollywood" onclick="openPlayer('868759', 'Pathaan', 'movie')">
                 <span class="badge">1080p FHD</span>
                 <img class="movie-poster" src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400">
                 <div class="movie-info">
@@ -125,13 +131,11 @@
             }
         }
 
-        // 2. LIVE FILTERING LOGIC
+        // 2. LIVE CLASS-BASED FILTERING
         function filterCategory(cat, event) {
             if (event) {
-                event.preventDefault(); // Browser refresh hone se rokne ke liye
-                // Purani active links se red color hatayein
+                event.preventDefault();
                 document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-                // Nayi clicked link ko active (red) karein
                 event.target.classList.add('active');
             }
 
@@ -139,20 +143,20 @@
             
             if (cat === 'all') {
                 document.getElementById('current-category-title').innerText = "All Movies & Web Series";
-                cards.forEach(card => card.style.display = "block");
+                cards.forEach(card => card.classList.remove('hidden-card'));
             } else {
                 document.getElementById('current-category-title').innerText = cat + " Section";
                 cards.forEach(card => {
                     if (card.getAttribute('data-category') === cat) {
-                        card.style.display = "block";
+                        card.classList.remove('hidden-card');
                     } else {
-                        card.style.display = "none";
+                        card.classList.add('hidden-card');
                     }
                 });
             }
         }
 
-        // 3. SEARCH BAR INSTANT MECHANICS
+        // 3. SEARCH BAR CLASS-BASED MECHANICS
         function searchMovies() {
             let query = document.getElementById('search-bar').value.toLowerCase().trim();
             let cards = document.querySelectorAll('.movie-card');
@@ -160,9 +164,9 @@
             cards.forEach(card => {
                 let title = card.getAttribute('data-title').toLowerCase();
                 if (title.includes(query)) {
-                    card.style.display = "block";
+                    card.classList.remove('hidden-card');
                 } else {
-                    card.style.display = "none";
+                    card.classList.add('hidden-card');
                 }
             });
         }
