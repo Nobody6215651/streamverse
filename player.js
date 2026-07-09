@@ -36,6 +36,12 @@ function exitPlayerPage() {
     document.getElementById('player-page-view').style.display = 'none';
     document.getElementById('main-website-view').style.display = 'block';
     document.getElementById('video-frame-target').innerHTML = "";
+    
+    // Volume reset mapping upon leaving the streaming dashboard layout
+    const slider = document.getElementById('volumeSliderInput');
+    const badge = document.getElementById('volPercent');
+    if (slider) slider.value = 1;
+    if (badge) badge.innerText = "100%";
 }
 
 async function buildAutomatedDropdowns(tvId) {
@@ -103,6 +109,7 @@ function loadIframeStream(s = 1, e = 1) {
     // Dynamic clean load handler
     frameBox.innerHTML = `
         <iframe 
+            id="streamverse-player"
             src="${srcUrl}" 
             scrolling="no"
             frameborder="0"
@@ -112,19 +119,6 @@ function loadIframeStream(s = 1, e = 1) {
             allow="autoplay; encrypted-media">
         </iframe>`;
 }
-// 🔊 EXTERNAL AMPLIFIER ENGINE FOR THE PLAYER
-let audioCtxInstance = null;
-let gainNodeInstance = null;
-
-function boostExternalAudio() {
-    try {
-        const iframe = document.getElementById('streamverse-player');
-        const btn = document.getElementById('volumeBoostBtn');
-        
-        if (!iframe) {
-            alert("Shahzade, pehle koi movie ya episode play karein!");
-            return;
-        }
 
 // 🔊 DYNAMIC HARDWARE SLIDER AUDIO AMPLIFIER CONFIGURATION
 let globalAudioCtx = null;
@@ -132,8 +126,7 @@ let globalGainNode = null;
 
 function adjustExternalAudio(volumeMultiplier) {
     try {
-        // Core Connection Fix: Targets the dynamic live iframe properly
-        const iframe = document.querySelector('#video-frame-target iframe') || document.getElementById('streamverse-player');
+        const iframe = document.getElementById('streamverse-player');
         const badge = document.getElementById('volPercent');
         const btn = document.getElementById('volumeBoostBtn');
         
@@ -142,11 +135,9 @@ function adjustExternalAudio(volumeMultiplier) {
             return;
         }
 
-        // Updating the display level percentage on the fly
         let percentValue = Math.round(volumeMultiplier * 100);
         if (badge) badge.innerText = percentValue + "%";
 
-        // Visual feedback based on booster level intensity
         if (btn) {
             if (volumeMultiplier > 1) {
                 btn.style.background = "linear-gradient(135deg, #ff0055, #ff5500)";
@@ -159,7 +150,6 @@ function adjustExternalAudio(volumeMultiplier) {
             }
         }
 
-        // Web Audio API Hardware Handshake initialization
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!globalAudioCtx) {
             globalAudioCtx = new AudioContext();
@@ -170,12 +160,10 @@ function adjustExternalAudio(volumeMultiplier) {
             globalGainNode.connect(globalAudioCtx.destination);
         }
 
-        // Adjusting gain value exactly based on user slider authority selection
         globalGainNode.gain.value = parseFloat(volumeMultiplier);
         console.log(`StreamVerse Audio Engine: Volume boosted to ${percentValue}%`);
         
     } catch (error) {
-        // Safety lock mapping to let standard desktop/mobile hardware pipelines handle fluid scale
         console.log("Audio scale applied via device hardware synchronization mapping.");
     }
 }
