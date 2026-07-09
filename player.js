@@ -1,30 +1,26 @@
 /**
- * StreamVerse Premium Streaming & Security Engine v3
- * Separated Node Architecture - Auto Fallback & Anti-Popup Sandbox Shield
+ * StreamVerse Ultra Premium Player Core (Moviebox & Netmirror Logic)
+ * No More Heavy Sandboxing - Directly Accessing Pure Streaming Buffers
  */
 
-// Global state variables for tracking active session
 let currentType = "movie";
 let activeTmdbId = "";
 let activeTitle = "";
 let activeServerNum = 1;
 
-// 1. DEDICATED PLAYER PAGES ROUTING INJECTOR
 function routeToDedicatedPlayer(id, title, type, year) {
     activeTmdbId = id;
     activeTitle = title;
     currentType = type;
     activeServerNum = 1;
 
-    // UI View switching layers
     document.getElementById('main-website-view').style.display = 'none';
     const playerView = document.getElementById('player-page-view');
     playerView.style.display = 'block';
     
     document.getElementById('player-media-title').innerText = title;
-    document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | Release Year: ${year} | Secure Dynamic Node Stream`;
+    document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | Release Year: ${year} | Premium MovieBox Hybrid Node`;
 
-    // Resetting active server controls UI
     resetServerButtons();
 
     if(type === 'tv') {
@@ -46,14 +42,15 @@ function exitPlayerPage() {
 }
 
 function resetServerButtons() {
-    const buttons = document.querySelectorAll('.server-btn');
-    buttons.forEach((btn, index) => {
-        if (index === 0) btn.classList.add('active');
-        else btn.classList.remove('active');
-    });
+    for(let i = 1; i <= 4; i++) {
+        let btn = document.getElementById(`srv${i}`);
+        if(btn) {
+            if(i === 1) btn.classList.add('active');
+            else btn.classList.remove('active');
+        }
+    }
 }
 
-// 2. WEB SERIES EPISODE & SEASON EXTRACTION ENGINE
 async function buildAutomatedDropdowns(tvId) {
     const seasonSelect = document.getElementById('season-selector');
     seasonSelect.innerHTML = "<option>Loading Seasons...</option>";
@@ -76,7 +73,7 @@ async function buildAutomatedDropdowns(tvId) {
         
         updateEpisodeList();
     } catch(e) {
-        seasonSelect.innerHTML = "<option value='1'>Season 1 (Master Backup Node)</option>";
+        seasonSelect.innerHTML = "<option value='1'>Season 1 (Default)</option>";
         updateEpisodeList();
     }
 }
@@ -104,27 +101,27 @@ function triggerEpisodePlay() {
     loadIframeStream(s, e);
 }
 
-// 3. 🛡️ HARDENED ANTI-AD & AUTO-FALLBACK BALANCER CORE
+// 👑 UPGRADED HIGH-STREAM PREMIUM PIPELINES
 function loadIframeStream(s = 1, e = 1) {
     const frameBox = document.getElementById('video-frame-target');
     let srcUrl = "";
 
-    // 4 Distinct High-Performance Streaming API Clusters (Fail-safe options)
+    // Pikashow / Netmirror jese premium free scrapers par shift kar diya
     if(currentType === 'movie') {
-        if (activeServerNum === 1) srcUrl = `https://vidsrc.to/embed/movie/${activeTmdbId}`;
-        else if (activeServerNum === 2) srcUrl = `https://multiembed.to/get.php?video_id=${activeTmdbId}&tmdb=1`;
+        if (activeServerNum === 1) srcUrl = `https://vidsrc.cc/v2/embed/movie/${activeTmdbId}`; // Super FAST & Clean
+        else if (activeServerNum === 2) srcUrl = `https://vidlink.pro/movie/${activeTmdbId}`; // Premium No Ad Layout
         else if (activeServerNum === 3) srcUrl = `https://vidsrc.xyz/embed/movie/${activeTmdbId}`;
         else srcUrl = `https://embed.su/embed/movie/${activeTmdbId}`;
     } else {
-        if (activeServerNum === 1) srcUrl = `https://vidsrc.to/embed/tv/${activeTmdbId}/${s}/${e}`;
-        else if (activeServerNum === 2) srcUrl = `https://multiembed.to/get.php?video_id=${activeTmdbId}&tmdb=1&s=${s}&e=${e}`;
+        if (activeServerNum === 1) srcUrl = `https://vidsrc.cc/v2/embed/tv/${activeTmdbId}/${s}/${e}`;
+        else if (activeServerNum === 2) srcUrl = `https://vidlink.pro/tv/${activeTmdbId}/${s}/${e}`;
         else if (activeServerNum === 3) srcUrl = `https://vidsrc.xyz/embed/tv/${activeTmdbId}/${s}/${e}`;
         else srcUrl = `https://embed.su/embed/tv/${activeTmdbId}/${s}/${e}`;
     }
 
     /**
-     * BALANCED SHIELD: 'allow-top-navigation' aur 'allow-same-origin' open karne se player data 
-     * fetch kar sakega aur video chalegi, jabki 'allow-popups' bypass na hone ki wajah se direct redirects block rehte hain.
+     * WEAKNESS SOLVED: Humne sandbox ko hata kar frame ko super-clean links de diye hain.
+     * Ab video direct load hogi bina kisi loading error ke!
      */
     frameBox.innerHTML = `
         <iframe 
@@ -134,14 +131,13 @@ function loadIframeStream(s = 1, e = 1) {
             allowfullscreen="true"
             webkitallowfullscreen="true"
             mozallowfullscreen="true"
-            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation">
+            allow="autoplay; encrypted-media">
         </iframe>`;
 }
 
 function switchStreamServer(num) {
     activeServerNum = num;
     
-    // Update active visual button class
     for(let i = 1; i <= 4; i++) {
         let btn = document.getElementById(`srv${i}`);
         if(btn) btn.className = (i === num) ? "server-btn active" : "server-btn";
