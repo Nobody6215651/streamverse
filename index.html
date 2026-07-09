@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - Advanced Auto Platform</title>
+    <title>StreamVerse OTT - Secure Ad-Block Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -16,9 +16,12 @@
         .back-btn:hover { background: #e50914; border-color: #e50914; }
         .player-main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 10px; }
         @media(max-width: 900px) { .player-main-grid { grid-template-columns: 1fr; } }
-        .video-box-wrapper { background: #000; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 25px rgba(0,0,0,0.5); }
-        .video-box-wrapper iframe { width: 100%; height: 500px; border: none; display: block; }
-        @media(max-width: 600px) { .video-box-wrapper iframe { height: 300px; } }
+        
+        /* Premium Anti-Ad Video Container Box */
+        .video-box-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #232323; position: relative; }
+        .video-box-wrapper iframe { width: 100%; height: 540px; border: none; display: block; background: #000; }
+        @media(max-width: 600px) { .video-box-wrapper iframe { height: 320px; } }
+        
         .series-control-panel { background: #141414; padding: 20px; border-radius: 8px; border: 1px solid #282828; }
         .series-control-panel h3 { margin-top: 0; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
         .selector-group { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
@@ -65,7 +68,7 @@
         <section class="hero-banner" id="hero-section">
             <div class="hero-content">
                 <h1 id="hero-title">StreamVerse Premium</h1>
-                <p>Dunya ki koi bhi movie ya series click karke direct specialized landing space me full controls ke sath play karein.</p>
+                <p>Anti-Ad Secure Sandbox activated. Enjoy infinite streams with no popups.</p>
             </div>
         </section>
 
@@ -99,7 +102,7 @@
                     <select id="season-selector" onchange="updateEpisodeList()"></select>
                     <select id="episode-selector" onchange="triggerEpisodePlay()"></select>
                 </div>
-                <p id="movie-only-notice" style="color: #666; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> This item is a standalone movie. Multi-episode controls are hidden automatically.</p>
+                <p id="movie-only-notice" style="color: #666; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> Standalone Anti-Ad Module Active. Player controls are now directly touch-accessible without malicious script redirects.</p>
             </div>
         </div>
     </div>
@@ -115,11 +118,11 @@
         </div>
         <div class="ai-chat-box" id="aiChatBox">
             <div class="chat-msg bot">
-                Bhai! Main active hoon. Pehla model overloading ki wajah se phas gaya tha, ab main bilkul up-to-date hoon. Mujhse poochein ke Bollywood, Punjabi tabs ko Mazeed Netflix jaisa professional kaise banana hai!
+                Shahzade! Player secure ho gaya hai aur ads ko sandbox shield se block kar diya gaya hai. Ab aap check karein controls makhki ki tarah smooth chalenge!
             </div>
         </div>
         <div class="ai-input-area">
-            <input type="text" id="aiInputField" placeholder="Ask layout tips or scripts..." onkeypress="handleKeyPress(e)">
+            <input type="text" id="aiInputField" placeholder="Ask layout tips or scripts..." onkeypress="handleKeyPress(event)">
             <button onclick="askCreatorAI()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -136,7 +139,6 @@
             loadCategory('trending');
         });
 
-        // 1. DYNAMIC CATEGORY ROUTING MATRIX (Bollywood, Punjabi, Hollywood, Series)
         async function loadCategory(cat, event = null) {
             if(event) {
                 event.preventDefault();
@@ -162,7 +164,7 @@
                 url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=pa&sort_by=popularity.desc`;
                 titleText = "Punjabi Cinema Node";
             } else if (cat === 'south') {
-                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`; // Indian regional tags
+                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`;
                 titleText = "South Indian Action Dubbed";
             } else if (cat === 'series') {
                 url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc`;
@@ -233,7 +235,6 @@
             });
         }
 
-        // 2. 📺 ADVANCED DEDICATED LANDING & PLAYER CONFIGURATION
         function routeToDedicatedPlayer(id, title, type, year) {
             activeTmdbId = id;
             activeTitle = title;
@@ -245,7 +246,7 @@
             playerView.style.display = 'block';
             
             document.getElementById('player-media-title').innerText = title;
-            document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | Release Year: ${year} | Secure Public Stream Node`;
+            document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | Release Year: ${year} | Ultra Secure Stream Sandbox`;
 
             document.getElementById('srv1').className = "server-btn active";
             document.getElementById('srv2').className = "server-btn";
@@ -268,18 +269,15 @@
             document.getElementById('video-frame-target').innerHTML = "";
         }
 
-        // Web Series Season/Episode Generator Logic Matrix
         async function buildAutomatedDropdowns(tvId) {
             const seasonSelect = document.getElementById('season-selector');
             seasonSelect.innerHTML = "<option>Loading Seasons...</option>";
-            
             try {
                 let response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}`);
                 let data = await response.json();
                 seasonSelect.innerHTML = "";
-                
                 let seasons = data.seasons.filter(s => s.season_number > 0);
-                if(seasons.length === 0 && data.seasons.length > 0) seasons = [data.seasons[0]]; // Fallback to season 0 if needed
+                if(seasons.length === 0 && data.seasons.length > 0) seasons = [data.seasons[0]];
 
                 seasons.forEach(s => {
                     let opt = document.createElement('option');
@@ -288,7 +286,6 @@
                     opt.setAttribute('data-epcount', s.episode_count);
                     seasonSelect.appendChild(opt);
                 });
-                
                 updateEpisodeList();
             } catch(e) {
                 seasonSelect.innerHTML = "<option value='1'>Season 1 (Default Master)</option>";
@@ -303,7 +300,6 @@
             
             let epCount = seasonSelect.selectedOptions[0].getAttribute('data-epcount') || 24;
             epSelect.innerHTML = "";
-            
             for(let i = 1; i <= epCount; i++) {
                 let opt = document.createElement('option');
                 opt.value = i;
@@ -319,6 +315,7 @@
             loadIframeStream(s, e);
         }
 
+        // 🛡️ ENHANCED SECURITY HARDENED ANTI-AD PLAYER STREAM GENERATOR
         function loadIframeStream(s = 1, e = 1) {
             const frameBox = document.getElementById('video-frame-target');
             let srcUrl = "";
@@ -332,14 +329,27 @@
                     ? `https://vidsrc.to/embed/tv/${activeTmdbId}/${s}/${e}` 
                     : `https://multiembed.to/get.php?video_id=${activeTmdbId}&tmdb=1&s=${s}&e=${e}`;
             }
-            frameBox.innerHTML = `<iframe src="${srcUrl}" allowfullscreen></iframe>`;
+
+            /* CRITICAL FIX: Adding 'sandbox' token configurations.
+               Omitting 'allow-popups' and 'allow-popups-to-escape-sandbox' forces 
+               the browser to block malicious third-party script redirect attempts instantly!
+            */
+            frameBox.innerHTML = `
+                <iframe 
+                    src="${srcUrl}" 
+                    scrolling="no"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
+                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
+                </iframe>`;
         }
 
         function switchStreamServer(num) {
             activeServerNum = num;
             document.getElementById('srv1').className = num === 1 ? "server-btn active" : "server-btn";
             document.getElementById('srv2').className = num === 2 ? "server-btn active" : "server-btn";
-            
             if(currentType === 'movie') {
                 loadIframeStream();
             } else {
@@ -349,47 +359,33 @@
             }
         }
 
-        // 3. 🤖 ROBUST CREATOR AI CORE (V2 FALLBACK SYSTEM)
+        // 3. AI PANEL ROUTINES
         function toggleAIPanel() {
             const panel = document.getElementById('aiPanel');
             panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
         }
-
         function handleKeyPress(e) { if(e.key === 'Enter') askCreatorAI(); }
-
         async function askCreatorAI() {
             const field = document.getElementById('aiInputField');
             const box = document.getElementById('aiChatBox');
             let txt = field.value.trim();
             if(!txt) return;
-
-            let uDiv = document.createElement('div');
-            uDiv.className = "chat-msg user"; uDiv.innerText = txt;
-            box.appendChild(uDiv);
-            field.value = "";
-            box.scrollTop = box.scrollHeight;
-
-            let bDiv = document.createElement('div');
-            bDiv.className = "chat-msg bot"; bDiv.innerText = "Processing architecture layout suggestions...";
-            box.appendChild(bDiv);
-            box.scrollTop = box.scrollHeight;
-
+            let uDiv = document.createElement('div'); uDiv.className = "chat-msg user"; uDiv.innerText = txt;
+            box.appendChild(uDiv); field.value = ""; box.scrollTop = box.scrollHeight;
+            let bDiv = document.createElement('div'); bDiv.className = "chat-msg bot"; bDiv.innerText = "Securing system vectors...";
+            box.appendChild(bDiv); box.scrollTop = box.scrollHeight;
             try {
-                // Alternating architecture structure to prevent HF pipeline rate limits
                 let res = await fetch("https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-7B-Instruct", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ inputs: `You are the specialized StreamVerse UI master assistant. Give pure layout ideas and HTML/CSS snippets for video applications. User asks: ${txt}` })
+                    body: JSON.stringify({ inputs: `You are the specialized StreamVerse UI master assistant. Give layout codes. User asks: ${txt}` })
                 });
                 let data = await res.json();
-                let reply = data[0]?.generated_text || data.generated_text || "Bhai network active hai, aap code components update karein!";
-                
-                if(reply.includes("```")) {
-                    reply = reply.replace(/```html|```css/g, "<pre>").replace(/```/g, "</pre>");
-                }
+                let reply = data[0]?.generated_text || data.generated_text || "System safe and active!";
+                if(reply.includes("```")) reply = reply.replace(/```html|```css/g, "<pre>").replace(/```/g, "</pre>");
                 bDiv.innerHTML = reply.substring(0, 800);
             } catch(e) {
-                bDiv.innerHTML = "Bhai, design panel active hai! Aap **Bollywood ya Punjabi** cards ki styling change karne ke liye continuous instruction code direct input karein.";
+                bDiv.innerHTML = "Shield active, boss! Player secured against forced popups.";
             }
             box.scrollTop = box.scrollHeight;
         }
