@@ -37,11 +37,11 @@ function exitPlayerPage() {
     document.getElementById('main-website-view').style.display = 'block';
     document.getElementById('video-frame-target').innerHTML = "";
     
-    // Volume reset mapping upon leaving the streaming dashboard layout
+    // Reset range sliders mapping upon home layout exit
     const slider = document.getElementById('volumeSliderInput');
     const badge = document.getElementById('volPercent');
-    if (slider) slider.value = 1;
-    if (badge) badge.innerText = "100%";
+    if(slider) slider.value = 1;
+    if(badge) badge.innerText = "100%";
 }
 
 async function buildAutomatedDropdowns(tvId) {
@@ -99,14 +99,13 @@ function loadIframeStream(s = 1, e = 1) {
     const frameBox = document.getElementById('video-frame-target');
     let srcUrl = "";
 
-    // Giga-Fast Automated API Wrapper (Auto-scrapes best working server on the fly)
     if(currentType === 'movie') {
         srcUrl = `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}`; 
     } else {
         srcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}`;
     }
 
-    // Dynamic clean load handler
+    // Direct mapping node id attached to sync frame
     frameBox.innerHTML = `
         <iframe 
             id="streamverse-player"
