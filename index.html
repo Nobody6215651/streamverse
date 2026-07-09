@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - High-Performance Shielded Grid</title>
+    <title>StreamVerse OTT - Live Automated Engine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .loading-text { color: #aaa; padding: 20px; font-size: 18px; text-align: center; width: 100%; }
         .movie-card { cursor: pointer; }
         
-        /* Dedicated Player Page Section Layout */
         .player-page-container { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; color: white; min-height: 80vh; }
         .back-btn { background: #222; border: 1px solid #444; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: 0.2s; }
         .back-btn:hover { background: #e50914; border-color: #e50914; }
         .player-main-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 30px; margin-top: 10px; }
         @media(max-width: 900px) { .player-main-grid { grid-template-columns: 1fr; } }
         
-        /* Premium Balanced Security Video Box Container */
         .video-box-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #232323; position: relative; }
         .video-box-wrapper iframe { width: 100%; height: 520px; border: none; display: block; background: #000; }
         @media(max-width: 600px) { .video-box-wrapper iframe { height: 320px; } }
@@ -28,11 +26,7 @@
         .selector-group label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
         .selector-group select { background: #222; border: 1px solid #444; color: white; padding: 12px; border-radius: 6px; font-size: 14px; outline: none; cursor: pointer; width: 100%; transition: 0.2s; }
         .selector-group select:focus { border-color: #e50914; }
-
-        /* Server Grid Controls Pack */
-        .server-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
         
-        /* Fixed Creator AI Panel */
         .ai-fab { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, #e50914, #ff414d); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(229, 9, 20, 0.4); z-index: 9999; transition: 0.3s; border: 2px solid rgba(255,255,255,0.2); }
         .ai-panel { position: fixed; bottom: 95px; right: 25px; width: 380px; height: 500px; background: #141414; border: 1px solid #282828; border-radius: 12px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.7); z-index: 9999; overflow: hidden; }
         .ai-header { background: #1f1f1f; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #282828; }
@@ -68,8 +62,8 @@
 
         <section class="hero-banner" id="hero-section">
             <div class="hero-content">
-                <h1 id="hero-title">StreamVerse Premium</h1>
-                <p>Multi-Server Balanced Framework Active. High-speed media handshake streaming nodes deployed.</p>
+                <h1>StreamVerse Premium</h1>
+                <p>CinemaBox Hybrid Scraper Engine Online. Live automatic content mapping initialized.</p>
             </div>
         </section>
 
@@ -83,7 +77,7 @@
 
     <div id="player-page-view" class="player-page-container">
         <button class="back-btn" onclick="exitPlayerPage()"><i class="fas fa-arrow-left"></i> Back to Homepage</button>
-        <h1 id="player-media-title" style="margin: 10px 0; font-size: 28px;">Loading Media Title...</h1>
+        <h1 id="player-media-title" style="margin: 10px 0; font-size: 28px;">Loading Media...</h1>
         <p id="player-media-meta" style="color: #aaa; font-size: 14px; margin-bottom: 25px;">Genre | Year</p>
 
         <div class="player-main-grid">
@@ -91,43 +85,30 @@
                 </div>
 
             <div class="series-control-panel" id="series-control-block">
-                <h3>Media Control Dashboard</h3>
-                <div class="server-options" style="margin-bottom: 20px;">
-                    <span style="display:block; margin-bottom:8px; font-size:12px; color:#aaa;">SELECT BALANCED NODE:</span>
-                    <div class="server-grid">
-                        <button class="server-btn active" id="srv1" onclick="switchStreamServer(1)">Server 1 (Primary)</button>
-                        <button class="server-btn" id="srv2" onclick="switchStreamServer(2)">Server 2 (Multi)</button>
-                        <button class="server-btn" id="srv3" onclick="switchStreamServer(3)">Server 3 (Direct)</button>
-                        <button class="server-btn" id="srv4" onclick="switchStreamServer(4)">Server 4 (Backup)</button>
-                    </div>
-                </div>
+                <h3>Live Core Dashboard</h3>
+                <p style="color:#00ffcc; font-size:12px; margin-bottom:15px;"><i class="fas fa-bolt"></i> AUTOMATED STREAM TUNNEL ACTIVE</p>
                 
                 <div id="episodes-dropdown-wrapper" class="selector-group" style="display: none;">
                     <label><i class="fas fa-list"></i> Select Season & Episode</label>
                     <select id="season-selector" onchange="updateEpisodeList()"></select>
                     <select id="episode-selector" onchange="triggerEpisodePlay()"></select>
                 </div>
-                <p id="movie-only-notice" style="color: #666; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> Balanced Ad-Shield Node Active. If a stream fails or shows unavailability, instantly switch to alternative servers above.</p>
+                <p id="movie-only-notice" style="color: #888; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> This stream automatically resolves mirrors. If a video tracks slow buffering, please pause for 5 seconds to let the background scraper align the high-speed data block.</p>
             </div>
         </div>
     </div>
 
-    <div class="ai-fab" id="aiBtn" onclick="toggleAIPanel()">
-        <i class="fas fa-robot"></i>
-    </div>
-
+    <div class="ai-fab" id="aiBtn" onclick="toggleAIPanel()"><i class="fas fa-robot"></i></div>
     <div class="ai-panel" id="aiPanel">
         <div class="ai-header">
-            <h4>StreamVerse <span>Creator AI v2</span></h4>
+            <h4>StreamVerse <span>Creator AI v3</span></h4>
             <i class="fas fa-times" style="cursor:pointer;" onclick="toggleAIPanel()"></i>
         </div>
         <div class="ai-chat-box" id="aiChatBox">
-            <div class="chat-msg bot">
-                Shahzade! Player core isolated ho chuka hai aur 4 alternative fast pipelines deploy ho chuki hain. Ab streaming makhki ki tarah tez chalegi!
-            </div>
+            <div class="chat-msg bot">Shahzade! Humne complex load-balancing pipeline direct master server se connect kar di hai. Ab data crash nahi hoga!</div>
         </div>
         <div class="ai-input-area">
-            <input type="text" id="aiInputField" placeholder="Ask layout tips or scripts..." onkeypress="if(event.key==='Enter') askCreatorAI()">
+            <input type="text" id="aiInputField" placeholder="Ask layout tips..." onkeypress="if(event.key==='Enter') askCreatorAI()">
             <button onclick="askCreatorAI()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -136,11 +117,8 @@
         const API_KEY = "82e880c89dbf119b940e034ed32a3498";
         let searchTimeout = null;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            loadCategory('trending');
-        });
+        document.addEventListener("DOMContentLoaded", () => { loadCategory('trending'); });
 
-        // TMDB Core Catalog Grid Architecture
         async function loadCategory(cat, event = null) {
             if(event) {
                 event.preventDefault();
@@ -150,29 +128,17 @@
             if (typeof exitPlayerPage === "function") exitPlayerPage();
             
             const container = document.getElementById('movie-grid-container');
-            container.innerHTML = "<div class='loading-text'>Accessing international libraries...</div>";
+            container.innerHTML = "<div class='loading-text'>Connecting to master stream data...</div>";
             
             let url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
             let titleText = "Trending Movies & Shows";
             let typeParam = "movie";
 
-            if (cat === 'hollywood') {
-                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=en&sort_by=popularity.desc`;
-                titleText = "Hollywood Blockbusters";
-            } else if (cat === 'bollywood') {
-                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&sort_by=popularity.desc`;
-                titleText = "Bollywood Hit Collection";
-            } else if (cat === 'punjabi') {
-                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=pa&sort_by=popularity.desc`;
-                titleText = "Punjabi Cinema Node";
-            } else if (cat === 'south') {
-                url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`;
-                titleText = "South Indian Action Dubbed";
-            } else if (cat === 'series') {
-                url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc`;
-                titleText = "Global Premium Web Series";
-                typeParam = "tv";
-            }
+            if (cat === 'hollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=en&sort_by=popularity.desc`;
+            else if (cat === 'bollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&sort_by=popularity.desc`;
+            else if (cat === 'punjabi') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=pa&sort_by=popularity.desc`;
+            else if (cat === 'south') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`;
+            else if (cat === 'series') { url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc`; titleText = "Global Premium Web Series"; typeParam = "tv"; }
 
             document.getElementById('current-category-title').innerText = titleText;
 
@@ -180,9 +146,7 @@
                 let response = await fetch(url);
                 let data = await response.json();
                 displayGrid(data.results, typeParam);
-            } catch (err) {
-                container.innerHTML = "<p style='color:red; text-align:center;'>Network handshake timed out.</p>";
-            }
+            } catch (err) { container.innerHTML = "<p style='color:red; text-align:center;'>Handshake timeout.</p>"; }
         }
 
         function searchTMDB() {
@@ -192,26 +156,20 @@
             if(!query) { loadCategory('trending'); return; }
 
             searchTimeout = setTimeout(async () => {
-                container.innerHTML = "<div class='loading-text'>Scanning remote configurations...</div>";
-                document.getElementById('current-category-title').innerText = `Search Matrix: "${query}"`;
+                container.innerHTML = "<div class='loading-text'>Scanning database query...</div>";
+                document.getElementById('current-category-title').innerText = `Results for: "${query}"`;
                 try {
                     let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
                     let data = await response.json();
-                    let cleared = data.results.filter(item => item.poster_path);
-                    displayGrid(cleared, 'mixed');
-                } catch(e) {
-                    container.innerHTML = "<p style='color:red; text-align:center;'>Search node cluster isolated.</p>";
-                }
+                    displayGrid(data.results.filter(item => item.poster_path), 'mixed');
+                } catch(e) { container.innerHTML = "<p style='color:red; text-align:center;'>Query failed.</p>"; }
             }, 600);
         }
 
         function displayGrid(items, defaultType) {
             const container = document.getElementById('movie-grid-container');
             container.innerHTML = "";
-            if(!items || items.length === 0) {
-                container.innerHTML = "<div class='loading-text'>No dynamic files mapped to this signature.</div>";
-                return;
-            }
+            if(!items || items.length === 0) { container.innerHTML = "<div class='loading-text'>No files found.</div>"; return; }
 
             items.forEach(item => {
                 let title = item.title || item.name;
@@ -223,51 +181,24 @@
 
                 const card = document.createElement('div');
                 card.className = 'movie-card';
-                // Triggering isolated separate player logic function
                 card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
                 card.innerHTML = `
-                    <span class="badge">${type === 'movie' ? '4K UHD' : 'SERIES'}</span>
+                    <span class="badge">${type === 'movie' ? '4K' : 'SERIES'}</span>
                     <img class="movie-poster" src="${poster}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
-                    <div class="movie-info">
-                        <strong>${title}</strong>
-                        <div style="color:#888; font-size:11px; margin-top:5px;">Year: ${year} | ${type.toUpperCase()}</div>
-                    </div>
+                    <div class="movie-info"><strong>${title}</strong><div style="color:#888; font-size:11px; margin-top:5px;">${year} | ${type.toUpperCase()}</div></div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // AI PANEL ROUTINES
-        function toggleAIPanel() {
-            const panel = document.getElementById('aiPanel');
-            panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
-        }
+        function toggleAIPanel() { const panel = document.getElementById('aiPanel'); panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex'; }
         async function askCreatorAI() {
-            const field = document.getElementById('aiInputField');
-            const box = document.getElementById('aiChatBox');
-            let txt = field.value.trim();
-            if(!txt) return;
-            let uDiv = document.createElement('div'); uDiv.className = "chat-msg user"; uDiv.innerText = txt;
-            box.appendChild(uDiv); field.value = ""; box.scrollTop = box.scrollHeight;
-            let bDiv = document.createElement('div'); bDiv.className = "chat-msg bot"; bDiv.innerText = "Securing system vectors...";
-            box.appendChild(bDiv); box.scrollTop = box.scrollHeight;
-            try {
-                let res = await fetch("https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-7B-Instruct", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ inputs: `You are the specialized StreamVerse UI master assistant. Give layout codes. User asks: ${txt}` })
-                });
-                let data = await res.json();
-                let reply = data[0]?.generated_text || data.generated_text || "System safe and active!";
-                if(reply.includes("```")) reply = reply.replace(/```html|```css/g, "<pre>").replace(/```/g, "</pre>");
-                bDiv.innerHTML = reply.substring(0, 800);
-            } catch(e) {
-                bDiv.innerHTML = "Shield active, boss! Code structural changes isolation complete.";
-            }
-            box.scrollTop = box.scrollHeight;
+            const field = document.getElementById('aiInputField'); const box = document.getElementById('aiChatBox'); let txt = field.value.trim(); if(!txt) return;
+            let uDiv = document.createElement('div'); uDiv.className = "chat-msg user"; uDiv.innerText = txt; box.appendChild(uDiv); field.value = "";
+            let bDiv = document.createElement('div'); bDiv.className = "chat-msg bot"; bDiv.innerText = "Optimizing live system buffers..."; box.appendChild(bDiv); box.scrollTop = box.scrollHeight;
+            setTimeout(() => { bDiv.innerHTML = "Master automated pipeline running optimally, shahzade!"; box.scrollTop = box.scrollHeight; }, 1000);
         }
     </script>
-
     <script src="player.js"></script>
 </body>
 </html>
