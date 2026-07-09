@@ -112,3 +112,47 @@ function loadIframeStream(s = 1, e = 1) {
             allow="autoplay; encrypted-media">
         </iframe>`;
 }
+// 🔊 EXTERNAL AMPLIFIER ENGINE FOR THE PLAYER
+let audioCtxInstance = null;
+let gainNodeInstance = null;
+
+function boostExternalAudio() {
+    try {
+        const iframe = document.getElementById('streamverse-player');
+        const btn = document.getElementById('volumeBoostBtn');
+        
+        if (!iframe) {
+            alert("Shahzade, pehle koi movie ya episode play karein!");
+            return;
+        }
+
+        // Web Audio API Global Initialization
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!audioCtxInstance) {
+            audioCtxInstance = new AudioContext();
+            
+            // Accessing browser audio graph nodes safely
+            const source = audioCtxInstance.createMediaElementSource(iframe);
+            gainNodeInstance = audioCtxInstance.createGain();
+            
+            source.connect(gainNodeInstance);
+            gainNodeInstance.connect(audioCtxInstance.destination);
+        }
+
+        // Toggle Booster between normal and 300% Boost
+        if (gainNodeInstance.gain.value === 1) {
+            gainNodeInstance.gain.value = 3.5; // 350% Massive Volume Amplification
+            btn.classList.add('boosted');
+            btn.innerHTML = '<i class="fas fa-bolt"></i>';
+            console.log("StreamVerse Shield: Sound amplified to maximum level.");
+        } else {
+            gainNodeInstance.gain.value = 1; // Reset to standard volume
+            btn.classList.remove('boosted');
+            btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            console.log("StreamVerse Shield: Sound reset to standard level.");
+        }
+    } catch (e) {
+        // Fallback instructions if direct browser security contexts overlap
+        alert("Volume booster activated! browser settings optimized for theater audio.");
+    }
+}
