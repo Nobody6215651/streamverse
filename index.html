@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - Secure Ad-Block Platform</title>
+    <title>StreamVerse OTT - High-Performance Shielded Grid</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -14,12 +14,12 @@
         .player-page-container { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; color: white; min-height: 80vh; }
         .back-btn { background: #222; border: 1px solid #444; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: 0.2s; }
         .back-btn:hover { background: #e50914; border-color: #e50914; }
-        .player-main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 10px; }
+        .player-main-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 30px; margin-top: 10px; }
         @media(max-width: 900px) { .player-main-grid { grid-template-columns: 1fr; } }
         
-        /* Premium Anti-Ad Video Container Box */
+        /* Premium Balanced Security Video Box Container */
         .video-box-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #232323; position: relative; }
-        .video-box-wrapper iframe { width: 100%; height: 540px; border: none; display: block; background: #000; }
+        .video-box-wrapper iframe { width: 100%; height: 520px; border: none; display: block; background: #000; }
         @media(max-width: 600px) { .video-box-wrapper iframe { height: 320px; } }
         
         .series-control-panel { background: #141414; padding: 20px; border-radius: 8px; border: 1px solid #282828; }
@@ -28,10 +28,12 @@
         .selector-group label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
         .selector-group select { background: #222; border: 1px solid #444; color: white; padding: 12px; border-radius: 6px; font-size: 14px; outline: none; cursor: pointer; width: 100%; transition: 0.2s; }
         .selector-group select:focus { border-color: #e50914; }
+
+        /* Server Grid Controls Pack */
+        .server-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
         
         /* Fixed Creator AI Panel */
         .ai-fab { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, #e50914, #ff414d); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(229, 9, 20, 0.4); z-index: 9999; transition: 0.3s; border: 2px solid rgba(255,255,255,0.2); }
-        .ai-fab:hover { transform: scale(1.1); }
         .ai-panel { position: fixed; bottom: 95px; right: 25px; width: 380px; height: 500px; background: #141414; border: 1px solid #282828; border-radius: 12px; display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.7); z-index: 9999; overflow: hidden; }
         .ai-header { background: #1f1f1f; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #282828; }
         .ai-header h4 { margin: 0; font-size: 15px; }
@@ -40,7 +42,6 @@
         .chat-msg { padding: 10px 14px; border-radius: 8px; max-width: 80%; font-size: 13px; line-height: 1.4; }
         .chat-msg.user { background: #e50914; color: white; align-self: flex-end; }
         .chat-msg.bot { background: #222; color: #eee; align-self: flex-start; border: 1px solid #333; }
-        .chat-msg pre { background: #000; padding: 8px; border-radius: 4px; overflow-x: auto; color: #00ffcc; font-family: monospace; font-size: 11px; margin-top: 5px; }
         .ai-input-area { display: flex; padding: 10px; background: #1f1f1f; border-top: 1px solid #282828; }
         .ai-input-area input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 6px; outline: none; font-size: 13px; }
         .ai-input-area button { background: #e50914; border: none; color: white; padding: 0 15px; margin-left: 8px; border-radius: 6px; cursor: pointer; }
@@ -68,7 +69,7 @@
         <section class="hero-banner" id="hero-section">
             <div class="hero-content">
                 <h1 id="hero-title">StreamVerse Premium</h1>
-                <p>Anti-Ad Secure Sandbox activated. Enjoy infinite streams with no popups.</p>
+                <p>Multi-Server Balanced Framework Active. High-speed media handshake streaming nodes deployed.</p>
             </div>
         </section>
 
@@ -92,9 +93,13 @@
             <div class="series-control-panel" id="series-control-block">
                 <h3>Media Control Dashboard</h3>
                 <div class="server-options" style="margin-bottom: 20px;">
-                    <span style="display:block; margin-bottom:8px; font-size:12px; color:#aaa;">SELECT STREAM NODE:</span>
-                    <button class="server-btn active" id="srv1" onclick="switchStreamServer(1)" style="padding: 8px 15px; font-size: 12px;">Server 1</button>
-                    <button class="server-btn" id="srv2" onclick="switchStreamServer(2)" style="padding: 8px 15px; font-size: 12px;">Server 2</button>
+                    <span style="display:block; margin-bottom:8px; font-size:12px; color:#aaa;">SELECT BALANCED NODE:</span>
+                    <div class="server-grid">
+                        <button class="server-btn active" id="srv1" onclick="switchStreamServer(1)">Server 1 (Primary)</button>
+                        <button class="server-btn" id="srv2" onclick="switchStreamServer(2)">Server 2 (Multi)</button>
+                        <button class="server-btn" id="srv3" onclick="switchStreamServer(3)">Server 3 (Direct)</button>
+                        <button class="server-btn" id="srv4" onclick="switchStreamServer(4)">Server 4 (Backup)</button>
+                    </div>
                 </div>
                 
                 <div id="episodes-dropdown-wrapper" class="selector-group" style="display: none;">
@@ -102,7 +107,7 @@
                     <select id="season-selector" onchange="updateEpisodeList()"></select>
                     <select id="episode-selector" onchange="triggerEpisodePlay()"></select>
                 </div>
-                <p id="movie-only-notice" style="color: #666; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> Standalone Anti-Ad Module Active. Player controls are now directly touch-accessible without malicious script redirects.</p>
+                <p id="movie-only-notice" style="color: #666; font-size: 13px; line-height: 1.5; margin-top: 10px;"><i class="fas fa-info-circle"></i> Balanced Ad-Shield Node Active. If a stream fails or shows unavailability, instantly switch to alternative servers above.</p>
             </div>
         </div>
     </div>
@@ -118,34 +123,31 @@
         </div>
         <div class="ai-chat-box" id="aiChatBox">
             <div class="chat-msg bot">
-                Shahzade! Player secure ho gaya hai aur ads ko sandbox shield se block kar diya gaya hai. Ab aap check karein controls makhki ki tarah smooth chalenge!
+                Shahzade! Player core isolated ho chuka hai aur 4 alternative fast pipelines deploy ho chuki hain. Ab streaming makhki ki tarah tez chalegi!
             </div>
         </div>
         <div class="ai-input-area">
-            <input type="text" id="aiInputField" placeholder="Ask layout tips or scripts..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="aiInputField" placeholder="Ask layout tips or scripts..." onkeypress="if(event.key==='Enter') askCreatorAI()">
             <button onclick="askCreatorAI()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
         const API_KEY = "82e880c89dbf119b940e034ed32a3498";
-        let currentType = "movie";
-        let activeTmdbId = "";
-        let activeTitle = "";
-        let activeServerNum = 1;
         let searchTimeout = null;
 
         document.addEventListener("DOMContentLoaded", () => {
             loadCategory('trending');
         });
 
+        // TMDB Core Catalog Grid Architecture
         async function loadCategory(cat, event = null) {
             if(event) {
                 event.preventDefault();
                 document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
                 event.target.classList.add('active');
             }
-            exitPlayerPage();
+            if (typeof exitPlayerPage === "function") exitPlayerPage();
             
             const container = document.getElementById('movie-grid-container');
             container.innerHTML = "<div class='loading-text'>Accessing international libraries...</div>";
@@ -217,11 +219,11 @@
                 let year = date.split("-")[0];
                 let type = item.media_type || defaultType;
                 if(type === 'mixed') type = item.title ? 'movie' : 'tv';
-                
                 let poster = `https://image.tmdb.org/t/p/w400${item.poster_path}`;
 
                 const card = document.createElement('div');
                 card.className = 'movie-card';
+                // Triggering isolated separate player logic function
                 card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
                 card.innerHTML = `
                     <span class="badge">${type === 'movie' ? '4K UHD' : 'SERIES'}</span>
@@ -235,136 +237,11 @@
             });
         }
 
-        function routeToDedicatedPlayer(id, title, type, year) {
-            activeTmdbId = id;
-            activeTitle = title;
-            currentType = type;
-            activeServerNum = 1;
-
-            document.getElementById('main-website-view').style.display = 'none';
-            const playerView = document.getElementById('player-page-view');
-            playerView.style.display = 'block';
-            
-            document.getElementById('player-media-title').innerText = title;
-            document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | Release Year: ${year} | Ultra Secure Stream Sandbox`;
-
-            document.getElementById('srv1').className = "server-btn active";
-            document.getElementById('srv2').className = "server-btn";
-
-            if(type === 'tv') {
-                document.getElementById('movie-only-notice').style.display = 'none';
-                document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';
-                buildAutomatedDropdowns(id);
-            } else {
-                document.getElementById('episodes-dropdown-wrapper').style.display = 'none';
-                document.getElementById('movie-only-notice').style.display = 'block';
-                loadIframeStream(1, 1);
-            }
-            window.scrollTo(0, 0);
-        }
-
-        function exitPlayerPage() {
-            document.getElementById('player-page-view').style.display = 'none';
-            document.getElementById('main-website-view').style.display = 'block';
-            document.getElementById('video-frame-target').innerHTML = "";
-        }
-
-        async function buildAutomatedDropdowns(tvId) {
-            const seasonSelect = document.getElementById('season-selector');
-            seasonSelect.innerHTML = "<option>Loading Seasons...</option>";
-            try {
-                let response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}`);
-                let data = await response.json();
-                seasonSelect.innerHTML = "";
-                let seasons = data.seasons.filter(s => s.season_number > 0);
-                if(seasons.length === 0 && data.seasons.length > 0) seasons = [data.seasons[0]];
-
-                seasons.forEach(s => {
-                    let opt = document.createElement('option');
-                    opt.value = s.season_number;
-                    opt.innerText = `${s.name} (${s.episode_count} Episodes)`;
-                    opt.setAttribute('data-epcount', s.episode_count);
-                    seasonSelect.appendChild(opt);
-                });
-                updateEpisodeList();
-            } catch(e) {
-                seasonSelect.innerHTML = "<option value='1'>Season 1 (Default Master)</option>";
-                updateEpisodeList();
-            }
-        }
-
-        function updateEpisodeList() {
-            const seasonSelect = document.getElementById('season-selector');
-            const epSelect = document.getElementById('episode-selector');
-            if(!seasonSelect.selectedOptions[0]) return;
-            
-            let epCount = seasonSelect.selectedOptions[0].getAttribute('data-epcount') || 24;
-            epSelect.innerHTML = "";
-            for(let i = 1; i <= epCount; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.innerText = `Episode ${i}`;
-                epSelect.appendChild(opt);
-            }
-            triggerEpisodePlay();
-        }
-
-        function triggerEpisodePlay() {
-            let s = document.getElementById('season-selector').value || 1;
-            let e = document.getElementById('episode-selector').value || 1;
-            loadIframeStream(s, e);
-        }
-
-        // 🛡️ ENHANCED SECURITY HARDENED ANTI-AD PLAYER STREAM GENERATOR
-        function loadIframeStream(s = 1, e = 1) {
-            const frameBox = document.getElementById('video-frame-target');
-            let srcUrl = "";
-
-            if(currentType === 'movie') {
-                srcUrl = activeServerNum === 1 
-                    ? `https://vidsrc.to/embed/movie/${activeTmdbId}` 
-                    : `https://multiembed.to/get.php?video_id=${activeTmdbId}&tmdb=1`;
-            } else {
-                srcUrl = activeServerNum === 1 
-                    ? `https://vidsrc.to/embed/tv/${activeTmdbId}/${s}/${e}` 
-                    : `https://multiembed.to/get.php?video_id=${activeTmdbId}&tmdb=1&s=${s}&e=${e}`;
-            }
-
-            /* CRITICAL FIX: Adding 'sandbox' token configurations.
-               Omitting 'allow-popups' and 'allow-popups-to-escape-sandbox' forces 
-               the browser to block malicious third-party script redirect attempts instantly!
-            */
-            frameBox.innerHTML = `
-                <iframe 
-                    src="${srcUrl}" 
-                    scrolling="no"
-                    frameborder="0"
-                    allowfullscreen="true"
-                    webkitallowfullscreen="true"
-                    mozallowfullscreen="true"
-                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
-                </iframe>`;
-        }
-
-        function switchStreamServer(num) {
-            activeServerNum = num;
-            document.getElementById('srv1').className = num === 1 ? "server-btn active" : "server-btn";
-            document.getElementById('srv2').className = num === 2 ? "server-btn active" : "server-btn";
-            if(currentType === 'movie') {
-                loadIframeStream();
-            } else {
-                let s = document.getElementById('season-selector').value || 1;
-                let e = document.getElementById('episode-selector').value || 1;
-                loadIframeStream(s, e);
-            }
-        }
-
-        // 3. AI PANEL ROUTINES
+        // AI PANEL ROUTINES
         function toggleAIPanel() {
             const panel = document.getElementById('aiPanel');
             panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
         }
-        function handleKeyPress(e) { if(e.key === 'Enter') askCreatorAI(); }
         async function askCreatorAI() {
             const field = document.getElementById('aiInputField');
             const box = document.getElementById('aiChatBox');
@@ -385,10 +262,12 @@
                 if(reply.includes("```")) reply = reply.replace(/```html|```css/g, "<pre>").replace(/```/g, "</pre>");
                 bDiv.innerHTML = reply.substring(0, 800);
             } catch(e) {
-                bDiv.innerHTML = "Shield active, boss! Player secured against forced popups.";
+                bDiv.innerHTML = "Shield active, boss! Code structural changes isolation complete.";
             }
             box.scrollTop = box.scrollHeight;
         }
     </script>
+
+    <script src="player.js"></script>
 </body>
 </html>
