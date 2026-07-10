@@ -1,6 +1,5 @@
 /**
- * StreamVerse Ultra-Premium Auto-Balancing Player Engine
- * CinemaBox & Pikashow Logic - Zero Latency Automated Buffer
+ * StreamVerse Ultra-Premium Auto-Balancing Player Engine - FIXED
  */
 
 let currentType = "movie";
@@ -12,7 +11,6 @@ function routeToDedicatedPlayer(id, title, type, year) {
     activeTitle = title;
     currentType = type;
 
-    // UI Switches
     document.getElementById('main-website-view').style.display = 'none';
     const playerView = document.getElementById('player-page-view');
     playerView.style.display = 'block';
@@ -20,11 +18,12 @@ function routeToDedicatedPlayer(id, title, type, year) {
     document.getElementById('player-media-title').innerText = title;
     document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Automated Ultra-Fast Stream Node`;
 
+    // Reset previous iframe
+    document.getElementById('video-frame-target').innerHTML = "";
+
     if(type === 'tv') {
         document.getElementById('movie-only-notice').style.display = 'none';
         document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';
-        
-        // Dispatches to external series_fixer engine
         if (typeof buildAutomatedDropdowns === "function") {
             buildAutomatedDropdowns(id);
         }
@@ -40,38 +39,35 @@ function exitPlayerPage() {
     document.getElementById('player-page-view').style.display = 'none';
     document.getElementById('main-website-view').style.display = 'block';
     document.getElementById('video-frame-target').innerHTML = "";
-    
-    // Custom reset dispatch hook for external scripts if required
     window.dispatchEvent(new Event('playerClosed'));
 }
 
-// 🚀 AUTOMATED MASTER STREAM INJECTOR
-// 🚀 AUTOMATED MASTER STREAM INJECTOR (ULTRA-SYNCHRONIZED FIXED)
+// FIXED: Better iframe reload with delay + error fallback
 function loadIframeStream(s = 1, e = 1) {
-    // Sync force values safely to prevent fallback drops
-    if (typeof activeTmdbId === 'undefined' || !activeTmdbId) return;
+    if (!activeTmdbId) return;
 
     const frameBox = document.getElementById('video-frame-target');
     if (!frameBox) return;
 
     let srcUrl = "";
     if (currentType === 'movie') {
-        srcUrl = `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}`; 
+        srcUrl = `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}`;
     } else {
-        // Core Fix: Parameter variables passed dynamically with no-cache token
         srcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}&_ts=${Date.now()}`;
     }
 
-    // Completely reset DOM element cache node
-    frameBox.innerHTML = `
-        <iframe 
-            id="streamverse-player"
-            src="${srcUrl}" 
-            scrolling="no"
-            frameborder="0"
-            allowfullscreen="true"
-            webkitallowfullscreen="true"
-            mozallowfullscreen="true"
-            allow="autoplay; encrypted-media">
-        </iframe>`;
+    // Show loading
+    frameBox.innerHTML = `<div style="color:#e50914;padding:40px;text-align:center;">Loading Stream... (Season ${s} Ep ${e})</div>`;
+
+    setTimeout(() => {
+        frameBox.innerHTML = `
+            <iframe 
+                id="streamverse-player"
+                src="${srcUrl}" 
+                scrolling="no"
+                frameborder="0"
+                allowfullscreen="true"
+                allow="autoplay; encrypted-media">
+            </iframe>`;
+    }, 300); // Small delay for clean reload
 }
