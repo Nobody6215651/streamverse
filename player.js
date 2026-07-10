@@ -1,15 +1,17 @@
 /**
- * StreamVerse Ultra-Premium Auto-Balancing Player Engine - FIXED
+ * StreamVerse Ultra-Premium Auto-Balancing Player Engine - FIXED v2
  */
 
 let currentType = "movie";
 let activeTmdbId = "";
 let activeTitle = "";
 
-function routeToDedicatedPlayer(id, title, type, year) {
+window.routeToDedicatedPlayer = function(id, title, type, year) {
     activeTmdbId = id;
     activeTitle = title;
-    currentType = type;
+    currentType = type || "movie";
+
+    console.log(`🎥 Opening: ${title} (${type}) ID: ${id}`);
 
     document.getElementById('main-website-view').style.display = 'none';
     const playerView = document.getElementById('player-page-view');
@@ -18,7 +20,6 @@ function routeToDedicatedPlayer(id, title, type, year) {
     document.getElementById('player-media-title').innerText = title;
     document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Automated Ultra-Fast Stream Node`;
 
-    // Reset previous iframe
     document.getElementById('video-frame-target').innerHTML = "";
 
     if(type === 'tv') {
@@ -33,31 +34,29 @@ function routeToDedicatedPlayer(id, title, type, year) {
         loadIframeStream(1, 1);
     }
     window.scrollTo(0, 0);
-}
+};
 
-function exitPlayerPage() {
+window.exitPlayerPage = function() {
     document.getElementById('player-page-view').style.display = 'none';
     document.getElementById('main-website-view').style.display = 'block';
     document.getElementById('video-frame-target').innerHTML = "";
     window.dispatchEvent(new Event('playerClosed'));
-}
+};
 
-// FIXED: Better iframe reload with delay + error fallback
-function loadIframeStream(s = 1, e = 1) {
-    if (!activeTmdbId) return;
+window.loadIframeStream = function(s = 1, e = 1) {
+    if (!activeTmdbId) {
+        console.error("No activeTmdbId found!");
+        return;
+    }
 
     const frameBox = document.getElementById('video-frame-target');
     if (!frameBox) return;
 
-    let srcUrl = "";
-    if (currentType === 'movie') {
-        srcUrl = `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}`;
-    } else {
-        srcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}&_ts=${Date.now()}`;
-    }
+    let srcUrl = currentType === 'movie' 
+        ? `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}` 
+        : `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}&_ts=${Date.now()}`;
 
-    // Show loading
-    frameBox.innerHTML = `<div style="color:#e50914;padding:40px;text-align:center;">Loading Stream... (Season ${s} Ep ${e})</div>`;
+    frameBox.innerHTML = `<div style="color:#e50914;padding:60px 20px;text-align:center;font-size:18px;">Loading Stream... (S${s} E${e})<br><small>Please wait...</small></div>`;
 
     setTimeout(() => {
         frameBox.innerHTML = `
@@ -69,5 +68,5 @@ function loadIframeStream(s = 1, e = 1) {
                 allowfullscreen="true"
                 allow="autoplay; encrypted-media">
             </iframe>`;
-    }, 300); // Small delay for clean reload
-}
+    }, 500);
+};
