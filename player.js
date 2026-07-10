@@ -46,16 +46,23 @@ function exitPlayerPage() {
 }
 
 // 🚀 AUTOMATED MASTER STREAM INJECTOR
+// 🚀 AUTOMATED MASTER STREAM INJECTOR (ULTRA-SYNCHRONIZED FIXED)
 function loadIframeStream(s = 1, e = 1) {
-    const frameBox = document.getElementById('video-frame-target');
-    let srcUrl = "";
+    // Sync force values safely to prevent fallback drops
+    if (typeof activeTmdbId === 'undefined' || !activeTmdbId) return;
 
-    if(currentType === 'movie') {
+    const frameBox = document.getElementById('video-frame-target');
+    if (!frameBox) return;
+
+    let srcUrl = "";
+    if (currentType === 'movie') {
         srcUrl = `https://vidsrc.me/embed/movie?tmdb=${activeTmdbId}`; 
     } else {
-        srcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}`;
+        // Core Fix: Parameter variables passed dynamically with no-cache token
+        srcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}&_ts=${Date.now()}`;
     }
 
+    // Completely reset DOM element cache node
     frameBox.innerHTML = `
         <iframe 
             id="streamverse-player"
