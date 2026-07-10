@@ -109,128 +109,119 @@
         </div>
     </div>
 
-    <script>
-        const API_KEY = "82e880c89dbf119b940e034ed32a3498";
-        let searchTimeout = null;
-        let activeTmdbId = "";
-        let currentType = "";
+<script>
+    const API_KEY = "82e880c89dbf119b940e034ed32a3498";
+    let searchTimeout = null;
 
-        document.addEventListener("DOMContentLoaded", () => { loadCategory('trending'); });
+    document.addEventListener("DOMContentLoaded", () => { loadCategory('trending'); });
 
-        async function loadCategory(cat, event = null) {
-            if(event) {
-                event.preventDefault();
-                document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
-                event.target.classList.add('active');
-            }
-            if (typeof exitPlayerPage === "function") exitPlayerPage();
-            
-            const container = document.getElementById('movie-grid-container');
-            container.innerHTML = "<div class='loading-text'>Connecting to master stream data...</div>";
-            
-            let url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
-            let titleText = "Trending Movies & Shows";
-            let typeParam = "movie";
-
-            if (cat === 'hollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=en&sort_by=popularity.desc`;
-            else if (cat === 'bollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&sort_by=popularity.desc`;
-            else if (cat === 'punjabi') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=pa&sort_by=popularity.desc`;
-            else if (cat === 'south') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`;
-            else if (cat === 'series') { url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc`; titleText = "Global Premium Web Series"; typeParam = "tv"; }
-
-            document.getElementById('current-category-title').innerText = titleText;
-
-            try {
-                let response = await fetch(url);
-                let data = await response.json();
-                displayGrid(data.results, typeParam);
-            } catch (err) { 
-                container.innerHTML = "<p style='color:red; text-align:center;'>Handshake timeout.</p>"; 
-            }
+    async function loadCategory(cat, event = null) {
+        if(event) {
+            event.preventDefault();
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
         }
-
-        function searchTMDB() {
-            clearTimeout(searchTimeout);
-            let query = document.getElementById('search-bar').value.trim();
-            const container = document.getElementById('movie-grid-container');
-            if(!query) { loadCategory('trending'); return; }
-
-            searchTimeout = setTimeout(async () => {
-                container.innerHTML = "<div class='loading-text'>Scanning database query...</div>";
-                document.getElementById('current-category-title').innerText = `Results for: "${query}"`;
-                try {
-                    let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
-                    let data = await response.json();
-                    displayGrid(data.results.filter(item => item.poster_path), 'mixed');
-                } catch(e) { container.innerHTML = "<p style='color:red; text-align:center;'>Query failed.</p>"; }
-            }, 600);
-        }
-
-        function displayGrid(items, defaultType) {
-            const container = document.getElementById('movie-grid-container');
-            container.innerHTML = "";
-            if(!items || items.length === 0) { 
-                container.innerHTML = "<div class='loading-text'>No files found.</div>"; 
-                return; 
-            }
-
-            items.forEach(item => {
-                let title = item.title || item.name;
-                let date = item.release_date || item.first_air_date || "N/A";
-                let year = date.split("-")[0];
-                let type = item.media_type || defaultType;
-                if(type === 'mixed') type = item.title ? 'movie' : 'tv';
-                let poster = `https://image.tmdb.org/t/p/w400${item.poster_path}`;
-
-                const card = document.createElement('div');
-                card.className = 'movie-card';
-                card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
-                card.innerHTML = `
-                    <span class="badge">${type === 'movie' ? '4K' : 'SERIES'}</span>
-                    <img class="movie-poster" src="${poster}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
-                    <div class="movie-info"><strong>${title}</strong><div style="color:#888; font-size:11px; margin-top:5px;">${year} | ${type.toUpperCase()}</div></div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function toggleAIPanel() { 
-            const panel = document.getElementById('aiPanel'); 
-            panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex'; 
-        }
+        if (typeof exitPlayerPage === "function") exitPlayerPage();
         
-        async function askCreatorAI() {
-            const field = document.getElementById('aiInputField'); 
-            const box = document.getElementById('aiChatBox'); 
-            let txt = field.value.trim(); 
-            if(!txt) return;
-            let uDiv = document.createElement('div'); 
-            uDiv.className = "chat-msg user"; 
-            uDiv.innerText = txt; 
-            box.appendChild(uDiv); 
-            field.value = "";
-            let bDiv = document.createElement('div'); 
-            bDiv.className = "chat-msg bot"; 
-            bDiv.innerText = "Optimizing live system buffers..."; 
-            box.appendChild(bDiv); 
-            box.scrollTop = box.scrollHeight;
-            setTimeout(() => { 
-                bDiv.innerHTML = "Master automated pipeline running optimally, shahzade!"; 
-                box.scrollTop = box.scrollHeight; 
-            }, 1000);
+        const container = document.getElementById('movie-grid-container');
+        container.innerHTML = "<div class='loading-text'>Connecting to master stream data...</div>";
+        
+        let url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
+        let titleText = "Trending Movies & Shows";
+        let typeParam = "movie";
+
+        if (cat === 'hollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=en&sort_by=popularity.desc`;
+        else if (cat === 'bollywood') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&sort_by=popularity.desc`;
+        else if (cat === 'punjabi') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=pa&sort_by=popularity.desc`;
+        else if (cat === 'south') url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_keyword=235476|179430&sort_by=popularity.desc`;
+        else if (cat === 'series') { 
+            url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&sort_by=popularity.desc`; 
+            titleText = "Global Premium Web Series"; 
+            typeParam = "tv"; 
         }
 
-        // Alternative Mirror Function
-        function tryAlternativeSource() {
-            if (!activeTmdbId) return;
-            let altUrl = currentType === 'movie' 
-                ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
-                : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
-            
-            document.getElementById('video-frame-target').innerHTML = `
-                <iframe src="${altUrl}" allowfullscreen style="width:100%;height:520px;border:none;"></iframe>`;
+        document.getElementById('current-category-title').innerText = titleText;
+
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+            displayGrid(data.results, typeParam);
+        } catch (err) { 
+            container.innerHTML = "<p style='color:red; text-align:center;'>Handshake timeout.</p>"; 
         }
-    </script>
+    }
+
+    function searchTMDB() {
+        clearTimeout(searchTimeout);
+        let query = document.getElementById('search-bar').value.trim();
+        const container = document.getElementById('movie-grid-container');
+        if(!query) { loadCategory('trending'); return; }
+
+        searchTimeout = setTimeout(async () => {
+            container.innerHTML = "<div class='loading-text'>Scanning database query...</div>";
+            document.getElementById('current-category-title').innerText = `Results for: "${query}"`;
+            try {
+                let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
+                let data = await response.json();
+                displayGrid(data.results.filter(item => item.poster_path), 'mixed');
+            } catch(e) { 
+                container.innerHTML = "<p style='color:red; text-align:center;'>Query failed.</p>"; 
+            }
+        }, 600);
+    }
+
+    function displayGrid(items, defaultType) {
+        const container = document.getElementById('movie-grid-container');
+        container.innerHTML = "";
+        if(!items || items.length === 0) { 
+            container.innerHTML = "<div class='loading-text'>No files found.</div>"; 
+            return; 
+        }
+
+        items.forEach(item => {
+            let title = item.title || item.name;
+            let date = item.release_date || item.first_air_date || "N/A";
+            let year = date.split("-")[0];
+            let type = item.media_type || defaultType;
+            if(type === 'mixed') type = item.title ? 'movie' : 'tv';
+            let poster = `https://image.tmdb.org/t/p/w400${item.poster_path}`;
+
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
+            card.innerHTML = `
+                <span class="badge">${type === 'movie' ? '4K' : 'SERIES'}</span>
+                <img class="movie-poster" src="${poster}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
+                <div class="movie-info"><strong>${title}</strong><div style="color:#888; font-size:11px; margin-top:5px;">${year} | ${type.toUpperCase()}</div></div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function toggleAIPanel() { 
+        const panel = document.getElementById('aiPanel'); 
+        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex'; 
+    }
+    
+    async function askCreatorAI() {
+        const field = document.getElementById('aiInputField'); 
+        const box = document.getElementById('aiChatBox'); 
+        let txt = field.value.trim(); 
+        if(!txt) return;
+        let uDiv = document.createElement('div'); uDiv.className = "chat-msg user"; uDiv.innerText = txt; box.appendChild(uDiv); field.value = "";
+        let bDiv = document.createElement('div'); bDiv.className = "chat-msg bot"; bDiv.innerText = "Optimizing..."; box.appendChild(bDiv); box.scrollTop = box.scrollHeight;
+        setTimeout(() => { bDiv.innerHTML = "Master pipeline running optimally!"; box.scrollTop = box.scrollHeight; }, 800);
+    }
+
+    // Alternative Mirror
+    window.tryAlternativeSource = function() {
+        if (!activeTmdbId) return alert("No active media loaded");
+        let altUrl = currentType === 'movie' 
+            ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
+            : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
+        document.getElementById('video-frame-target').innerHTML = `<iframe src="${altUrl}" allowfullscreen style="width:100%;height:520px;border:none;"></iframe>`;
+    };
+</script>
     
     <script src="player.js"></script>
     <script src="series_fixer.js"></script>
