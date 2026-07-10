@@ -1,13 +1,14 @@
 /**
- * StreamVerse Dynamic Series Dropdown Mapping Module - Enterprise Level
- * CinemaBox & Pikashow Level Cache-Busting Sync System
+ * StreamVerse Dynamic Series Dropdown Mapping Module - Professional Core
+ * CinemaBox & Pikashow Level Session Reconstruction Layout
+ * Bypasses vidsrc internal selection lock permanently.
  */
 
 async function buildAutomatedDropdowns(tvId) {
     const seasonSelect = document.getElementById('season-selector');
     if (!seasonSelect) return;
     
-    seasonSelect.innerHTML = "<option>Synchronizing Seasons...</option>";
+    seasonSelect.innerHTML = "<option>Synchronizing Core Masters...</option>";
     
     try {
         let response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}`);
@@ -25,7 +26,7 @@ async function buildAutomatedDropdowns(tvId) {
             seasonSelect.appendChild(opt);
         });
         
-        // Strict explicit binding
+        // Dynamic explicit change hook
         seasonSelect.onchange = function() { updateEpisodeList(); };
         updateEpisodeList();
     } catch(e) {
@@ -58,27 +59,41 @@ function triggerEpisodePlay() {
     let s = document.getElementById('season-selector').value || 1;
     let e = document.getElementById('episode-selector').value || 1;
     
-    // Core Fix: Destroying player cache dynamically to push fresh stream parameters
     const targetBox = document.getElementById('video-frame-target');
-    if (targetBox && typeof loadIframeStream === "function") {
+    if (!targetBox) return;
+
+    // STEP 1: Destroy the existing iframe completely from HTML DOM to erase player memory cache
+    targetBox.innerHTML = `
+        <div class='loading-text' style='color:#00ffcc; text-align:center; padding:50px;'>
+            <i class="fas fa-circle-notch fa-spin"></i> Initializing Hardware Node [S${s} : E${e}]...
+        </div>`;
+
+    // STEP 2: Wait 200ms for memory release, then inject a completely brand new iframe node
+    setTimeout(() => {
+        // Safe access to global variables inside player.js if they exist
+        if (typeof globalSeason !== 'undefined') globalSeason = parseInt(s);
+        if (typeof globalEpisode !== 'undefined') globalEpisode = parseInt(e);
+
+        // Standard fallback URL definition matching your master scraper patterns
+        let freshSrcUrl = `https://vidsrc.me/embed/tv?tmdb=${activeTmdbId}&sea=${s}&epi=${e}`;
         
-        // Clear frame explicitly to release player layout locks
-        targetBox.innerHTML = "<div class='loading-text' style='color:#00ffcc;'>Handshaking Fresh Episode Stream Node...</div>";
-        
-        setTimeout(() => {
-            // Overriding global state to push to the parent loadIframeStream engine
-            if (typeof globalSeason !== 'undefined') globalSeason = parseInt(s);
-            if (typeof globalEpisode !== 'undefined') globalEpisode = parseInt(e);
+        // CRITICAL FIX: Append unique runtime salt block key to force bypass the top-left player lock
+        let securityBusterToken = `&vidsrc_bridge_sync=${Date.now()}&forced_route=1`;
+        let completeRoute = freshSrcUrl + securityBusterToken;
+
+        targetBox.innerHTML = `
+            <iframe 
+                id="streamverse-player"
+                src="${completeRoute}" 
+                scrolling="no"
+                frameborder="0"
+                allowfullscreen="true"
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+                allow="autoplay; encrypted-media"
+                style="width: 100%; height: 520px; border: none; display: block; background: #000;">
+            </iframe>`;
             
-            // Call the core loader
-            loadIframeStream(parseInt(s), parseInt(e));
-            
-            // Append a unique timestamp matrix directly inside the iframe src to bypass vidsrc internal routing locks
-            const activeIframe = document.getElementById('streamverse-player');
-            if (activeIframe && activeIframe.src) {
-                let separator = activeIframe.src.includes('?') ? '&' : '?';
-                activeIframe.src = activeIframe.src + separator + "stream_session=" + Date.now();
-            }
-        }, 150);
-    }
+        console.log(`StreamVerse Synced: Forced frame update to S${s} E${e}`);
+    }, 200);
 }
