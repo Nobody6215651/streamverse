@@ -3,36 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse OTT - Live Automated Engine</title>
+    <title>StreamVerse Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        .loading-text { color: #aaa; padding: 20px; font-size: 18px; text-align: center; width: 100%; }
-        .movie-card { cursor: pointer; }
+        /* Global & Navbar Bulletproof Styling */
+        body { background-color: #0b0b0b; color: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 15px 4%; background: rgba(15, 15, 15, 0.95); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #222; }
+        .logo { font-size: 24px; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: #e50914; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-item { color: #aaa; text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; cursor: pointer; }
+        .nav-item:hover, .nav-item.active { color: #fff; border-bottom: 2px solid #e50914; padding-bottom: 4px; }
+        .search-container { position: relative; display: flex; align-items: center; }
+        #search-bar { background: #1f1f1f; border: 1px solid #333; color: white; padding: 8px 35px 8px 15px; border-radius: 20px; outline: none; width: 220px; transition: 0.3s; }
+        #search-bar:focus { width: 280px; border-color: #e50914; }
+        .search-icon { position: absolute; right: 12px; color: #aaa; }
+
+        /* Hero Banner */
+        .hero-banner { background: linear-gradient(to bottom, rgba(0,0,0,0.1), #0b0b0b), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover; height: 350px; display: flex; align-items: center; padding: 0 5%; margin-bottom: 30px; }
+        .hero-content h1 { font-size: 42px; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-content p { color: #ccc; font-size: 16px; max-width: 600px; }
+
+        /* Main Content Grid */
+        .main-content { padding: 0 4% 50px 4%; }
+        .section-title { font-size: 24px; margin-bottom: 20px; padding-left: 10px; border-left: 4px solid #e50914; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
         
-        .player-page-container { display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto; color: white; min-height: 80vh; }
-        .back-btn { background: #222; border: 1px solid #444; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: 0.2s; }
+        /* Movie Card Design */
+        .movie-card { background: #141414; border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative; border: 1px solid #222; }
+        .movie-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(229,9,20,0.2); border-color: #e50914; }
+        .movie-poster { width: 100%; height: 260px; object-fit: cover; display: block; }
+        .movie-info { padding: 12px; }
+        .movie-info strong { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .badge { position: absolute; top: 10px; left: 10px; background: #e50914; color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; z-index: 10; }
+
+        /* Dedicated Video Player View Styling */
+        .player-page-container { display: none; padding: 40px 4%; max-width: 1300px; margin: 0 auto; color: white; min-height: 80vh; }
+        .back-btn { background: #1f1f1f; border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; transition: 0.2s; }
         .back-btn:hover { background: #e50914; border-color: #e50914; }
-        .player-main-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 30px; margin-top: 10px; }
+        .player-main-grid { display: grid; grid-template-columns: 2.5fr 1fr; gap: 30px; margin-top: 10px; }
         @media(max-width: 900px) { .player-main-grid { grid-template-columns: 1fr; } }
         
-        .video-box-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #232323; position: relative; }
+        .video-box-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.9); border: 1px solid #252525; position: relative; }
         .video-box-wrapper iframe { width: 100%; height: 520px; border: none; display: block; background: #000; }
         @media(max-width: 600px) { .video-box-wrapper iframe { height: 320px; } }
         
-        .series-control-panel { background: #141414; padding: 20px; border-radius: 8px; border: 1px solid #282828; }
+        .series-control-panel { background: #141414; padding: 25px; border-radius: 12px; border: 1px solid #252525; height: fit-content; }
         .series-control-panel h3 { margin-top: 0; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
         .selector-group { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
         .selector-group label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
-        .selector-group select { background: #222; border: 1px solid #444; color: white; padding: 12px; border-radius: 6px; font-size: 14px; outline: none; cursor: pointer; width: 100%; transition: 0.2s; }
+        .selector-group select { background: #1f1f1f; border: 1px solid #333; color: white; padding: 12px; border-radius: 6px; font-size: 14px; outline: none; cursor: pointer; width: 100%; transition: 0.2s; }
         .selector-group select:focus { border-color: #e50914; }
         
-        .mirror-btn { background: #e50914; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; margin-top: 10px; }
-        .mirror-btn:hover { background: #ff414d; }
+        .mirror-btn { background: #e50914; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 15px; width: 100%; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .mirror-btn:hover { background: #b80710; }
+        .loading-text { color: #aaa; padding: 40px; font-size: 18px; text-align: center; width: 100%; grid-column: 1 / -1; }
     </style>
 </head>
 <body>
 
+    <!-- MAIN WEBSITE DASHBOARD -->
     <div id="main-website-view">
         <header class="navbar">
             <div class="logo">Stream<span>Verse</span></div>
@@ -45,7 +76,7 @@
                 <a href="#" class="nav-item" onclick="loadCategory('series', event)">Web Series</a>
             </nav>
             <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Type ANY movie or series..." onkeyup="searchHandler()">
+                <input type="text" id="search-bar" placeholder="Search movies or series..." onkeyup="searchHandler()">
                 <i class="fas fa-search search-icon"></i>
             </div>
         </header>
@@ -60,21 +91,22 @@
         <main class="main-content">
             <h2 class="section-title" id="current-category-title">Trending Content</h2>
             <div class="movie-grid" id="movie-grid-container">
-                <div class="loading-text">Loading global streaming options...</div>
+                <div class="loading-text"><i class="fas fa-spinner fa-spin"></i> Initializing streaming pipeline...</div>
             </div>
         </main>
     </div>
 
+    <!-- DEDICATED STREAMING PLAYER PLAYER -->
     <div id="player-page-view" class="player-page-container">
         <button class="back-btn" onclick="exitPlayerPage()"><i class="fas fa-arrow-left"></i> Back to Homepage</button>
-        <h1 id="player-media-title" style="margin: 10px 0; font-size: 28px;">Loading Media...</h1>
-        <p id="player-media-meta" style="color: #aaa; font-size: 14px; margin-bottom: 25px;">Genre | Year</p>
+        <h1 id="player-media-title">Loading Stream...</h1>
+        <p id="player-media-meta">Genre | Year</p>
 
         <div class="player-main-grid">
             <div class="video-box-wrapper" id="video-frame-target"></div>
 
-            <div class="series-control-panel" id="series-control-block">
-                <h3>Live Core Dashboard</h3>
+            <div class="series-control-panel">
+                <h3>Live Core Control</h3>
                 <p style="color:#00ffcc; font-size:12px; margin-bottom:15px;"><i class="fas fa-bolt"></i> AUTOMATED STREAM TUNNEL ACTIVE</p>
                 
                 <div id="episodes-dropdown-wrapper" class="selector-group" style="display: none;">
@@ -87,14 +119,14 @@
                     <i class="fas fa-sync"></i> Try Alternative Mirror
                 </button>
                 
-                <p id="movie-only-notice" style="color: #888; font-size: 13px; line-height: 1.5; margin-top: 10px;">
-                    <i class="fas fa-info-circle"></i> This stream automatically resolves mirrors. If buffering is slow, try Alternative Mirror.
+                <p style="color: #888; font-size: 12px; line-height: 1.5; margin-top: 15px;">
+                    <i class="fas fa-info-circle"></i> Player automatically routes through top servers. If streams lag, click the Mirror button above.
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Core Dependencies (Fixed Filenames to match your exact directory) -->
+    <!-- Script Processing Order -->
     <script src="movie_data.js"></script>
     <script src="hollywood_servers.js"></script>
     <script src="bollywood_servers.js"></script>
@@ -105,39 +137,75 @@
 
 <script>
     const API_KEY = "82e880c89dbf119b940e034ed32a3498";
-    let searchTimeout = null;
+    let activeTmdbId = null;
+    let currentType = 'movie';
 
-    // Route search queries based on state
-    function searchHandler() {
-        let query = document.getElementById('search-bar').value.trim();
-        if(!query) {
-            if(typeof moviesDatabase !== 'undefined') { renderMovies(moviesDatabase); } else { loadCategory('trending'); }
+    // 1. CORE ROUTING ENGINE FOR THE CLICK ACTION (The Fixed Missing Links)
+    window.routeToDedicatedPlayer = function(id, title, type, year) {
+        if(!id) {
+            alert("Streaming link compilation failed for this entry.");
             return;
         }
-        // If user typed, query local DB first, then backup from cloud
-        if(typeof searchMovies === 'function') {
-            searchMovies();
-        } else {
-            searchTMDB();
-        }
-    }
+        activeTmdbId = id;
+        currentType = type === 'tv' || type === 'series' ? 'tv' : 'movie';
 
+        // Interface Switching Logic
+        document.getElementById('main-website-view').style.display = 'none';
+        document.getElementById('player-page-view').style.display = 'block';
+        
+        document.getElementById('player-media-title').innerText = title;
+        document.getElementById('player-media-meta').innerText = `${currentType.toUpperCase()} | ${year || '2026'}`;
+
+        // Stream Injection Source
+        const target = document.getElementById('video-frame-target');
+        let standardSource = currentType === 'movie'
+            ? `https://vidsrc.to/embed/movie/${id}`
+            : `https://vidsrc.to/embed/tv/${id}/1/1`;
+
+        target.innerHTML = `<iframe src="${standardSource}" allowfullscreen></iframe>`;
+
+        // Process Web Series logic if available
+        const dropdownWrapper = document.getElementById('episodes-dropdown-wrapper');
+        if (currentType === 'tv' && typeof setupSeriesDropdowns === 'function') {
+            dropdownWrapper.style.display = 'flex';
+            setupSeriesDropdowns(id);
+        } else {
+            dropdownWrapper.style.display = 'none';
+        }
+        window.scrollTo(0, 0);
+    };
+
+    window.exitPlayerPage = function() {
+        document.getElementById('main-website-view').style.display = 'block';
+        document.getElementById('player-page-view').style.display = 'none';
+        document.getElementById('video-frame-target').innerHTML = '';
+    };
+
+    window.tryAlternativeSource = function() {
+        if (!activeTmdbId) return;
+        let altUrl = currentType === 'movie' 
+            ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
+            : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
+        document.getElementById('video-frame-target').innerHTML = `<iframe src="${altUrl}" allowfullscreen></iframe>`;
+    };
+
+    // 2. CATEGORY LOADER HANDLER
     async function loadCategory(cat, event = null) {
         if(event) {
             event.preventDefault();
             document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
             event.target.classList.add('active');
         }
-        if (typeof exitPlayerPage === "function") exitPlayerPage();
+        window.exitPlayerPage();
         
-        // Check if user is navigating local categories via app.js routing
+        // If route matches local script DB routing
         if(typeof filterCategory === 'function' && (cat === 'hollywood' || cat === 'bollywood')) {
             filterCategory(cat);
             return;
         }
 
         const container = document.getElementById('movie-grid-container');
-        container.innerHTML = "<div class='loading-text'>Connecting to master stream data...</div>";
+        container.innerHTML = "<div class='loading-text'><i class='fas fa-spinner fa-spin'></i> Querying global cloud index...</div>";
         
         let url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
         let titleText = "Trending Movies & Shows";
@@ -160,25 +228,29 @@
             let data = await response.json();
             displayTMDBGrid(data.results, typeParam);
         } catch (err) { 
-            container.innerHTML = "<p style='color:red; text-align:center;'>Handshake timeout.</p>"; 
+            container.innerHTML = "<p style='color:red; text-align:center;'>Fallback cloud pipeline failure.</p>"; 
         }
     }
 
     function displayTMDBGrid(items, defaultType) {
         const container = document.getElementById('movie-grid-container');
         container.innerHTML = "";
+        if(!items || items.length === 0) {
+            container.innerHTML = "<div class='loading-text'>No dynamic content returned.</div>";
+            return;
+        }
         items.forEach(item => {
             let title = item.title || item.name;
-            let date = item.release_date || item.first_air_date || "N/A";
+            let date = item.release_date || item.first_air_date || "2026";
             let year = date.split("-")[0];
             let type = item.media_type || defaultType;
-            let poster = `https://image.tmdb.org/t/p/w400${item.poster_path}`;
+            let poster = item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : 'https://via.placeholder.com/400x600?text=No+Poster';
 
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
+            card.onclick = () => window.routeToDedicatedPlayer(item.id, title, type, year);
             card.innerHTML = `
-                <span class="badge">4K CLOUD</span>
+                <span class="badge">Dynamic 4K</span>
                 <img class="movie-poster" src="${poster}">
                 <div class="movie-info"><strong>${title}</strong><div style="color:#888; font-size:11px; margin-top:5px;">${year} | ${type.toUpperCase()}</div></div>
             `;
@@ -186,13 +258,11 @@
         });
     }
 
-    window.tryAlternativeSource = function() {
-        if (!activeTmdbId) return alert("No active media loaded");
-        let altUrl = currentType === 'movie' 
-            ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
-            : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
-        document.getElementById('video-frame-target').innerHTML = `<iframe src="${altUrl}" allowfullscreen style="width:100%;height:520px;border:none;"></iframe>`;
-    };
+    function searchHandler() {
+        if(typeof searchMovies === 'function') {
+            searchMovies();
+        }
+    }
 </script>
 </body>
 </html>
