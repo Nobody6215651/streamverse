@@ -3,815 +3,931 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse Premium - Ultimate Cinema Hub</title>
+    <title>StreamVerse Premium - Simple & Powerful Architecture</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     
     <style>
-        /* --- PREMIUM CINEMATIC DESIGN SYSTEM --- */
+        /* --- CORE DARK THEME DESIGN SYSTEM --- */
         :root {
             --primary: #e50914;
             --primary-hover: #b81d24;
-            --bg-main: #060606;
-            --bg-card: #111111;
-            --bg-panel: #181818;
-            --text-main: #ffffff;
-            --text-muted: #aaaaaa;
-            --glow: rgba(229, 9, 20, 0.4);
-            --neon-blue: #00ffcc;
+            --bg-dark: #090909;
+            --bg-card: #141414;
+            --bg-navbar: #000000;
+            --text-light: #ffffff;
+            --text-gray: #aaaaaa;
+            --accent: #00ffcc;
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { 
-            background: var(--bg-main); 
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 0; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0b0b0b; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        /* --- NAVIGATION HEADLINE --- */
-        .navbar { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 16px 4%; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.95) 70%, rgba(0,0,0,0)); 
-            position: sticky; 
-            top: 0; 
-            z-index: 2000; 
-            border-bottom: 1px solid #141414;
-            backdrop-filter: blur(10px);
+        /* --- STICKY NAVIGATION BAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 4%;
+            background: var(--bg-navbar);
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            border-bottom: 1px solid #1c1c1c;
         }
-        .logo { font-size: 30px; font-weight: 900; letter-spacing: 1.5px; cursor: pointer; text-transform: uppercase; }
-        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--glow); }
-        
-        .nav-navigation { display: flex; align-items: center; gap: 5px; }
-        .nav-links { display: flex; gap: 8px; }
-        .nav-item { 
-            color: var(--text-muted); 
-            text-decoration: none; 
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-btn {
+            color: var(--text-gray);
+            text-decoration: none;
             padding: 8px 16px;
             font-size: 14px;
-            font-weight: 600; 
+            font-weight: 600;
             border-radius: 4px;
-            transition: all 0.3s ease; 
+            border: none;
+            background: transparent;
             cursor: pointer;
-        }
-        .nav-item:hover, .nav-item.active { 
-            color: var(--text-main); 
-            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
         }
 
-        .search-wrapper { position: relative; display: flex; align-items: center; }
-        #search-bar { 
-            background: #121212; 
-            border: 1px solid #282828; 
-            color: white; 
-            padding: 10px 20px 10px 40px; 
-            border-radius: 24px; 
-            width: 280px; 
-            outline: none; 
-            font-size: 14px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.1);
         }
-        #search-bar:focus { border-color: var(--primary); width: 360px; box-shadow: 0 0 15px rgba(229,9,20,0.15); }
-        .search-icon-btn { position: absolute; left: 15px; color: var(--text-muted); pointer-events: none; }
 
-        /* --- HERO BILLBOARD --- */
-        .hero-showcase {
+        .search-container {
             position: relative;
-            height: 70vh;
-            background: linear-gradient(to top, var(--bg-main) 5%, rgba(6,6,6,0.2) 60%, rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1616530940355-351fda7c324a?q=80&w=1925') center/cover;
             display: flex;
             align-items: center;
-            padding: 0 5%;
-            margin-bottom: 10px;
         }
-        .hero-inner-content { max-width: 650px; z-index: 5; }
-        .hero-tag { background: var(--primary); color: white; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 3px; text-transform: uppercase; display: inline-block; margin-bottom: 15px; letter-spacing: 1px; }
-        .hero-title { font-size: 56px; font-weight: 800; margin: 0 0 15px 0; line-height: 1.1; text-shadow: 3px 3px 15px rgba(0,0,0,0.8); }
-        .hero-desc { font-size: 16px; color: #dddddd; line-height: 1.5; margin-bottom: 25px; text-shadow: 1px 1px 8px rgba(0,0,0,0.7); }
-        .hero-action-btns { display: flex; gap: 15px; }
-        .btn-premium { padding: 12px 28px; font-size: 15px; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s ease; text-decoration: none; }
-        .btn-play { background: var(--text-main); color: #000; }
-        .btn-play:hover { background: rgba(255,255,255,0.85); transform: scale(1.03); }
-        .btn-info { background: rgba(109, 109, 110, 0.7); color: white; backdrop-filter: blur(5px); }
-        .btn-info:hover { background: rgba(109, 109, 110, 0.9); transform: scale(1.03); }
 
-        /* --- STREAM SHELVES SLIDERS --- */
-        .shelf-section { padding: 20px 4% 10px 4%; position: relative; }
-        .section-title { 
-            font-size: 22px; 
-            font-weight: 700;
-            margin: 10px 0 15px 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between;
+        #search-bar {
+            background: #111;
+            border: 1px solid #292929;
+            color: white;
+            padding: 8px 15px 8px 35px;
+            border-radius: 20px;
+            width: 260px;
+            outline: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
-        .section-title-left { display: flex; align-items: center; gap: 10px; }
-        .section-title-left i { color: var(--primary); }
-        .view-all-link { font-size: 13px; color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .view-all-link:hover { text-decoration: underline; }
-        
-        .shelf-slider-container { 
-            display: flex; 
-            overflow-x: auto; 
-            gap: 20px; 
-            padding: 10px 0 25px 0; 
+
+        #search-bar:focus {
+            border-color: var(--primary);
+            width: 320px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            color: var(--text-gray);
+            pointer-events: none;
+            font-size: 13px;
+        }
+
+        /* --- HERO SPOTLIGHT BANNER --- */
+        .hero-banner {
+            position: relative;
+            height: 55vh;
+            background: linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8)),
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+
+        .hero-desc {
+            font-size: 15px;
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-play-hero {
+            background: var(--text-light);
+            color: #000;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-play-hero:hover {
+            background: rgba(255,255,255,0.8);
+            transform: scale(1.02);
+        }
+
+        /* --- HOME MULTI-ROW CONTROLLERS --- */
+        .home-view-container {
+            display: block;
+        }
+
+        .section-shelf {
+            padding: 20px 4% 10px 4%;
+        }
+
+        .shelf-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shelf-title i {
+            color: var(--primary);
+        }
+
+        .slider-row {
+            display: flex;
+            overflow-x: auto;
+            gap: 18px;
+            padding: 5px 0 20px 0;
             scrollbar-width: none;
         }
-        .shelf-slider-container::-webkit-scrollbar { display: none; }
-        
-        /* Premium Card Layout */
-        .movie-card { 
-            min-width: 190px; 
-            max-width: 190px;
-            background: var(--bg-card); 
-            border-radius: 8px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            border: 1px solid #1a1a1a;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+
+        .slider-row::-webkit-scrollbar {
+            display: none;
         }
-        .movie-card:hover { 
-            transform: scale(1.06) translateY(-5px); 
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(229,9,20,0.15);
+
+        /* --- ISOLATED GRID AREA (FOR FILTERS & SEARCH) --- */
+        .isolated-grid-container {
+            display: none;
+            padding: 30px 4%;
+        }
+
+        .grid-header-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .pure-responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 22px;
+        }
+
+        /* --- THE ELITE STREAMING CARD COMPONENT --- */
+        .movie-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+            border: 1px solid #1a1a1a;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6), 0 0 10px rgba(229,9,20,0.2);
             border-color: #333;
         }
-        .poster-wrapper { position: relative; width: 100%; height: 275px; overflow: hidden; }
-        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .movie-card:hover .movie-poster { transform: scale(1.05); }
-        
-        .card-quality-badge { position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.75); color: var(--neon-blue); font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(0,255,204,0.3); letter-spacing: 0.5px; z-index: 10; }
-        .card-watchlist-btn { position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.6); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; z-index: 10; transition: 0.2s; border: none; cursor: pointer; }
-        .card-watchlist-btn:hover { background: var(--primary); transform: scale(1.1); }
-        
-        .card-hover-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0)); padding: 15px 12px; transition: all 0.3s ease; }
-        .movie-metadata-title { font-size: 14px; font-weight: 700; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
-        .movie-metadata-sub { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-muted); font-weight: 600; }
-        .rating-star { color: #ffc107; display: inline-flex; align-items: center; gap: 3px; }
 
-        /* --- THE MASTER EXTENDED THEATER ENGINE (PLAYER) --- */
-        .player-page-container { display: none; padding: 30px 4%; background: #020202; min-height: 100vh; }
-        .player-breadcrumb-nav { margin-bottom: 25px; }
-        .btn-theater-exit { background: #161616; border: 1px solid #262626; color: white; padding: 10px 22px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s ease; }
-        .btn-theater-exit:hover { background: var(--primary); border-color: var(--primary); }
+        .image-container {
+            width: 100%;
+            height: 245px;
+            position: relative;
+            background: #111;
+        }
 
-        .theater-main-workspace { display: grid; grid-template-columns: 3fr 1fr; gap: 30px; margin-top: 15px; }
-        @media(max-width: 1024px) { .theater-main-workspace { grid-template-columns: 1fr; } }
-        
-        /* Left Stream Side */
-        .stream-stage-box { position: relative; }
-        .video-canvas-wrapper { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border: 1px solid #1a1a1a; aspect-ratio: 16/9; width: 100%; }
-        .video-canvas-wrapper iframe { width: 100%; height: 100%; border: none; display: block; background: #000; }
-        
-        /* Media Info Suite Below Player */
-        .theater-meta-suite { margin-top: 25px; background: var(--bg-panel); padding: 25px; border-radius: 12px; border: 1px solid #222; }
-        .theater-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
-        .theater-title-row h1 { font-size: 32px; font-weight: 800; margin: 0 0 8px 0; }
-        .meta-badges-line { display: flex; gap: 12px; align-items: center; color: var(--text-muted); font-size: 14px; margin-bottom: 15px; }
-        .meta-badge-item { background: #282828; color: #fff; font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-        .media-synopsis-mock { font-size: 15px; color: #cccccc; line-height: 1.6; margin: 15px 0; max-width: 850px; }
-        
-        .interactive-action-bar { display: flex; gap: 15px; border-top: 1px solid #282828; padding-top: 20px; margin-top: 20px; }
-        .action-icon-btn { background: #222; border: 1px solid #333; color: white; padding: 10px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
-        .action-icon-btn:hover { background: #333; border-color: #555; }
-        .action-icon-btn.active-state { color: var(--primary); border-color: var(--primary); }
+        .movie-poster-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        /* Right Control Matrix Side */
-        .control-matrix-sidebar { display: flex; flex-direction: column; gap: 25px; }
-        .sidebar-card-panel { background: var(--bg-panel); border-radius: 12px; border: 1px solid #222; padding: 22px; }
-        .sidebar-card-panel h3 { margin: 0 0 15px 0; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #282828; padding-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        
-        /* Server Grid Routing */
-        .server-routing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .server-route-btn { background: #1c1c1c; border: 1px solid #2d2d2d; color: var(--text-muted); padding: 12px 10px; text-align: center; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; gap: 4px; align-items: center; }
-        .server-route-btn i { font-size: 14px; }
-        .server-route-btn:hover { background: #262626; color: #fff; border-color: #444; }
-        .server-route-btn.active-server { background: rgba(229,9,20,0.1); border-color: var(--primary); color: #fff; box-shadow: 0 0 10px rgba(229,9,20,0.2); }
+        .card-rating-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.8);
+            color: #ffc107;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
 
-        /* Dropdowns for Series */
-        .series-teleportation-engine { display: flex; flex-direction: column; gap: 12px; }
-        .engine-select-wrapper { display: flex; flex-direction: column; gap: 6px; }
-        .engine-select-wrapper label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .engine-select-wrapper select { background: #121212; border: 1px solid #2d2d2d; color: white; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 600; outline: none; cursor: pointer; width: 100%; transition: 0.2s; }
-        .engine-select-wrapper select:focus { border-color: var(--primary); }
+        .card-details-box {
+            padding: 10px;
+        }
 
-        /* --- INTERACTIVE SYSTEM TABS --- */
-        .tab-matrix-header { display: flex; gap: 10px; border-bottom: 2px solid #222; margin-top: 30px; margin-bottom: 20px; }
-        .matrix-tab-trigger { background: none; border: none; color: var(--text-muted); padding: 12px 20px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; position: relative; bottom: -2px; }
-        .matrix-tab-trigger:hover { color: #fff; }
-        .matrix-tab-trigger.active-tab { color: var(--primary); border-bottom: 2px solid var(--primary); }
-        
-        .tab-pane-content { display: none; }
-        .tab-pane-content.active-pane { display: block; }
+        .card-main-title {
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            color: #fff;
+        }
 
-        /* Comments Suite Layout */
-        .review-input-hub { display: flex; gap: 15px; margin-bottom: 25px; }
-        .review-input-hub input { background: #141414; border: 1px solid #282828; color: white; padding: 12px 15px; border-radius: 6px; flex-grow: 1; outline: none; font-size: 14px; }
-        .review-input-hub input:focus { border-color: var(--primary); }
-        .btn-comment-submit { background: var(--primary); color: white; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .btn-comment-submit:hover { background: var(--primary-hover); }
-        
-        .user-feed-comment { background: #111; border: 1px solid #1c1c1c; padding: 15px; border-radius: 8px; margin-bottom: 12px; display: flex; gap: 12px; }
-        .avatar-mock { background: #333; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; color: var(--neon-blue); }
-        .comment-text-block h5 { margin: 0 0 4px 0; font-size: 13px; color: #fff; }
-        .comment-text-block p { margin: 0; font-size: 13px; color: #cccccc; }
+        .card-sub-info {
+            font-size: 11px;
+            color: var(--text-gray);
+            display: flex;
+            justify-content: space-between;
+        }
 
-        /* --- FLOATING HARDWARE AMPLIFIER UTILITY --- */
-        .boost-launcher-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--neon-blue), #0099ff); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #000; box-shadow: 0 0 25px rgba(0,255,204,0.4); z-index: 99999; cursor: pointer; transition: all 0.3s ease; }
-        .boost-launcher-btn:hover { transform: scale(1.1) rotate(15deg); box-shadow: 0 0 35px rgba(0,255,204,0.7); }
-        
-        .boost-control-tower { position: fixed; bottom: 105px; right: 30px; background: #161616; padding: 20px; border-radius: 12px; width: 280px; display: none; box-shadow: 0 15px 40px rgba(0,0,0,0.8); z-index: 99999; border: 1px solid #2d2d2d; }
-        .boost-control-tower h4 { margin: 0 0 12px 0; font-size: 14px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 8px; color: var(--neon-blue); }
-        
-        .loading-shimmer-text { color: var(--text-muted); padding: 30px; text-align: center; font-size: 15px; font-weight: 600; width: 100%; }
+        /* --- CINEMATIC THEATER ENGINE (PLAYER PAGE) --- */
+        .theater-view-container {
+            display: none;
+            padding: 25px 4%;
+            background: #020202;
+            min-height: 100vh;
+        }
+
+        .back-nav-row {
+            margin-bottom: 20px;
+        }
+
+        .btn-back-home {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-back-home:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .theater-layout-matrix {
+            display: grid;
+            grid-template-columns: 3.2fr 1fr;
+            gap: 25px;
+        }
+
+        @media(max-width: 992px) {
+            .theater-layout-matrix { grid-template-columns: 1fr; }
+        }
+
+        .canvas-frame-holder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+            border: 1px solid #151515;
+        }
+
+        .canvas-frame-holder iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .media-meta-details-card {
+            margin-top: 20px;
+            background: #0f0f0f;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #1a1a1a;
+        }
+
+        .theater-media-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .theater-badges-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+
+        .type-badge {
+            background: #252525;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-panel-box {
+            background: #0f0f0f;
+            border-radius: 8px;
+            border: 1px solid #1a1a1a;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-panel-box h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #1c1c1c;
+            padding-bottom: 8px;
+        }
+
+        /* Precise Server List */
+        .server-vertical-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .server-btn {
+            background: #161616;
+            border: 1px solid #262626;
+            color: var(--text-gray);
+            padding: 10px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .server-btn:hover {
+            background: #222;
+            color: white;
+        }
+
+        .server-btn.active-server {
+            background: rgba(229, 9, 20, 0.15);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Ep Navigator Dropdowns */
+        .series-dropdown-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .select-field-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .select-field-wrapper label {
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .select-field-wrapper select {
+            background: #161616;
+            border: 1px solid #262626;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Status & Logs UI message */
+        .status-message-shimmer {
+            padding: 40px;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
-    <!-- =================================================== -->
-    <!-- PRIMARY CORE PLATFORM DASHBOARD VIEW                -->
-    <!-- =================================================== -->
-    <div id="main-website-view">
-        
-        <!-- Premium Master Header -->
-        <header class="navbar">
-            <div class="logo" onclick="loadAllPremiumSections()">Stream<span>Verse</span></div>
-            <nav class="nav-navigation">
-                <div class="nav-links">
-                    <a id="tab-trending" onclick="filterPlatformCategory('trending', event)" class="nav-item active">Trending</a>
-                    <a id="tab-hollywood" onclick="filterPlatformCategory('hollywood', event)" class="nav-item">Hollywood</a>
-                    <a id="tab-bollywood" onclick="filterPlatformCategory('bollywood', event)" class="nav-item">Bollywood</a>
-                    <a id="tab-punjabi" onclick="filterPlatformCategory('punjabi', event)" class="nav-item">Punjabi</a>
-                    <a id="tab-south" onclick="filterPlatformCategory('south', event)" class="nav-item">South Indian</a>
-                    <a id="tab-series" onclick="filterPlatformCategory('series', event)" class="nav-item">Web Series</a>
-                </div>
-            </nav>
-            <div class="search-wrapper">
-                <i class="fas fa-search search-icon-btn"></i>
-                <input type="text" id="search-bar" placeholder="Search elite titles, series or years..." onkeyup="masterSearchRouter()">
-            </div>
-        </header>
+    <!-- ========================================== -->
+    <!-- NAVIGATION LOGIC WRAPPER                   -->
+    <!-- ========================================== -->
+    <header class="navbar">
+        <div class="logo" onclick="resetToHomeDashboard()">Stream<span>Verse</span></div>
+        <nav class="nav-links">
+            <button id="btn-home" class="nav-btn active" onclick="resetToHomeDashboard()">Home</button>
+            <button id="btn-hollywood" class="nav-btn" onclick="loadIsolatedCategory('hollywood')">Hollywood</button>
+            <button id="btn-bollywood" class="nav-btn" onclick="loadIsolatedCategory('bollywood')">Bollywood</button>
+            <button id="btn-punjabi" class="nav-btn" onclick="loadIsolatedCategory('punjabi')">Punjabi</button>
+            <button id="btn-south" class="nav-btn" onclick="loadIsolatedCategory('south')">South Indian</button>
+            <button id="btn-series" class="nav-btn" onclick="loadIsolatedCategory('series')">Web Series</button>
+        </nav>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-bar" placeholder="Search movies or shows..." onkeyup="executePlatformSearch(event)">
+        </div>
+    </header>
 
-        <!-- Dynamic Hero Billboard Showcase -->
-        <section class="hero-showcase" id="hero-billboard-target">
-            <div class="hero-inner-content">
-                <span class="hero-tag"><i class="fas fa-crown"></i> OTT Featured Spotlight</span>
-                <h1 class="hero-title">Interstellar Premium</h1>
-                <p class="hero-desc">The narrative chronicles an avant-garde group of astronauts traveling across a spatial wormhole in an existential bid to preserve humankind's macro-survival.</p>
-                <div class="hero-action-btns">
-                    <button class="btn-premium btn-play" onclick="window.routeToDedicatedPlayer(157336, 'Interstellar', 'movie', '2014')">
-                        <i class="fas fa-play"></i> Watch Stream
-                    </button>
-                    <button class="btn-premium btn-info" onclick="alert('StreamVerse Core: High-bitrate 4K codec container mapped.')">
-                        <i class="fas fa-info-circle"></i> Technical Details
-                    </button>
-                </div>
+    <!-- ========================================== -->
+    <!-- VIEW ZONE 1: STANDARD HOME DASHBOARD       -->
+    <!-- ========================================== -->
+    <div id="view-home-dashboard" class="home-view-container">
+        
+        <!-- Showcase Billboard Banner -->
+        <section class="hero-banner" id="hero-billboard">
+            <div class="hero-content">
+                <h1 class="hero-title">The Dark Knight</h1>
+                <p class="hero-desc">Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations.</p>
+                <button class="btn-play-hero" onclick="window.routeToDedicatedPlayer(155, 'The Dark Knight', 'movie', '2008')">
+                    <i class="fas fa-play"></i> Stream Now
+                </button>
             </div>
         </section>
 
-        <!-- Dynamic Display Zones Wrapper -->
-        <div id="platform-shelves-grid-zone">
-            
-            <!-- GOAT CLOUD SHELF -->
-            <div class="shelf-section">
-                <div class="section-title">
-                    <div class="section-title-left"><i class="fas fa-medal"></i> <span>All-Time Cinematic Legends</span></div>
-                    <a class="view-all-link" onclick="filterPlatformCategory('trending')">Explore Matrix</a>
-                </div>
-                <div class="shelf-slider-container" id="shelf-goat-movies"></div>
-            </div>
+        <!-- GOAT Reference Row -->
+        <div class="section-shelf">
+            <div class="shelf-title"><i class="fas fa-crown"></i> All Time GOAT Movies</div>
+            <div class="slider-row" id="shelf-goat"></div>
+        </div>
 
-            <!-- TRENDING NOW SHELF -->
-            <div class="shelf-section">
-                <div class="section-title">
-                    <div class="section-title-left"><i class="fas fa-fire"></i> <span>Global Trending Pipeline</span></div>
-                </div>
-                <div class="shelf-slider-container" id="shelf-trending-stream"></div>
-            </div>
-
-            <!-- HOLLYWOOD INSIGNIA SHELF -->
-            <div class="shelf-section">
-                <div class="section-title">
-                    <div class="section-title-left"><i class="fas fa-film"></i> <span>Hollywood Masterpiece Hub</span></div>
-                </div>
-                <div class="shelf-slider-container" id="shelf-hollywood-stream"></div>
-            </div>
-
-            <!-- BOLLYWOOD TITANS SHELF -->
-            <div class="shelf-section">
-                <div class="section-title">
-                    <div class="section-title-left"><i class="fas fa-star"></i> <span>Bollywood Box-Office Giants</span></div>
-                </div>
-                <div class="shelf-slider-container" id="shelf-bollywood-stream"></div>
-            </div>
-
-            <!-- REGIONAL FRONTIERS SHELF -->
-            <div class="shelf-section">
-                <div class="section-title">
-                    <div class="section-title-left"><i class="fas fa-globe"></i> <span>South & Punjabi Prime Selection</span></div>
-                </div>
-                <div class="shelf-slider-container" id="shelf-regional-stream"></div>
-            </div>
+        <!-- Trending Reference Row -->
+        <div class="section-shelf">
+            <div class="shelf-title"><i class="fas fa-fire"></i> Trending Stream Line</div>
+            <div class="slider-row" id="shelf-trending"></div>
         </div>
 
     </div>
 
-    <!-- =================================================== -->
-    <!-- ADVANCED HIGH-BITRATE DEDICATED THEATER SYSTEM      -->
-    <!-- =================================================== -->
-    <div id="player-page-view" class="player-page-container">
+    <!-- ========================================== -->
+    <!-- VIEW ZONE 2: CLEAN ISOLATED GRID ENGINE     -->
+    <!-- ========================================== -->
+    <div id="view-isolated-grid" class="isolated-grid-container">
+        <h2 class="grid-header-title" id="grid-category-title">Selected Pipeline</h2>
+        <div class="pure-responsive-grid" id="grid-content-target"></div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW ZONE 3: MASTER THEATER STREAM PLAYER  -->
+    <!-- ========================================== -->
+    <div id="view-theater-player" class="theater-view-container">
         
-        <div class="player-breadcrumb-nav">
-            <button class="btn-theater-exit" onclick="exitPlayerPage()">
-                <i class="fas fa-chevron-left"></i> Return to Content Matrix
+        <div class="back-nav-row">
+            <button class="btn-back-home" onclick="returnToPreviousActiveView()">
+                <i class="fas fa-arrow-left"></i> Back to Catalog
             </button>
         </div>
 
-        <div class="theater-main-workspace">
+        <div class="theater-layout-matrix">
             
-            <!-- Streaming Pipeline Canvas Node -->
-            <div class="stream-stage-box">
-                <div class="video-canvas-wrapper" id="video-frame-target">
-                    <!-- Controlled frame injected via active runtime pipeline -->
+            <!-- Left Side Streaming Frame Block -->
+            <div class="stream-main-stage">
+                <div class="canvas-frame-holder" id="player-iframe-root">
+                    <!-- Dynamic Stream Frame Injection Node -->
                 </div>
                 
-                <!-- Expanded Metadata Information Card -->
-                <div class="theater-meta-suite">
-                    <div class="theater-title-row">
-                        <div>
-                            <h1 id="theater-media-title">Processing Title...</h1>
-                            <div class="meta-badges-line">
-                                <span class="meta-badge-item" id="theater-type-badge">MOVIE</span>
-                                <span class="meta-badge-item" style="background:#00a46b;">4K UHD</span>
-                                <span id="theater-media-meta-year">2026</span>
-                                <span>&bull;</span>
-                                <span class="rating-star"><i class="fas fa-star"></i> 8.9 Masterscore</span>
-                            </div>
+                <div class="media-meta-details-card">
+                    <h1 class="theater-media-title" id="theater-title">Media Title Processing</h1>
+                    <div class="theater-badges-row">
+                        <span class="type-badge" id="theater-badge-type">MOVIE</span>
+                        <span id="theater-badge-year">2026</span>
+                        <span>&bull;</span>
+                        <span><i class="fas fa-star" style="color:#ffc107;"></i> High Quality Node</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Server Switching Console Matrix -->
+            <div class="stream-control-sidebar">
+                
+                <!-- Dynamic TV Series Dropdowns Wrapper -->
+                <div class="sidebar-panel-box" id="series-episode-navigator-box" style="display: none;">
+                    <h4><i class="fas fa-list-ol"></i> Episode Navigator</h4>
+                    <div class="series-dropdown-group">
+                        <div class="select-field-wrapper">
+                            <label>Select Season</label>
+                            <select id="player-season-select" onchange="rebuildActiveIframeSource()"></select>
+                        </div>
+                        <div class="select-field-wrapper">
+                            <label>Select Episode</label>
+                            <select id="player-episode-select" onchange="rebuildActiveIframeSource()"></select>
                         </div>
                     </div>
-                    
-                    <p class="media-synopsis-mock">
-                        This digital file transmission source is streaming directly through structural content scraper arrays. Hardware acceleration parameters have been applied to reduce handshake overhead latency globally.
-                    </p>
-                    
-                    <!-- Dashboard Control Interactive Suite -->
-                    <div class="interactive-action-bar">
-                        <button class="action-icon-btn" id="player-watchlist-toggle" onclick="toggleTheaterWatchlist()">
-                            <i class="fas fa-plus"></i> <span>Add to Watchlist</span>
-                        </button>
-                        <button class="action-icon-btn" onclick="toggleTheaterLike(this)">
-                            <i class="fas fa-thumbs-up"></i> Upvote Content
-                        </button>
-                        <button class="action-icon-btn" onclick="navigator.clipboard.writeText(window.location.href); alert('Platform Share Link compiled to clipboard.');">
-                            <i class="fas fa-share-nodes"></i> Share Stream
-                        </button>
-                    </div>
                 </div>
 
-                <!-- Lower Multi-Tab Engine Framework -->
-                <div class="tab-matrix-header">
-                    <button class="matrix-tab-trigger active-tab" onclick="switchInteractiveTab(event, 'pane-episodes')">Addons & Controls</button>
-                    <button class="matrix-tab-trigger" onclick="switchInteractiveTab(event, 'pane-reviews')">User Reviews Feed</button>
-                </div>
-
-                <div id="pane-episodes" class="tab-pane-content active-pane">
-                    <p style="font-size:14px; color:var(--text-muted);">No additional core extension packages required for this media selection framework.</p>
-                </div>
-
-                <div id="pane-reviews" class="tab-pane-content">
-                    <div class="review-input-hub">
-                        <input type="text" id="user-review-input" placeholder="Write an anonymous public stream review...">
-                        <button class="btn-comment-submit" onclick="addReviewToFeed()">Post Review</button>
-                    </div>
-                    <div id="user-reviews-feed-wrapper">
-                        <div class="user-feed-comment">
-                            <div class="avatar-mock">OP</div>
-                            <div class="comment-text-block">
-                                <h5>Overlord_Prime</h5>
-                                <p>Absolute pristine stream quality buffering speeds are phenomenal on Server 1!</p>
-                            </div>
-                        </div>
+                <!-- Verified Server Endpoints -->
+                <div class="sidebar-panel-box">
+                    <h4><i class="fas fa-server"></i> Route Server Engines</h4>
+                    <div class="server-vertical-list">
+                        <button class="server-btn active-server" id="srv-1" onclick="switchActiveServerRoute(1)">
+                            <i class="fas fa-bolt"></i> Server vidsrc.to (Fast Multi)
+                        </button>
+                        <button class="server-btn" id="srv-2" onclick="switchActiveServerRoute(2)">
+                            <i class="fas fa-network-wired"></i> Server vidsrc.me (Backup)
+                        </button>
+                        <button class="server-btn" id="srv-3" onclick="switchActiveServerRoute(3)">
+                            <i class="fas fa-cloud"></i> Server embed.su (Ultra 4K)
+                        </button>
+                        <button class="server-btn" id="srv-4" onclick="switchActiveServerRoute(4)">
+                            <i class="fas fa-microchip"></i> Server vidsrc.cc (Stable)
+                        </button>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Server Node Routing Sidebar Controls -->
-            <div class="control-matrix-sidebar">
-                
-                <!-- Interactive Ep Engine Area -->
-                <div class="sidebar-card-panel" id="series-episode-teleportation-box" style="display: none;">
-                    <h3><i class="fas fa-layer-group"></i> Episode Navigator</h3>
-                    <div class="series-teleportation-engine">
-                        <div class="engine-select-wrapper">
-                            <label>Target Season</label>
-                            <select id="season-selector" onchange="synchronizeEpisodeStreamNode()"></select>
-                        </div>
-                        <div class="engine-select-wrapper">
-                            <label>Target Episode</label>
-                            <select id="episode-selector" onchange="synchronizeEpisodeStreamNode()"></select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Server Switching Controls -->
-                <div class="sidebar-card-panel">
-                    <h3><i class="fas fa-server"></i> Core Routing Infrastructure</h3>
-                    <p style="font-size: 11px; color:var(--neon-blue); margin: -5px 0 15px 0; font-weight:700;"><i class="fas fa-circle-check"></i> HIGH CONCURRENCY ROUTE ENGINES ONLINE</p>
-                    <div class="server-routing-grid">
-                        <div class="server-route-btn active-server" id="srv-node-1" onclick="switchActiveServerNode(1)">
-                            <i class="fas fa-bolt"></i> <span>Server vidsrc</span>
-                        </div>
-                        <div class="server-route-btn" id="srv-node-2" onclick="switchActiveServerNode(2)">
-                            <i class="fas fa-cloud"></i> <span>Server 2embed</span>
-                        </div>
-                        <div class="server-route-btn" id="srv-node-3" onclick="switchActiveServerNode(3)">
-                            <i class="fas fa-network-wired"></i> <span>Server vidsrc.me</span>
-                        </div>
-                        <div class="server-route-btn" id="srv-node-4" onclick="switchActiveServerNode(4)">
-                            <i class="fas fa-microchip"></i> <span>Server vidsrc.cc</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
     </div>
 
-    <!-- =================================================== -->
-    <!-- FLOATING SONIC AMPLIFICATION SYSTEM                 -->
-    <!-- =================================================== -->
-    <div class="boost-launcher-btn" onclick="toggleSonicAmplifierPanel()" title="Launch Hardware Audio Booster">🔊</div>
-    <div class="boost-control-tower" id="sonicBoostPanel">
-        <h4><i class="fas fa-wave-square"></i> Audio Extender Matrix</h4>
-        <input type="range" id="sonicVolumeSlider" min="1" max="3" step="0.1" value="1" style="width:100%; accent-color:var(--neon-blue);">
-        <p id="sonicVolText" style="text-align:center; margin:12px 0; font-size:20px; font-weight:800; color:var(--neon-blue);">100% (Normal)</p>
-        <small style="color:var(--text-muted); font-size:11px; display:block; text-align:center;">Amplifies output signal up to 300% via virtual web filter nodes.</small>
-    </div>
-
-    <!-- Core Native Platform Script Dependencies -->
-    <script src="movie_data.js"></script>
-    <script src="hollywood_servers.js"></script>
-    <script src="bollywood_servers.js"></script>
-    <script src="player.js"></script>
-    <script src="series_fixer.js"></script>
-
-    <!-- =================================================== -->
-    <!-- EXTENDED PLATFORM CORE LOGIC ENGINE                 -->
-    <!-- =================================================== -->
+    <!-- ========================================== -->
+    <!-- BACKEND ARCHITECTURE JAVA-SCRIPT LOGIC      -->
+    <!-- ========================================== -->
     <script>
-        // Global State Parameters
-        let globalActiveTmdbId = null;
-        let globalActiveMediaType = 'movie';
-        let globalActiveServerIndex = 1;
-        let userPlatformWatchlist = JSON.parse(localStorage.getItem('ott_watchlist')) || [];
+        // --- SECURE GLOBAL VARIABLES & PARAMETERS ---
+        const API_KEY = "82e880c89dbf119b940e034ed32a3498";
+        
+        let runtimeActiveId = null;
+        let runtimeActiveType = 'movie';
+        let runtimeActiveServer = 1;
+        let lastActiveViewState = 'home'; // Tracks historical view to manage UI back-navigation safely
 
-        // GOAT Hardcoded Reference Repository Matrix
-        const platformGoatDatabase = [
-            {id:238, title:"The Godfather", year:"1972", poster_path:"/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", rating:"9.2", type:"movie"},
-            {id:240, title:"The Godfather Part II", year:"1974", poster_path:"/hek3koDUewhZ8p6c9zZq7e8wV7W.jpg", rating:"9.0", type:"movie"},
-            {id:278, title:"The Shawshank Redemption", year:"1994", poster_path:"/9cqNxx0GxF0bflZmeSMuL5tnGFr.jpg", rating:"9.3", type:"movie"},
-            {id:155, title:"The Dark Knight", year:"2008", poster_path:"/qJ2tW6WMUDux911r6m7haRef0WH.jpg", rating:"9.0", type:"movie"},
-            {id:680, title:"Scarface", year:"1983", poster_path:"/iQ5HGg3fK8p6v3n0dZ2dQ7p7Z1L.jpg", rating:"8.3", type:"movie"},
-            {id:157336, title:"Interstellar", year:"2014", poster_path:"/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg", rating:"8.7", type:"movie"}
+        // Static Hardcoded GOAT Dataset to offload TMDB Request strain
+        const localGoatBackup = [
+            {id:238, title:"The Godfather", year:"1972", poster_path:"/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", vote_average:9.2, media_type:"movie"},
+            {id:240, title:"The Godfather Part II", year:"1974", poster_path:"/hek3koDUewhZ8p6c9zZq7e8wV7W.jpg", vote_average:9.0, media_type:"movie"},
+            {id:278, title:"The Shawshank Redemption", year:"1994", poster_path:"/9cqNxx0GxF0bflZmeSMuL5tnGFr.jpg", vote_average:9.3, media_type:"movie"},
+            {id:155, title:"The Dark Knight", year:"2008", poster_path:"/qJ2tW6WMUDux911r6m7haRef0WH.jpg", vote_average:9.0, media_type:"movie"},
+            {id:157336, title:"Interstellar", year:"2014", poster_path:"/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg", vote_average:8.7, media_type:"movie"},
+            {id:680, title:"Scarface", year:"1983", poster_path:"/iQ5HGg3fK8p6v3n0dZ2dQ7p7Z1L.jpg", vote_average:8.3, media_type:"movie"}
         ];
 
-        // 1. MASTER ASYNC INITIALIZATION DISPATCHER
-        function renderHorizontalShelf(items, containerId, fallbackType = 'movie') {
-            const shelf = document.getElementById(containerId);
-            if (!shelf) return;
-            shelf.innerHTML = "";
-            
+        // --- CORE APPLICATION INITIALIZER ENGINE ---
+        document.addEventListener("DOMContentLoaded", () => {
+            initializePlatformCoreData();
+        });
+
+        function initializePlatformCoreData() {
+            // Render local GOAT slider block immediately
+            renderArrayToTargetDOM(localGoatBackup, 'shelf-goat', 'movie');
+
+            // Fire safe background dynamic fetch pipeline for Trending shelf
+            const trendingUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
+            fetch(trendingUrl)
+                .then(res => {
+                    if(!res.ok) throw new Error("API Key verification error or request rate block.");
+                    return res.json();
+                })
+                .then(data => {
+                    if(data.results) {
+                        renderArrayToTargetDOM(data.results.slice(0, 15), 'shelf-trending', 'movie');
+                    }
+                })
+                .catch(err => {
+                    console.error("Core Engine Handshake Error:", err);
+                    document.getElementById('shelf-trending').innerHTML = 
+                        `<div class="status-message-shimmer"><i class="fas fa-exclamation-triangle"></i> Network pipeline timeout. Please refresh or check connection.</div>`;
+                });
+        }
+
+        // --- CENTRAL CONTROL STATE ROUTER ENGINE ---
+        function switchViewContextState(targetView) {
+            // Close down active pipeline states
+            document.getElementById('view-home-dashboard').style.display = 'none';
+            document.getElementById('view-isolated-grid').style.display = 'none';
+            document.getElementById('view-theater-player').style.display = 'none';
+
+            // Route application layer state
+            if(targetView === 'home') {
+                document.getElementById('view-home-dashboard').style.display = 'block';
+                lastActiveViewState = 'home';
+            } else if(targetView === 'grid') {
+                document.getElementById('view-isolated-grid').style.display = 'block';
+                lastActiveViewState = 'grid';
+            } else if(targetView === 'player') {
+                document.getElementById('view-theater-player').style.display = 'block';
+            }
+        }
+
+        function resetToHomeDashboard() {
+            // Update Navigation Menu Active CSS States
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-home').classList.add('active');
+            document.getElementById('search-bar').value = ""; // Clear active search string
+            switchViewContextState('home');
+        }
+
+        function returnToPreviousActiveView() {
+            // Terminate background stream memory stack instantly before view change
+            document.getElementById('player-iframe-root').innerHTML = ""; 
+            switchViewContextState(lastActiveViewState);
+        }
+
+        // --- DOM RENDER ENGINE COMPONENT ---
+        function renderArrayToTargetDOM(items, domId, fallbackType = 'movie') {
+            const container = document.getElementById(domId);
+            if(!container) return;
+            container.innerHTML = "";
+
             if(!items || items.length === 0) {
-                shelf.innerHTML = "<div class='loading-shimmer-text'>No dynamic content available in this pipeline area.</div>";
+                container.innerHTML = `<div class="status-message-shimmer">No targeted assets found matching structural query parameter filters.</div>`;
                 return;
             }
 
             items.forEach(item => {
-                const targetTitle = item.title || item.name || "Unknown Asset";
-                const targetDate = item.release_date || item.first_air_date || item.year || "2026";
-                const targetYear = targetDate.split("-")[0];
-                const targetType = item.media_type || fallbackType;
-                const calculatedRating = item.vote_average ? item.vote_average.toFixed(1) : (item.rating || "8.1");
-                const posterPath = item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : (item.poster || 'https://via.placeholder.com/400x600/222/fff?text=No+Poster');
+                // Defensive extraction mapping layer to catch variant data objects
+                const cleanId = item.id;
+                const cleanTitle = item.title || item.name || "Untitled Asset";
+                const releaseDateString = item.release_date || item.first_air_date || item.year || "2026";
+                const cleanYear = releaseDateString.split("-")[0];
+                const cleanType = item.media_type || fallbackType;
+                const score = item.vote_average ? item.vote_average.toFixed(1) : "7.8";
+                
+                const posterUrl = item.poster_path 
+                    ? `https://image.tmdb.org/t/p/w300${item.poster_path}` 
+                    : 'https://via.placeholder.com/300x450/141414/ffffff?text=No+Poster+Found';
 
-                const isSaved = userPlatformWatchlist.includes(String(item.id));
-                const heartIcon = isSaved ? 'fas fa-bookmark' : 'far fa-bookmark';
-
-                const card = document.createElement('div');
-                card.className = 'movie-card';
-                card.innerHTML = `
-                    <div class="poster-wrapper">
-                        <span class="card-quality-badge">4K ULTRA</span>
-                        <button class="card-watchlist-btn" onclick="toggleLocalWatchlistEvent('${item.id}', event)"><i class="${heartIcon}"></i></button>
-                        <img class="movie-poster" src="${posterPath}" alt="${targetTitle}" loading="lazy">
-                        <div class="card-hover-overlay">
-                            <h4 class="movie-metadata-title">${targetTitle}</h4>
-                            <div class="movie-metadata-sub">
-                                <span>${targetYear} &bull; ${targetType.toUpperCase()}</span>
-                                <span class="rating-star"><i class="fas fa-star"></i> ${calculatedRating}</span>
-                            </div>
+                const cardNode = document.createElement('div');
+                cardNode.className = 'movie-card';
+                cardNode.innerHTML = `
+                    <div class="image-container">
+                        <span class="card-rating-tag"><i class="fas fa-star"></i> ${score}</span>
+                        <img class="movie-poster-img" src="${posterUrl}" alt="${cleanTitle}" loading="lazy">
+                    </div>
+                    <div class="card-details-box">
+                        <div class="card-main-title">${cleanTitle}</div>
+                        <div class="card-sub-info">
+                            <span>${cleanYear}</span>
+                            <span style="text-transform: uppercase; color:var(--primary); font-weight:bold;">${cleanType === 'tv' ? 'SERIES' : cleanType}</span>
                         </div>
                     </div>
                 `;
-                card.onclick = () => window.routeToDedicatedPlayer(item.id, targetTitle, targetType, targetYear);
-                shelf.appendChild(card);
+                
+                cardNode.onclick = () => window.routeToDedicatedPlayer(cleanId, cleanTitle, cleanType, cleanYear);
+                container.appendChild(cardNode);
             });
         }
 
-        async function queryShelfAPI(url, containerId, fallbackType = 'movie') {
-            try {
-                let res = await fetch(`${url}${url.includes('?') ? '&' : '?'}api_key=${API_KEY}`);
-                if (!res.ok) throw new Error("Network Handshake Timeout");
-                let data = await res.json();
-                renderHorizontalShelf(data.results.slice(0, 18), containerId, fallbackType);
-            } catch(err) {
-                console.error(`Shelf Processing Failure inside [${containerId}]:`, err);
-                document.getElementById(containerId).innerHTML = "<div class='loading-shimmer-text'><i class='fas fa-triangle-exclamation'></i> Server validation error. Retrying automatic routing...</div>";
-            }
-        }
+        // --- ISOLATED FILTER CATEGORY DISTRIBUTOR ---
+        function loadIsolatedCategory(categoryKey) {
+            // Handle active structural CSS highlight updates
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const activeNavBtn = document.getElementById(`btn-${categoryKey}`);
+            if(activeNavBtn) activeNavBtn.classList.add('active');
 
-        function loadAllPremiumSections() {
-            // Restore Home State Grid Layout
-            document.getElementById('platform-shelves-grid-zone').style.display = 'block';
+            const titleElement = document.getElementById('grid-category-title');
+            const targetGridContainer = document.getElementById('grid-content-target');
             
-            // Build Base Framework Arrays
-            renderHorizontalShelf(platformGoatDatabase, 'shelf-goat-movies', 'movie');
-            
-            // Run Concurrent Scraper Streams
-            queryShelfAPI('https://api.themoviedb.org/3/trending/all/day', 'shelf-trending-stream', 'movie');
-            queryShelfAPI('https://api.themoviedb.org/3/discover/movie?with_original_language=en&sort_by=popularity.desc', 'shelf-hollywood-stream', 'movie');
-            queryShelfAPI('https://api.themoviedb.org/3/discover/movie?with_original_language=hi&sort_by=popularity.desc', 'shelf-bollywood-stream', 'movie');
-            queryShelfAPI('https://api.themoviedb.org/3/discover/movie?with_original_language=pa|te|ta&sort_by=popularity.desc', 'shelf-regional-stream', 'movie');
-        }
+            // Inject cleaner waiting animation indicator state
+            targetGridContainer.innerHTML = `<div class="status-message-shimmer"><i class="fas fa-spinner fa-spin"></i> Establishing data stream route for ${categoryKey}...</div>`;
+            switchViewContextState('grid');
 
-        // 2. UNIFIED PLATFORM CATEGORY NAVIGATION ROUTER
-        function filterPlatformCategory(cat, event = null) {
-            if(event) {
-                event.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-                event.target.classList.add('active');
-            }
-            exitPlayerPage();
+            let endpoint = "";
+            let explicitFallbackType = "movie";
 
-            const masterShelvesWrapper = document.getElementById('platform-shelves-grid-zone');
-            
-            // If user selects specific structural isolated categories, compress layout to a singular clean high-capacity dashboard grid
-            if(cat === 'trending') {
-                loadAllPremiumSections();
-                return;
-            }
-
-            masterShelvesWrapper.style.display = 'block';
-            // Simple visual clear to single out layout focus
-            let targetEndpointUrl = "";
-            let designatedType = "movie";
-
-            if (cat === 'hollywood') targetEndpointUrl = 'https://api.themoviedb.org/3/discover/movie?with_original_language=en&sort_by=popularity.desc';
-            else if (cat === 'bollywood') targetEndpointUrl = 'https://api.themoviedb.org/3/discover/movie?with_original_language=hi&sort_by=popularity.desc';
-            else if (cat === 'punjabi') targetEndpointUrl = 'https://api.themoviedb.org/3/discover/movie?with_original_language=pa&sort_by=popularity.desc';
-            else if (cat === 'south') targetEndpointUrl = 'https://api.themoviedb.org/3/discover/movie?with_original_language=te|ta|kn|ml&sort_by=popularity.desc';
-            else if (cat === 'series') {
-                targetEndpointUrl = 'https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc';
-                designatedType = 'tv';
+            // Establish strict routing matrix to separate languages and content schemas completely
+            if (categoryKey === 'hollywood') {
+                titleElement.innerText = "Hollywood Masterpieces";
+                endpoint = `https://api.themoviedb.org/3/discover/movie?with_original_language=en&sort_by=popularity.desc&api_key=${API_KEY}`;
+            } else if (categoryKey === 'bollywood') {
+                titleElement.innerText = "Bollywood Superhits";
+                endpoint = `https://api.themoviedb.org/3/discover/movie?with_original_language=hi&sort_by=popularity.desc&api_key=${API_KEY}`;
+            } else if (categoryKey === 'punjabi') {
+                titleElement.innerText = "Punjabi Cinema Selection";
+                endpoint = `https://api.themoviedb.org/3/discover/movie?with_original_language=pa&sort_by=popularity.desc&api_key=${API_KEY}`;
+            } else if (categoryKey === 'south') {
+                titleElement.innerText = "South Indian blockbusters (Telugu, Tamil, Malayalam)";
+                endpoint = `https://api.themoviedb.org/3/discover/movie?with_original_language=te|ta|ml|kn&sort_by=popularity.desc&api_key=${API_KEY}`;
+            } else if (categoryKey === 'series') {
+                titleElement.innerText = "Premium Web Series & TV Shows";
+                endpoint = `https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=${API_KEY}`;
+                explicitFallbackType = "tv";
             }
 
-            // Clean render and replace trending shelf view as active segment container focus
-            const trendingContainer = document.getElementById('shelf-trending-stream');
-            trendingContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            queryShelfAPI(targetEndpointUrl, 'shelf-trending-stream', designatedType);
-        }
-
-        // 3. MASTER EXTENDED MULTI-MATRIX SEARCH CONSOLE
-        function masterSearchRouter() {
-            let query = document.getElementById('search-bar').value.trim();
-            if (!query) {
-                loadAllPremiumSections();
-                return;
-            }
-            
-            // Re-route framework to show search index items within primary streaming shelf
-            fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`)
-                .then(r => r.json())
+            // Execute isolated pipeline fetch query
+            fetch(endpoint)
+                .then(res => res.json())
                 .then(data => {
-                    const unifiedResults = data.results.filter(i => i.poster_path || i.backdrop_path);
-                    renderHorizontalShelf(unifiedResults, 'shelf-trending-stream', 'movie');
-                    document.getElementById('shelf-trending-stream').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    if (data && data.results) {
+                        renderArrayToTargetDOM(data.results, 'grid-content-target', explicitFallbackType);
+                    } else {
+                        throw new Error("Empty collection array packet.");
+                    }
                 })
-                .catch(e => console.error("Search Query Intercept Failure:", e));
+                .catch(err => {
+                    console.error("Filter Pipeline Query Crash:", err);
+                    targetGridContainer.innerHTML = `<div class="status-message-shimmer"><i class="fas fa-exclamation-circle"></i> Failed to pull isolated section content catalog. Code mismatch or API limit block.</div>`;
+                });
         }
 
-        // 4. THEATER INJECTION RESOLVER & HARDWARE INTEGRATION
-        window.routeToDedicatedPlayer = function(id, title, type, year) {
-            globalActiveTmdbId = id;
-            globalActiveMediaType = (type === 'tv' || type === 'series') ? 'tv' : 'movie';
-            globalActiveServerIndex = 1; // Default to priority server route
-
-            // Swap interface view channels
-            document.getElementById('main-website-view').style.display = 'none';
-            document.getElementById('player-page-view').style.display = 'block';
+        // --- MASTER SYSTEM SEARCH ROUTER ---
+        function executePlatformSearch(event) {
+            const queryValue = document.getElementById('search-bar').value.trim();
             
-            // Set Dynamic Identity Parameters
-            document.getElementById('theater-media-title').innerText = title;
-            document.getElementById('theater-media-meta-year').innerText = year || "2026";
-            document.getElementById('theater-type-badge').innerText = globalActiveMediaType.toUpperCase();
-
-            // Handle Watchlist State Indicators
-            updateTheaterWatchlistButtonUI();
-
-            // Build structural dropdown selector system if configuration type matches Web Series criteria
-            const seriesControlBox = document.getElementById('series-episode-teleportation-box');
-            if(globalActiveMediaType === 'tv') {
-                seriesControlBox.style.display = 'block';
-                populateDynamicSeriesDropdownArrays();
-            } else {
-                seriesControlBox.style.display = 'none';
+            // If user deletes query contents completely, return application safely to home dashboard
+            if(!queryValue) {
+                if(event.key === 'Enter' || event.keyCode === 13) {
+                    resetToHomeDashboard();
+                }
+                return;
             }
 
-            // Execute core injection sequence
-            compileActiveStreamIframeSource();
+            // Fire query transmission channel explicitly on Enter click
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                
+                const titleElement = document.getElementById('grid-category-title');
+                titleElement.innerText = `Search Matrix Results for: "${queryValue}"`;
+                
+                switchViewContextState('grid');
+                
+                const searchEndpoint = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(queryValue)}`;
+                
+                fetch(searchEndpoint)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.results) {
+                            // Strip incoming assets lacking structural visual display elements to keep layout clean
+                            const validatedAssets = data.results.filter(asset => asset.poster_path || asset.backdrop_path);
+                            renderArrayToTargetDOM(validatedAssets, 'grid-content-target', 'movie');
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Search Core Query Execution Halt:", err);
+                    });
+            }
+        }
+
+        // --- DEDICATED CINEMATIC PLAYER ENGINE INTERFACE WRAPPER ---
+        window.routeToDedicatedPlayer = function(id, title, type, year) {
+            runtimeActiveId = id;
+            runtimeActiveType = (type === 'tv' || type === 'series') ? 'tv' : 'movie';
+            runtimeActiveServer = 1; // Default fallback to Server Route 1 safely
+
+            // Shift Active Window Context Elements
+            switchViewContextState('player');
+
+            // Inject Metadata Parameter Text Assets
+            document.getElementById('theater-title').innerText = title;
+            document.getElementById('theater-badge-year').innerText = year || "2026";
+            document.getElementById('theater-badge-type').innerText = runtimeActiveType === 'tv' ? 'WEB SERIES' : 'MOVIE';
+
+            // Configure Episode Dropdowns layout if target classification matches TV structural components
+            const seriesNavigatorBox = document.getElementById('series-episode-navigator-box');
+            if(runtimeActiveType === 'tv') {
+                seriesNavigatorBox.style.display = 'block';
+                buildTargetSeriesSelectors();
+            } else {
+                seriesNavigatorBox.style.display = 'none';
+            }
+
+            // Sync Server UI buttons status element highlights
+            synchronizeServerButtonHighlights();
+
+            // Run active iframe constructor execution channel
+            rebuildActiveIframeSource();
             window.scrollTo(0,0);
         };
 
-        function populateDynamicSeriesDropdownArrays() {
-            const seasonSelect = document.getElementById('season-selector');
-            const episodeSelect = document.getElementById('episode-selector');
+        function buildTargetSeriesSelectors() {
+            const seasonDropdown = document.getElementById('player-season-select');
+            const episodeDropdown = document.getElementById('player-episode-select');
+
+            seasonDropdown.innerHTML = "";
+            episodeDropdown.innerHTML = "";
+
+            // Highly lightweight, standard deterministic loop model block (Supports standard 8 seasons safely)
+            for(let s = 1; s <= 8; s++) {
+                let optionNode = document.createElement('option');
+                optionNode.value = s;
+                optionNode.innerText = `Season ${s}`;
+                seasonDropdown.appendChild(optionNode);
+            }
+
+            for(let e = 1; e <= 24; e++) {
+                let optionNode = document.createElement('option');
+                optionNode.value = e;
+                optionNode.innerText = `Episode ${e}`;
+                episodeDropdown.appendChild(optionNode);
+            }
+        }
+
+        function switchActiveServerRoute(serverRouteIndex) {
+            runtimeActiveServer = serverRouteIndex;
+            synchronizeServerButtonHighlights();
+            rebuildActiveIframeSource();
+        }
+
+        function synchronizeServerButtonHighlights() {
+            document.querySelectorAll('.server-btn').forEach(btn => btn.classList.remove('active-server'));
+            const targetActiveBtn = document.getElementById(`srv-${runtimeActiveServer}`);
+            if(targetActiveBtn) targetActiveBtn.classList.add('active-server');
+        }
+
+        function rebuildActiveIframeSource() {
+            const iframeRoot = document.getElementById('player-iframe-root');
             
-            seasonSelect.innerHTML = "";
-            episodeSelect.innerHTML = "";
-
-            // Dynamic mock injection generation schema architecture (Supports up to standard 5 seasons layout safely)
-            for(let s=1; s<=5; s++) {
-                let opt = document.createElement('option');
-                opt.value = s; opt.innerText = `Season ${s}`;
-                seasonSelect.appendChild(opt);
-            }
-            for(let e=1; e<=20; e++) {
-                let opt = document.createElement('option');
-                opt.value = e; opt.innerText = `Episode ${e}`;
-                episodeSelect.appendChild(opt);
-            }
-        }
-
-        function synchronizeEpisodeStreamNode() {
-            compileActiveStreamIframeSource();
-        }
-
-        function switchActiveServerNode(serverIndex) {
-            globalActiveServerIndex = serverIndex;
-            document.querySelectorAll('.server-route-btn').forEach(b => b.classList.remove('active-server'));
-            document.getElementById(`srv-node-${serverIndex}`).classList.add('active-server');
-            compileActiveStreamIframeSource();
-        }
-
-        function compileActiveStreamIframeSource() {
-            const iframeContainer = document.getElementById('video-frame-target');
-            const seasonVal = document.getElementById('season-selector').value || 1;
-            const episodeVal = document.getElementById('episode-selector').value || 1;
+            // Extract active contextual selection properties for series calculations safely
+            const seasonElement = document.getElementById('player-season-select');
+            const episodeElement = document.getElementById('player-episode-select');
             
-            let sourceUrl = "";
+            const selectedSeason = seasonElement && seasonElement.value ? seasonElement.value : 1;
+            const selectedEpisode = episodeElement && episodeElement.value ? episodeElement.value : 1;
 
-            // Compilation matrix architecture routing engine matching cross-origin parameters
-            if(globalActiveServerIndex === 1) {
-                sourceUrl = globalActiveMediaType === 'movie' 
-                    ? `https://vidsrc.to/embed/movie/${globalActiveTmdbId}`
-                    : `https://vidsrc.to/embed/tv/${globalActiveTmdbId}/${seasonVal}/${episodeVal}`;
-            } else if(globalActiveServerIndex === 2) {
-                sourceUrl = globalActiveMediaType === 'movie'
-                    ? `https://embed.2embed.to/embed/tmdb/movie?id=${globalActiveTmdbId}`
-                    : `https://embed.2embed.to/embed/tmdb/tv?id=${globalActiveTmdbId}&s=${seasonVal}&e=${episodeVal}`;
-            } else if(globalActiveServerIndex === 3) {
-                sourceUrl = globalActiveMediaType === 'movie'
-                    ? `https://vidsrc.me/embed/movie?tmdb=${globalActiveTmdbId}`
-                    : `https://vidsrc.me/embed/tv?tmdb=${globalActiveTmdbId}&sea=${seasonVal}&epi=${episodeVal}`;
-            } else if(globalActiveServerIndex === 4) {
-                sourceUrl = globalActiveMediaType === 'movie'
-                    ? `https://vidsrc.cc/vidsrc/movie/${globalActiveTmdbId}`
-                    : `https://vidsrc.cc/vidsrc/tv/${globalActiveTmdbId}/${seasonVal}/${episodeVal}`;
+            let constructedUrl = "";
+
+            // --- MULTI-SERVER STRUCTURAL RESOLVER PARSER ---
+            // Precise cross-origin data path bindings for 2026 modern stream providers
+            if(runtimeActiveServer === 1) {
+                constructedUrl = runtimeActiveType === 'movie'
+                    ? `https://vidsrc.to/embed/movie/${runtimeActiveId}`
+                    : `https://vidsrc.to/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
+            } 
+            else if(runtimeActiveServer === 2) {
+                constructedUrl = runtimeActiveType === 'movie'
+                    ? `https://vidsrc.me/embed/movie?tmdb=${runtimeActiveId}`
+                    : `https://vidsrc.me/embed/tv?tmdb=${runtimeActiveId}&sea=${selectedSeason}&epi=${selectedEpisode}`;
+            } 
+            else if(runtimeActiveServer === 3) {
+                constructedUrl = runtimeActiveType === 'movie'
+                    ? `https://embed.su/embed/movie/${runtimeActiveId}`
+                    : `https://embed.su/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
+            } 
+            else if(runtimeActiveServer === 4) {
+                constructedUrl = runtimeActiveType === 'movie'
+                    ? `https://vidsrc.cc/vidsrc/movie/${runtimeActiveId}`
+                    : `https://vidsrc.cc/vidsrc/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
             }
 
-            iframeContainer.innerHTML = `<iframe src="${sourceUrl}" allowfullscreen referrerpolicy="origin"></iframe>`;
+            // Inject compiled tracking address safely into the core sandboxed DOM Node container
+            iframeRoot.innerHTML = `
+                <iframe 
+                    src="${constructedUrl}" 
+                    allowfullscreen 
+                    scrolling="no"
+                    referrerpolicy="origin"
+                    allow="autoplay; encrypted-media; picture-in-picture">
+                </iframe>`;
         }
-
-        window.exitPlayerPage = function() {
-            document.getElementById('player-page-view').style.display = 'none';
-            document.getElementById('main-website-view').style.display = 'block';
-            document.getElementById('video-frame-target').innerHTML = ""; // Terminate background process thread instantly
-        };
-
-        // 5. INTERACTIVE COMPONENT AND USER STATE SERVICES
-        function toggleLocalWatchlistEvent(id, e) {
-            e.stopPropagation(); // Avoid triggering card routing event chain
-            id = String(id);
-            if(userPlatformWatchlist.includes(id)) {
-                userPlatformWatchlist = userPlatformWatchlist.filter(item => item !== id);
-                alert("Title detached from temporary watchlist registry.");
-            } else {
-                userPlatformWatchlist.push(id);
-                alert("Title successfully prioritized to local watchlist storage container.");
-            }
-            localStorage.setItem('ott_watchlist', JSON.stringify(userPlatformWatchlist));
-            loadAllPremiumSections();
-        }
-
-        function toggleTheaterWatchlist() {
-            if(!globalActiveTmdbId) return;
-            const strId = String(globalActiveTmdbId);
-            if(userPlatformWatchlist.includes(strId)) {
-                userPlatformWatchlist = userPlatformWatchlist.filter(i => i !== strId);
-            } else {
-                userPlatformWatchlist.push(strId);
-            }
-            localStorage.setItem('ott_watchlist', JSON.stringify(userPlatformWatchlist));
-            updateTheaterWatchlistButtonUI();
-        }
-
-        function updateTheaterWatchlistButtonUI() {
-            const btn = document.getElementById('player-watchlist-toggle');
-            const strId = String(globalActiveTmdbId);
-            if(userPlatformWatchlist.includes(strId)) {
-                btn.className = "action-icon-btn active-state";
-                btn.innerHTML = `<i class="fas fa-check"></i> Added to Watchlist`;
-            } else {
-                btn.className = "action-icon-btn";
-                btn.innerHTML = `<i class="fas fa-plus"></i> Add to Watchlist`;
-            }
-        }
-
-        function toggleTheaterLike(buttonElement) {
-            buttonElement.classList.toggle('active-state');
-            if(buttonElement.classList.contains('active-state')) {
-                buttonElement.style.color = "#00ffcc";
-            } else {
-                buttonElement.style.color = "#ffffff";
-            }
-        }
-
-        function switchInteractiveTab(event, targetPaneId) {
-            document.querySelectorAll('.matrix-tab-trigger').forEach(t => t.classList.remove('active-tab'));
-            document.querySelectorAll('.tab-pane-content').forEach(p => p.classList.remove('active-pane'));
-            
-            event.target.classList.add('active-tab');
-            document.getElementById(targetPaneId).classList.add('active-pane');
-        }
-
-        function addReviewToFeed() {
-            const inputField = document.getElementById('user-review-input');
-            const text = inputField.value.trim();
-            if(!text) return;
-
-            const feedWrapper = document.getElementById('user-reviews-feed-wrapper');
-            const commentNode = document.createElement('div');
-            commentNode.className = 'user-feed-comment';
-            commentNode.innerHTML = `
-                <div class="avatar-mock" style="color:var(--primary);">UR</div>
-                <div class="comment-text-block">
-                    <h5>Anonymous_Critic</h5>
-                    <p>${text}</p>
-                </div>
-            `;
-            feedWrapper.insertBefore(commentNode, feedWrapper.firstChild);
-            inputField.value = "";
-        }
-
-        // 6. HARDWARE AUDIO BOOSTER FILTER UTILITY
-        function toggleSonicAmplifierPanel() {
-            const panel = document.getElementById('sonicBoostPanel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-        }
-
-        document.getElementById('sonicVolumeSlider').addEventListener('input', (e) => {
-            const value = parseFloat(e.target.value);
-            const percentage = Math.round(value * 100);
-            
-            let statusSuffix = " (Normal)";
-            if(percentage > 100 && percentage <= 180) statusSuffix = " (Turbo Boost)";
-            if(percentage > 180) statusSuffix = " (Maximum Level Danger ⚠️)";
-            
-            document.getElementById('sonicVolText').innerText = `${percentage}%${statusSuffix}`;
-            
-            // Standard hook connection interface mapping to match executeHardwareAmplification core architectures
-            if(typeof executeHardwareAmplification === 'function') {
-                executeHardwareAmplification(value);
-            }
-        });
-
-        // Initialize Runtime Sequence Execution
-        document.addEventListener("DOMContentLoaded", loadAllPremiumSections);
     </script>
 </body>
 </html>
