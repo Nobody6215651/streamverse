@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    renderMovies(moviesDatabase);
+    if (typeof moviesDatabase !== 'undefined') {
+        renderMovies(moviesDatabase);
+    }
 });
 
 function renderMovies(moviesList) {
@@ -11,12 +13,11 @@ function renderMovies(moviesList) {
         const card = document.createElement('div');
         card.className = 'movie-card';
         
-        // FIXED: Puraane function openPlayer ko routeToDedicatedPlayer se replace kar dia hai taake player view inject ho sakay
         card.onclick = () => {
-            if (typeof routeToDedicatedPlayer === "function") {
-                routeToDedicatedPlayer(movie.tmdbId, movie.title, movie.type, movie.year);
+            if (typeof window.routeToDedicatedPlayer === "function") {
+                window.routeToDedicatedPlayer(movie.tmdbId, movie.title, movie.type, movie.year);
             } else {
-                console.error("Player engine not loaded yet!");
+                console.error("Streaming Core Engine down!");
             }
         };
         
@@ -33,12 +34,13 @@ function renderMovies(moviesList) {
 }
 
 function filterCategory(cat) {
+    const container = document.getElementById('current-category-title');
     if(cat === 'all') {
-        document.getElementById('current-category-title').innerText = "All Movies & Web Series";
+        container.innerText = "All Movies & Web Series";
         renderMovies(moviesDatabase);
     } else {
-        document.getElementById('current-category-title').innerText = cat + " Section";
-        const filtered = moviesDatabase.filter(m => m.category === cat);
+        container.innerText = cat.toUpperCase() + " Section";
+        const filtered = moviesDatabase.filter(m => m.category.toLowerCase() === cat.toLowerCase());
         renderMovies(filtered);
     }
 }
