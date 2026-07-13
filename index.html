@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamVerse OTT - Live Automated Engine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style_2.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .loading-text { color: #aaa; padding: 20px; font-size: 18px; text-align: center; width: 100%; }
         .movie-card { cursor: pointer; }
@@ -45,7 +45,7 @@
                 <a href="#" class="nav-item" onclick="loadCategory('series', event)">Web Series</a>
             </nav>
             <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Type ANY movie or series..." onkeyup="searchTMDB()">
+                <input type="text" id="search-bar" placeholder="Type ANY movie or series..." onkeyup="searchHandler()">
                 <i class="fas fa-search search-icon"></i>
             </div>
         </header>
@@ -94,40 +94,33 @@
         </div>
     </div>
 
-    <div class="ai-fab" id="aiBtn" onclick="toggleAIPanel()"><i class="fas fa-robot"></i></div>
-    <div class="ai-panel" id="aiPanel">
-        <div class="ai-header">
-            <h4>StreamVerse <span>Creator AI v3</span></h4>
-            <i class="fas fa-times" style="cursor:pointer;" onclick="toggleAIPanel()"></i>
-        </div>
-        <div class="ai-chat-box" id="aiChatBox">
-            <div class="chat-msg bot">Shahzade! Humne complex load-balancing pipeline direct master server se connect kar di hai. Ab data crash nahi hoga!</div>
-        </div>
-        <div class="ai-input-area">
-            <input type="text" id="aiInputField" placeholder="Ask layout tips..." onkeypress="if(event.key==='Enter') askCreatorAI()">
-            <button onclick="askCreatorAI()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- Core Database Logic Configuration -->
-    <script src="movie_data_2.js"></script>
+    <!-- Core Dependencies (Fixed Filenames to match your exact directory) -->
+    <script src="movie_data.js"></script>
     <script src="hollywood_servers.js"></script>
     <script src="bollywood_servers.js"></script>
+    <script src="player.js"></script>
+    <script src="series_fixer.js"></script>
+    <script src="booster.js"></script>
+    <script src="app.js"></script>
 
 <script>
     const API_KEY = "82e880c89dbf119b940e034ed32a3498";
     let searchTimeout = null;
 
-    // Fixed Initializer Sequence
-    document.addEventListener("DOMContentLoaded", () => { 
-        if(typeof moviesDatabase !== 'undefined' && moviesDatabase.length > 0) {
-            // Agar local database file read ho gayi hai, to wahan se direct display karo
-            displayGrid(moviesDatabase, 'mixed');
-        } else {
-            // Backup fetch from live cloud routing
-            loadCategory('trending'); 
+    // Route search queries based on state
+    function searchHandler() {
+        let query = document.getElementById('search-bar').value.trim();
+        if(!query) {
+            if(typeof moviesDatabase !== 'undefined') { renderMovies(moviesDatabase); } else { loadCategory('trending'); }
+            return;
         }
-    });
+        // If user typed, query local DB first, then backup from cloud
+        if(typeof searchMovies === 'function') {
+            searchMovies();
+        } else {
+            searchTMDB();
+        }
+    }
 
     async function loadCategory(cat, event = null) {
         if(event) {
@@ -137,6 +130,12 @@
         }
         if (typeof exitPlayerPage === "function") exitPlayerPage();
         
+        // Check if user is navigating local categories via app.js routing
+        if(typeof filterCategory === 'function' && (cat === 'hollywood' || cat === 'bollywood')) {
+            filterCategory(cat);
+            return;
+        }
+
         const container = document.getElementById('movie-grid-container');
         container.innerHTML = "<div class='loading-text'>Connecting to master stream data...</div>";
         
@@ -159,99 +158,41 @@
         try {
             let response = await fetch(url);
             let data = await response.json();
-            displayGrid(data.results, typeParam);
+            displayTMDBGrid(data.results, typeParam);
         } catch (err) { 
             container.innerHTML = "<p style='color:red; text-align:center;'>Handshake timeout.</p>"; 
         }
     }
 
-    function searchTMDB() {
-        clearTimeout(searchTimeout);
-        let query = document.getElementById('search-bar').value.trim();
-        const container = document.getElementById('movie-grid-container');
-        if(!query) { loadCategory('trending'); return; }
-
-        searchTimeout = setTimeout(async () => {
-            container.innerHTML = "<div class='loading-text'>Scanning database query...</div>";
-            document.getElementById('current-category-title').innerText = `Results for: "${query}"`;
-            try {
-                let response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
-                let data = await response.json();
-                displayGrid(data.results.filter(item => item.poster_path), 'mixed');
-            } catch(e) { 
-                container.innerHTML = "<p style='color:red; text-align:center;'>Query failed.</p>"; 
-            }
-        }, 600);
-    }
-
-    function displayGrid(items, defaultType) {
+    function displayTMDBGrid(items, defaultType) {
         const container = document.getElementById('movie-grid-container');
         container.innerHTML = "";
-        if(!items || items.length === 0) { 
-            container.innerHTML = "<div class='loading-text'>No files found.</div>"; 
-            return; 
-        }
-
         items.forEach(item => {
             let title = item.title || item.name;
             let date = item.release_date || item.first_air_date || "N/A";
-            let year = item.year || date.split("-")[0];
-            let type = item.media_type || item.type || defaultType;
-            if(type === 'mixed') type = item.title ? 'movie' : 'tv';
-            
-            // Handle both TMDB dynamic image paths and local full URL strings
-            let poster = item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : (item.poster || '');
+            let year = date.split("-")[0];
+            let type = item.media_type || defaultType;
+            let poster = `https://image.tmdb.org/t/p/w400${item.poster_path}`;
 
             const card = document.createElement('div');
             card.className = 'movie-card';
-            
-            // Map the runtime mapping id variable accurately
-            let targetId = item.tmdbId || item.id;
-            
-            card.onclick = () => {
-                if(typeof routeToDedicatedPlayer === "function") {
-                    routeToDedicatedPlayer(targetId, title, type, year);
-                } else {
-                    alert("Streaming engine initializing, please wait.");
-                }
-            };
-            
+            card.onclick = () => routeToDedicatedPlayer(item.id, title, type, year);
             card.innerHTML = `
-                <span class="badge">${type === 'movie' ? '4K' : 'SERIES'}</span>
-                <img class="movie-poster" src="${poster}" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=400'">
+                <span class="badge">4K CLOUD</span>
+                <img class="movie-poster" src="${poster}">
                 <div class="movie-info"><strong>${title}</strong><div style="color:#888; font-size:11px; margin-top:5px;">${year} | ${type.toUpperCase()}</div></div>
             `;
             container.appendChild(card);
         });
     }
 
-    function toggleAIPanel() { 
-        const panel = document.getElementById('aiPanel'); 
-        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex'; 
-    }
-    
-    async function askCreatorAI() {
-        const field = document.getElementById('aiInputField'); 
-        const box = document.getElementById('aiChatBox'); 
-        let txt = field.value.trim(); 
-        if(!txt) return;
-        let uDiv = document.createElement('div'); uDiv.className = "chat-msg user"; uDiv.innerText = txt; box.appendChild(uDiv); field.value = "";
-        let bDiv = document.createElement('div'); bDiv.className = "chat-msg bot"; bDiv.innerText = "Optimizing..."; box.appendChild(bDiv); box.scrollTop = box.scrollHeight;
-        setTimeout(() => { bDiv.innerHTML = "Master pipeline running optimally!"; box.scrollTop = box.scrollHeight; }, 800);
-    }
-
     window.tryAlternativeSource = function() {
-        if (typeof activeTmdbId === 'undefined' || !activeTmdbId) return alert("No active media loaded");
+        if (!activeTmdbId) return alert("No active media loaded");
         let altUrl = currentType === 'movie' 
             ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
             : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
         document.getElementById('video-frame-target').innerHTML = `<iframe src="${altUrl}" allowfullscreen style="width:100%;height:520px;border:none;"></iframe>`;
     };
 </script>
-
-    <!-- UI Interaction Stream Modules -->
-    <script src="player_3.js"></script>
-    <script src="series_fixer_3.js"></script>
-    <script src="booster_3.js"></script>
 </body>
 </html>
