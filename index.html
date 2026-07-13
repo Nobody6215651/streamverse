@@ -137,33 +137,22 @@
 
 <script>
     const API_KEY = "82e880c89dbf119b940e034ed32a3498";
-    let activeTmdbId = null;
-    let currentType = 'movie';
+    let searchTimeout = null;
 
-    // 1. CORE ROUTING ENGINE FOR THE CLICK ACTION (The Fixed Missing Links)
-    window.routeToDedicatedPlayer = function(id, title, type, year) {
-        if(!id) {
-            alert("Streaming link compilation failed for this entry.");
-            return;
-        }
-        activeTmdbId = id;
-        currentType = type === 'tv' || type === 'series' ? 'tv' : 'movie';
+    document.addEventListener("DOMContentLoaded", () => { 
+        loadCategory('trending'); 
+    });
 
-        // Interface Switching Logic
-        document.getElementById('main-website-view').style.display = 'none';
-        document.getElementById('player-page-view').style.display = 'block';
-        
-        document.getElementById('player-media-title').innerText = title;
-        document.getElementById('player-media-meta').innerText = `${currentType.toUpperCase()} | ${year || '2026'}`;
+    // ... (loadCategory, searchTMDB, displayGrid, toggleAIPanel, askCreatorAI same rakh sakte ho)
 
-        // Stream Injection Source
-        const target = document.getElementById('video-frame-target');
-        let standardSource = currentType === 'movie'
-            ? `https://vidsrc.to/embed/movie/${id}`
-            : `https://vidsrc.to/embed/tv/${id}/1/1`;
-
-        target.innerHTML = `<iframe src="${standardSource}" allowfullscreen></iframe>`;
-
+    window.tryAlternativeSource = function() {
+        if (!activeTmdbId) return alert("No media selected");
+        const altUrl = currentType === 'movie' 
+            ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
+            : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
+        document.getElementById('video-frame-target').innerHTML = `<iframe src="${altUrl}" allowfullscreen style="width:100%;height:520px;border:none;"></iframe>`;
+    };
+</script>
         // Process Web Series logic if available
         const dropdownWrapper = document.getElementById('episodes-dropdown-wrapper');
         if (currentType === 'tv' && typeof setupSeriesDropdowns === 'function') {
