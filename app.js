@@ -4,15 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function renderMovies(moviesList) {
     const container = document.getElementById('movie-grid-container');
+    if (!container) return;
     container.innerHTML = "";
     
     moviesList.forEach(movie => {
         const card = document.createElement('div');
         card.className = 'movie-card';
-        card.onclick = () => openPlayer(movie.tmdbId, movie.title, movie.type, movie.season, movie.episode);
+        
+        // FIXED: Puraane function openPlayer ko routeToDedicatedPlayer se replace kar dia hai taake player view inject ho sakay
+        card.onclick = () => {
+            if (typeof routeToDedicatedPlayer === "function") {
+                routeToDedicatedPlayer(movie.tmdbId, movie.title, movie.type, movie.year);
+            } else {
+                console.error("Player engine not loaded yet!");
+            }
+        };
         
         card.innerHTML = `
-            <span class="badge">${movie.quality}</span>
+            <span class="badge">${movie.quality || 'HD'}</span>
             <img class="movie-poster" src="${movie.poster}">
             <div class="movie-info">
                 <strong>${movie.title}</strong>
