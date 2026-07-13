@@ -6,14 +6,512 @@
     <title>StreamVerse Premium - Resilient Content Delivery Platform</title>
     <!-- Vector Asset Icons Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Production CSS Sheet -->
-<link rel="stylesheet" href="style.css">
+    
+    <!-- INTERNAL OPTIMIZED CSS (No external file needed now!) -->
+    <style>
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff1e27;
+            --bg-dark: #070707;
+            --bg-card: #121212;
+            --bg-navbar: #000000;
+            --text-light: #ffffff;
+            --text-gray: #a3a3a3;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glass-accent: rgba(229, 9, 20, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252525;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 4%;
+            background: var(--bg-navbar);
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            user-select: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+        }
+
+        .nav-btn {
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-btn.active {
+            border-bottom: 2px solid var(--primary);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        #search-bar {
+            background: #121212;
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 10px 16px 10px 40px;
+            border-radius: 20px;
+            width: 230px;
+            outline: none;
+            font-size: 13px;
+            transition: all 0.25s ease-in-out;
+        }
+
+        #search-bar:focus {
+            border-color: var(--primary);
+            width: 280px;
+            background: #1a1a1a;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--text-gray);
+            pointer-events: none;
+        }
+
+        .hero-banner {
+            position: relative;
+            height: 45vh;
+            background: linear-gradient(to top, var(--bg-dark) 8%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85)),
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            color: #e5e5e5;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .play-btn {
+            background: var(--text-light);
+            color: #000;
+            border: none;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 800;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .play-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .main-content {
+            padding: 25px 4%;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .movie-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .poster-zoom-wrapper {
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 2/3;
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 10px;
+        }
+
+        .movie-info strong {
+            display: block;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            color: var(--text-light);
+        }
+
+        .metadata-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-gray);
+        }
+
+        .type-pill {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--primary);
+            padding: 2px 5px;
+            font-size: 9px;
+            font-weight: 800;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        #player-page-view {
+            padding: 25px 4%;
+        }
+
+        .back-row {
+            margin-bottom: 15px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .theater-layout {
+            display: grid;
+            grid-template-columns: 3.3fr 1.2fr;
+            gap: 20px;
+        }
+
+        @media(max-width: 1024px) {
+            .theater-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-frame-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .video-frame-container iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .routing-shimmer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .player-details-card {
+            margin-top: 15px;
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .player-details-card h1 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .player-details-card p {
+            color: var(--text-gray);
+            font-size: 12px;
+        }
+
+        .control-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .control-widget-box {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .control-widget-box h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 6px;
+        }
+
+        #audio-frequency-canvas {
+            width: 100%;
+            height: 40px;
+            background: #020202;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid var(--card-border);
+        }
+
+        .episodes-dropdown-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .select-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .select-field label {
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--text-gray);
+        }
+
+        .select-field select {
+            background: #0f0f0f;
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .server-pool-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .server-pool-label {
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--text-gray);
+        }
+
+        .server-btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .server-btn {
+            background: #0f0f0f;
+            border: 1px solid var(--card-border);
+            color: #cccccc;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .server-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        .server-btn.active {
+            background: rgba(229, 9, 20, 0.15);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .booster-controls-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .vol-btn {
+            background: #0f0f0f;
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            flex-grow: 1;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .vol-btn:hover {
+            background: var(--primary);
+        }
+
+        #volPercent {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--primary);
+            min-width: 35px;
+            text-align: center;
+        }
+
+        .empty-query-indicator {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-gray);
+            grid-column: 1 / -1;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ========================================================================== -->
     <!-- COMPONENT HEADER NAVIGATION INTERFACE -->
-    <!-- ========================================================================== -->
     <header class="navbar">
         <div class="logo" onclick="window.StreamVerseApp.filterSection('all')">Stream<span>Verse</span></div>
         <nav class="nav-links">
@@ -30,9 +528,7 @@
         </div>
     </header>
 
-    <!-- ========================================================================== -->
     <!-- PLATFORM VIEW ZONE 1: STANDARD USER INTERFACE CATALOG -->
-    <!-- ========================================================================== -->
     <main id="main-website-view">
         
         <!-- Premium Hero Showcase Banner -->
@@ -56,9 +552,7 @@
 
     </main>
 
-    <!-- ========================================================================== -->
     <!-- PLATFORM VIEW ZONE 2: PREMIUM THEATER INTERFACE -->
-    <!-- ========================================================================== -->
     <div id="player-page-view" style="display: none;">
         
         <div class="back-row">
@@ -128,9 +622,7 @@
         </div>
     </div>
 
-    <!-- ========================================================================== -->
     <!-- SECURE ORDERED SCRIPT DEPLOYMENT SEQUENCE -->
-    <!-- ========================================================================== -->
     <script src="js/movie_data.js"></script>
     <script src="js/hollywood_servers.js"></script>
     <script src="js/bollywood_servers.js"></script>
