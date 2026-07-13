@@ -1,5 +1,5 @@
 /**
- * StreamVerse Sensory Booster, Web Audio Pipeline and Dynamic Visualizer Canvas
+ * StreamVerse Sensory Booster - Performance Optimized Audio Engine
  * Path: /js/booster.js
  */
 (function (window) {
@@ -31,15 +31,14 @@
                     this.audioCtx = new AudioContextClass();
                     this.gainNode = this.audioCtx.createGain();
                     this.analyser = this.audioCtx.createAnalyser();
-                    this.analyser.fftSize = 256; // Standard fast Fourier transform parameter
+                    this.analyser.fftSize = 128; // Lower complexity from 256 to 128 for lightweight CPU rendering
 
                     this.gainNode.connect(this.analyser);
                     this.analyser.connect(this.audioCtx.destination);
                     this.initialized = true;
-                    console.log("[Sensory Engine] Dynamic Web Audio routing pipeline successfully established.");[span_70](start_span)[span_70](end_span)
                 }
             } catch (err) {
-                console.warn("[Sensory Engine Alert] Direct hardware context access restricted by security policy. Initiating simulation fallback.");
+                console.warn("[Sensory Engine] Safe fallback context operational.");
             }
         }
 
@@ -62,7 +61,7 @@
                     player.contentWindow.postMessage({ type: 'BOOST_VOLUME', value: value }, '*');
                 }
             } catch (err) {
-                // Cross-domain isolation mechanisms block active script interactions
+                // Isolated cross-origin bridge
             }
 
             if (this.initialized && this.gainNode) {
@@ -72,19 +71,13 @@
                 this.gainNode.gain.setValueAtTime(value, this.audioCtx.currentTime);
             }
 
-            // GPU-accelerated sensory contrast amplification
+            // High performance transitions without heavy CSS layout paint reflows
             if (value > 1.0) {
-                const visualContrastBoost = 1.0 + (value - 1.0) * 0.4;
-                player.style.filter = `contrast(1.15) brightness(${visualContrastBoost})`;
-            } else {
-                player.style.filter = "none";
-            }
-
-            console.log(`🔊 [Sensory Amplification Active] Multiplier Scale: ${value}x`);
-
-            if (value > 1.0) {
+                const visualContrastBoost = 1.0 + (value - 1.0) * 0.3;
+                player.style.filter = `contrast(1.1) brightness(${visualContrastBoost})`;
                 this.startRenderLoop();
             } else {
+                player.style.filter = "none";
                 this.stopRenderLoop();
             }
         }
@@ -93,7 +86,7 @@
             this.stopRenderLoop();
             if (!this.canvasCtx || !this.canvas) return;
 
-            const bufferLength = this.analyser ? this.analyser.frequencyBinCount : 128;
+            const bufferLength = this.analyser ? this.analyser.frequencyBinCount : 64;
             const dataArray = new Uint8Array(bufferLength);
 
             const draw = () => {
@@ -105,27 +98,22 @@
                 if (this.initialized && this.analyser) {
                     this.analyser.getByteFrequencyData(dataArray);
                 } else {
-                    // Generate fluid synthetic spectrum curves if hardware level connection is suspended
                     for (let i = 0; i < bufferLength; i++) {
-                        dataArray[i] = Math.sin(Date.now() * 0.004 + i) * 35 + 60 + Math.random() * 20;
+                        dataArray[i] = Math.sin(Date.now() * 0.004 + i) * 20 + 50;
                     }
                 }
 
-                this.canvasCtx.fillStyle = 'rgba(7, 7, 7, 0.25)'; // Smooth bar trailing trace decay rate
+                this.canvasCtx.fillStyle = '#020202'; 
                 this.canvasCtx.fillRect(0, 0, w, h);
 
-                const barWidth = (w / bufferLength) * 2.5;
+                const barWidth = (w / bufferLength) * 2.0;
                 let barHeight;
                 let x = 0;
 
                 for (let i = 0; i < bufferLength; i++) {
-                    barHeight = (dataArray[i] / 255) * h * (this.currentBoosterValue * 0.85);
+                    barHeight = (dataArray[i] / 255) * h * (this.currentBoosterValue * 0.8);
 
-                    const red = 229;
-                    const green = Math.min(255, Math.floor(i * 1.8));
-                    const blue = Math.min(255, Math.floor(barHeight * 1.4));
-
-                    this.canvasCtx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+                    this.canvasCtx.fillStyle = `rgb(229, ${Math.min(255, i * 4)}, 20)`;
                     this.canvasCtx.fillRect(x, h - barHeight, barWidth - 1, barHeight);
 
                     x += barWidth;
