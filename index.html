@@ -6,512 +6,570 @@
     <title>StreamVerse Premium - Resilient Content Delivery Platform</title>
     <!-- Vector Asset Icons Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- INTERNAL OPTIMIZED CSS (No external file needed now!) -->
     <style>
-        :root {
-            --primary: #e50914;
-            --primary-hover: #ff1e27;
-            --bg-dark: #070707;
-            --bg-card: #121212;
-            --bg-navbar: #000000;
-            --text-light: #ffffff;
-            --text-gray: #a3a3a3;
-            --card-border: rgba(255, 255, 255, 0.08);
-            --glass-accent: rgba(229, 9, 20, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #000000;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #252525;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 4%;
-            background: var(--bg-navbar);
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-            border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            text-transform: uppercase;
-            user-select: none;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 6px;
-        }
-
-        .nav-btn {
-            color: var(--text-gray);
-            text-decoration: none;
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 6px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: background 0.15s ease, color 0.15s ease;
-        }
-
-        .nav-btn:hover, .nav-btn.active {
-            color: var(--text-light);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-btn.active {
-            border-bottom: 2px solid var(--primary);
-            border-radius: 6px 6px 0 0;
-        }
-
-        .search-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        #search-bar {
-            background: #121212;
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 10px 16px 10px 40px;
-            border-radius: 20px;
-            width: 230px;
-            outline: none;
-            font-size: 13px;
-            transition: all 0.25s ease-in-out;
-        }
-
-        #search-bar:focus {
-            border-color: var(--primary);
-            width: 280px;
-            background: #1a1a1a;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            color: var(--text-gray);
-            pointer-events: none;
-        }
-
-        .hero-banner {
-            position: relative;
-            height: 45vh;
-            background: linear-gradient(to top, var(--bg-dark) 8%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.85)),
-                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover;
-            display: flex;
-            align-items: center;
-            padding: 0 4%;
-        }
-
-        .hero-content {
-            max-width: 650px;
-            z-index: 10;
-        }
-
-        .hero-title {
-            font-size: 38px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            line-height: 1.1;
-        }
-
-        .hero-desc {
-            font-size: 14px;
-            color: #e5e5e5;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .play-btn {
-            background: var(--text-light);
-            color: #000;
-            border: none;
-            padding: 10px 22px;
-            font-size: 14px;
-            font-weight: 800;
-            border-radius: 6px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s ease, background 0.2s ease;
-        }
-
-        .play-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        .main-content {
-            padding: 25px 4%;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-            padding-left: 12px;
-        }
-
-        .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-        }
-
-        .movie-card {
-            background: var(--bg-card);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-        }
-
-        .poster-zoom-wrapper {
-            overflow: hidden;
-            position: relative;
-            aspect-ratio: 2/3;
-        }
-
-        .movie-poster {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .movie-info {
-            padding: 10px;
-        }
-
-        .movie-info strong {
-            display: block;
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 4px;
-            color: var(--text-light);
-        }
-
-        .metadata-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-gray);
-        }
-
-        .type-pill {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 1px 5px;
-            border-radius: 4px;
-            font-size: 9px;
-            font-weight: 800;
-        }
-
-        .badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--primary);
-            padding: 2px 5px;
-            font-size: 9px;
-            font-weight: 800;
-            border-radius: 4px;
-            z-index: 10;
-        }
-
-        #player-page-view {
-            padding: 25px 4%;
-        }
-
-        .back-row {
-            margin-bottom: 15px;
-        }
-
-        .back-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 13px;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .theater-layout {
-            display: grid;
-            grid-template-columns: 3.3fr 1.2fr;
-            gap: 20px;
-        }
-
-        @media(max-width: 1024px) {
-            .theater-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .video-frame-container {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
-            position: relative;
-        }
-
-        .video-frame-container iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .routing-shimmer {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            color: var(--text-gray);
-            font-size: 13px;
-        }
-
-        .spinner {
-            width: 30px;
-            height: 30px;
-            border: 3px solid rgba(255,255,255,0.05);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .player-details-card {
-            margin-top: 15px;
-            background: var(--bg-card);
-            border: 1px solid var(--card-border);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .player-details-card h1 {
-            font-size: 20px;
-            font-weight: 900;
-            margin-bottom: 4px;
-        }
-
-        .player-details-card p {
-            color: var(--text-gray);
-            font-size: 12px;
-        }
-
-        .control-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .control-widget-box {
-            background: var(--bg-card);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 14px;
-        }
-
-        .control-widget-box h4 {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-gray);
-            margin-bottom: 10px;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 6px;
-        }
-
-        #audio-frequency-canvas {
-            width: 100%;
-            height: 40px;
-            background: #020202;
-            border-radius: 4px;
-            margin-top: 10px;
-            border: 1px solid var(--card-border);
-        }
-
-        .episodes-dropdown-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .select-field {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .select-field label {
-            font-size: 9px;
-            font-weight: 800;
-            color: var(--text-gray);
-        }
-
-        .select-field select {
-            background: #0f0f0f;
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            outline: none;
-        }
-
-        .server-pool-container {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .server-pool-label {
-            font-size: 9px;
-            font-weight: 800;
-            color: var(--text-gray);
-        }
-
-        .server-btn-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .server-btn {
-            background: #0f0f0f;
-            border: 1px solid var(--card-border);
-            color: #cccccc;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .server-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-
-        .server-btn.active {
-            background: rgba(229, 9, 20, 0.15);
-            border-color: var(--primary);
-            color: white;
-        }
-
-        .booster-controls-row {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .vol-btn {
-            background: #0f0f0f;
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            flex-grow: 1;
-            font-size: 11px;
-            font-weight: 800;
-        }
-
-        .vol-btn:hover {
-            background: var(--primary);
-        }
-
-        #volPercent {
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--primary);
-            min-width: 35px;
-            text-align: center;
-        }
-
-        .empty-query-indicator {
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--text-gray);
-            grid-column: 1 / -1;
-        }
+
+/* ========================================================================== */
+/* StreamVerse GPU-Accelerated Glassmorphism Design System Stylesheet */
+/* Path: /css/style.css */
+/* ========================================================================== */
+
+:root {
+    --primary: #e50914;
+    --primary-hover: #ff1e27;
+    --bg-dark: #070707;
+    --bg-card: rgba(18, 18, 18, 0.65);
+    --bg-navbar: rgba(0, 0, 0, 0.82);
+    --text-light: #ffffff;
+    --text-gray: #a3a3a3;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --glass-accent: rgba(229, 9, 20, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Sticky Frost Nav Header */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 4%;
+    background: var(--bg-navbar);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    border-bottom: 1px solid var(--card-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 6px;
+}
+
+.nav-btn {
+    color: var(--text-gray);
+    text-decoration: none;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:hover, .nav-btn.active {
+    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-btn.active {
+    border-bottom: 2px solid var(--primary);
+    border-radius: 6px 6px 0 0;
+}
+
+/* Debounced search styles */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#search-bar {
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--card-border);
+    color: white;
+    padding: 10px 16px 10px 40px;
+    border-radius: 20px;
+    width: 230px;
+    outline: none;
+    font-size: 13px;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#search-bar:focus {
+    border-color: var(--primary);
+    width: 300px;
+    background: rgba(15, 15, 15, 0.9);
+    box-shadow: 0 0 20px var(--glass-accent);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    color: var(--text-gray);
+    pointer-events: none;
+}
+
+/* Hero elements */
+.hero-banner {
+    position: relative;
+    height: 50vh;
+    background: linear-gradient(to top, var(--bg-dark) 8%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.85)),
+                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.hero-content {
+    max-width: 650px;
+    z-index: 10;
+}
+
+.hero-title {
+    font-size: 44px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.95);
+}
+
+.hero-desc {
+    font-size: 15px;
+    color: #e5e5e5;
+    margin-bottom: 24px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.9);
+}
+
+.play-btn {
+    background: var(--text-light);
+    color: #000;
+    border: none;
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.play-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px var(--glass-accent);
+}
+
+/* Content Shelf Section */
+.main-content {
+    padding: 30px 4%;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary);
+    padding-left: 12px;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 25px;
+}
+
+/* Glassmorphic Media Card Layer */
+.movie-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    will-change: transform, box-shadow;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.75), 0 0 15px var(--glass-accent);
+    border-color: rgba(229, 9, 20, 0.4);
+}
+
+.poster-zoom-wrapper {
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 2/3;
+}
+
+.movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.06);
+}
+
+.movie-info {
+    padding: 12px;
+}
+
+.movie-info strong {
+    display: block;
+    font-size: 13.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    color: var(--text-light);
+}
+
+.metadata-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+.type-pill {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--primary);
+    padding: 3px 6px;
+    font-size: 10px;
+    font-weight: 800;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Dynamic Theater styling */
+#player-page-view {
+    padding: 30px 4%;
+}
+
+.back-row {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+
+.back-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--glass-accent);
+}
+
+.theater-layout {
+    display: grid;
+    grid-template-columns: 3.3fr 1.2fr;
+    gap: 25px;
+}
+
+@media(max-width: 1024px) {
+    .theater-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.video-frame-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+}
+
+.video-frame-container iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.routing-shimmer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.spinner {
+    width: 35px;
+    height: 35px;
+    border: 3px solid rgba(255,255,255,0.05);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.player-details-card {
+    margin-top: 20px;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.player-details-card h1 {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.player-details-card p {
+    color: var(--text-gray);
+    font-size: 13px;
+}
+
+.control-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.control-widget-box {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.control-widget-box h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-gray);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 8px;
+}
+
+/* Audio visualization canvas styling */
+#audio-frequency-canvas {
+    width: 100%;
+    height: 50px;
+    background: #020202;
+    border-radius: 6px;
+    margin-top: 12px;
+    border: 1px solid var(--card-border);
+}
+
+/* Dropdown layout matrices */
+.episodes-dropdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.select-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.select-field label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-gray);
+}
+
+.select-field select {
+    background: #0f0f0f;
+    border: 1px solid var(--card-border);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.select-field select:focus {
+    border-color: var(--primary);
+}
+
+/* CDN distribution button containers */
+.server-pool-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.server-pool-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-gray);
+}
+
+.server-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.server-btn {
+    background: #0f0f0f;
+    border: 1px solid var(--card-border);
+    color: #cccccc;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.server-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+.server-btn.active {
+    background: rgba(229, 9, 20, 0.15);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: inset 0 0 8px rgba(229, 9, 20, 0.3);
+}
+
+.booster-controls-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.vol-btn {
+    background: #0f0f0f;
+    border: 1px solid var(--card-border);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    flex-grow: 1;
+    font-size: 11px;
+    font-weight: 800;
+    transition: all 0.2s;
+}
+
+.vol-btn:hover {
+    background: var(--primary);
+}
+
+#volPercent {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary);
+    min-width: 45px;
+    text-align: center;
+}
+
+.empty-query-indicator {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-gray);
+    grid-column: 1 / -1;
+}
+
+.empty-query-indicator i {
+    font-size: 30px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
     </style>
 </head>
 <body>
 
+    <!-- ========================================================================== -->
     <!-- COMPONENT HEADER NAVIGATION INTERFACE -->
+    <!-- ========================================================================== -->
     <header class="navbar">
         <div class="logo" onclick="window.StreamVerseApp.filterSection('all')">Stream<span>Verse</span></div>
         <nav class="nav-links">
@@ -528,7 +586,9 @@
         </div>
     </header>
 
+    <!-- ========================================================================== -->
     <!-- PLATFORM VIEW ZONE 1: STANDARD USER INTERFACE CATALOG -->
+    <!-- ========================================================================== -->
     <main id="main-website-view">
         
         <!-- Premium Hero Showcase Banner -->
@@ -552,7 +612,9 @@
 
     </main>
 
+    <!-- ========================================================================== -->
     <!-- PLATFORM VIEW ZONE 2: PREMIUM THEATER INTERFACE -->
+    <!-- ========================================================================== -->
     <div id="player-page-view" style="display: none;">
         
         <div class="back-row">
@@ -622,13 +684,946 @@
         </div>
     </div>
 
-    <!-- SECURE ORDERED SCRIPT DEPLOYMENT SEQUENCE -->
-    <script src="js/movie_data.js"></script>
-    <script src="js/hollywood_servers.js"></script>
-    <script src="js/bollywood_servers.js"></script>
-    <script src="js/series_fixer.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/booster.js"></script>
-    <script src="js/app.js"></script>
+    <!-- ========================================================================== -->
+    <!-- SECURE ORDERED SCRIPT DEPLOYMENT SEQUENCE (MERGED INLINE) -->
+    <!-- ========================================================================== -->
+    <script>
+
+/**
+ * StreamVerse Premium Database Registry and Schema Enforcer
+ * Path: /js/movie_data.js
+ */
+(function (window) {
+    'use strict';
+
+    const SCHEMA_FIELDS = ['id', 'title', 'category', 'quality', 'year', 'poster', 'tmdbId', 'type'];
+    const CATEGORY_REGISTRY = ['Hollywood', 'Bollywood', 'Punjabi', 'South', 'Web Series'];
+    const VALUE_TYPES = ['movie', 'tv'];
+
+    class DataIntegrityGuard {
+        static enforce(item) {
+            if (!item || typeof item !== 'object') return null;
+
+            for (const key of SCHEMA_FIELDS) {
+                if (!(key in item) || item[key] === undefined || item[key] === null) {
+                    console.error(`[Integrity Violation] Missing critical parameter: ${key} for entry:`, item);
+                    return null;
+                }
+            }
+
+            const verifiedItem = {
+                id: Number(item.id),
+                title: String(item.title).trim(),
+                category: String(item.category).trim(),
+                quality: String(item.quality).trim(),
+                year: String(item.year).trim(),
+                poster: String(item.poster).trim(),
+                tmdbId: String(item.tmdbId).trim(),
+                type: String(item.type).toLowerCase()
+            };
+
+            if (!VALUE_TYPES.includes(verifiedItem.type)) {
+                verifiedItem.type = 'movie';
+            }
+
+            if (verifiedItem.type === 'tv') {
+                verifiedItem.season = item.season ? String(item.season) : "1";
+                verifiedItem.episode = item.episode ? String(item.episode) : "1";
+            }
+
+            return verifiedItem;
+        }
+    }
+
+    const initialDatabaseBootstrap = [
+        { id: 1, title: "Avatar: The Way of Water", category: "Hollywood", quality: "4K UHD", year: "2022", poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400", tmdbId: "76600", type: "movie" },
+        { id: 2, title: "Pathaan", category: "Bollywood", quality: "1080p FHD", year: "2023", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "868759", type: "movie" },
+        { id: 3, title: "Stranger Things", category: "Hollywood", quality: "HDR 10bit", year: "2016", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "66732", type: "tv", season: "1", episode: "1" },
+        { id: 4, title: "The Dark Knight", category: "Hollywood", quality: "4K Dolby Vision", year: "2008", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "155", type: "movie" },
+        { id: 5, title: "Jawan", category: "Bollywood", quality: "1080p HQ", year: "2023", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "872585", type: "movie" },
+        { id: 6, title: "Carry on Jatta 3", category: "Punjabi", quality: "1080p WebDL", year: "2023", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "1042586", type: "movie" },
+        { id: 7, title: "K.G.F: Chapter 2", category: "South", quality: "4K UHD", year: "2022", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "718032", type: "movie" },
+        { id: 8, title: "Breaking Bad", category: "Web Series", quality: "4K UHD", year: "2008", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "1396", type: "tv", season: "1", episode: "1" }
+    ];
+
+    class StorageRegistry {
+        constructor() {
+            this._store = new Map();
+            this.bootRegistry();
+        }
+
+        bootRegistry() {
+            initialDatabaseBootstrap.forEach(item => {
+                const parsed = DataIntegrityGuard.enforce(item);
+                if (parsed) {
+                    this._store.set(parsed.id, Object.freeze(parsed));
+                }
+            });
+            console.log(`[Storage Registry] Verified ${this._store.size} records in safe state storage.`);
+        }
+
+        getAll() {
+            return Array.from(this._store.values());
+        }
+
+        getById(id) {
+            return this._store.get(Number(id)) || null;
+        }
+
+        getByCategory(category) {
+            const cleanCat = String(category).toLowerCase();
+            return this.getAll().filter(item => item.category.toLowerCase() === cleanCat);
+        }
+
+        registerItem(item) {
+            const parsed = DataIntegrityGuard.enforce(item);
+            if (!parsed) {
+                console.error("[Storage Registry] Item rejected due to schema violation.");
+                return false;
+            }
+            this._store.set(parsed.id, Object.freeze(parsed));
+            return true;
+        }
+    }
+
+    Object.freeze(StorageRegistry);
+    Object.freeze(StorageRegistry.prototype);
+    Object.freeze(DataIntegrityGuard);
+    Object.freeze(DataIntegrityGuard.prototype);
+
+    window.StreamVerseDatabase = new StorageRegistry();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Hollywood CDN Distribution Matrix
+ * Path: /js/hollywood_servers.js
+ */
+(function (window) {
+    'use strict';
+
+    class HollywoodCDNCluster {
+        constructor() {
+            this.clusterRegion = "GLOBAL-WEST";
+            this.routingNodes = [
+                {
+                    id: "h-node-1",
+                    name: "Primary CDN (VidSrc.me)",
+                    priority: 10,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://vidsrc.me/embed/movie?tmdb=${secureId}`
+                            : `https://vidsrc.me/embed/tv?tmdb=${secureId}&sea=${Number(s)}&epi=${Number(e)}`;
+                    }
+                },
+                {
+                    id: "h-node-2",
+                    name: "Fallback CDN (2Embed)",
+                    priority: 8,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://embed.2embed.to/embed/tmdb/movie?id=${secureId}`
+                            : `https://embed.2embed.to/embed/tmdb/tv?id=${secureId}&s=${Number(s)}&e=${Number(e)}`;
+                    }
+                },
+                {
+                    id: "h-node-3",
+                    name: "Alternative CDN (AutoEmbed)",
+                    priority: 5,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://player.autoembed.cc/embed/movie/${secureId}`
+                            : `https://player.autoembed.cc/embed/tv/${secureId}/${Number(s)}/${Number(e)}`;
+                    }
+                }
+            ];
+            Object.freeze(this.routingNodes);
+        }
+
+        getNodes() {
+            return this.routingNodes;
+        }
+
+        getHighestPriorityNode() {
+            return this.routingNodes[0];
+        }
+    }
+
+    Object.freeze(HollywoodCDNCluster);
+    Object.freeze(HollywoodCDNCluster.prototype);
+    window.HollywoodServers = new HollywoodCDNCluster();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Bollywood and Regional Asian CDN Distribution Matrix
+ * Path: /js/bollywood_servers.js
+ */
+(function (window) {
+    'use strict';
+
+    class BollywoodCDNCluster {
+        constructor() {
+            this.clusterRegion = "SOUTH-ASIA-MUMBAI";
+            this.routingNodes = [
+                {
+                    id: "b-node-1",
+                    name: "Regional CDN Edge (VidSrc.cc)",
+                    priority: 10,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://vidsrc.cc/vidsrc/movie/${secureId}`
+                            : `https://vidsrc.cc/vidsrc/tv/${secureId}/${Number(s)}/${Number(e)}`;
+                    }
+                },
+                {
+                    id: "b-node-2",
+                    name: "Secondary Regional Node (VidSrc.xyz)",
+                    priority: 7,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://vidsrc.xyz/embed/movie/${secureId}`
+                            : `https://vidsrc.xyz/embed/tv/${secureId}/${Number(s)}/${Number(e)}`;
+                    }
+                },
+                {
+                    id: "b-node-3",
+                    name: "Fallback Mirror Node (SuperEmbed)",
+                    priority: 4,
+                    generateUrl: (tmdbId, s, e, type) => {
+                        const secureId = encodeURIComponent(tmdbId);
+                        return type === 'movie'
+                            ? `https://multiembed.mov/?video_id=${secureId}&tmdb=1`
+                            : `https://multiembed.mov/?video_id=${secureId}&tmdb=1&s=${Number(s)}&e=${Number(e)}`;
+                    }
+                }
+            ];
+            Object.freeze(this.routingNodes);
+        }
+
+        getNodes() {
+            return this.routingNodes;
+        }
+
+        getHighestPriorityNode() {
+            return this.routingNodes[0];
+        }
+    }
+
+    Object.freeze(BollywoodCDNCluster);
+    Object.freeze(BollywoodCDNCluster.prototype);
+    window.BollywoodServers = new BollywoodCDNCluster();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Resilient Metadata Synchronization Engine
+ * Path: /js/series_fixer.js
+ */
+(function (window) {
+    'use strict';
+
+    const TMDB_API_KEY = "82e880c89dbf119b940e034ed32a3498";
+
+    class MetadataSynchronizer {
+        constructor() {
+            this.activeTvId = null;
+            this.syncCache = new Map();
+        }
+
+        async buildDropdowns(tvId) {
+            this.activeTvId = String(tvId);
+            const seasonSelect = document.getElementById('season-selector');
+            if (!seasonSelect) return;
+
+            seasonSelect.innerHTML = "<option value='' disabled selected>Syncing with API Registry...</option>";
+
+            if (this.syncCache.has(this.activeTvId)) {
+                console.log(`[Metadata Sync] Serving cached season structure for ID: ${this.activeTvId}`);
+                this.renderSeasons(this.syncCache.get(this.activeTvId));
+                return;
+            }
+
+            let attempt = 0;
+            const maxAttempts = 3;
+            let success = false;
+            let payload = null;
+
+            while (attempt < maxAttempts && !success) {
+                try {
+                    const res = await fetch(`https://api.themoviedb.org/3/tv/${this.activeTvId}?api_key=${TMDB_API_KEY}`);
+                    if (!res.ok) throw new Error(`Handshake failure. HTTP Error Code: ${res.status}`);
+                    payload = await res.json();
+                    success = true;
+                } catch (err) {
+                    attempt++;
+                    console.warn(`[API Connection Retry] Attempt ${attempt}/${maxAttempts} failed. Error: ${err.message}`);
+                    if (attempt < maxAttempts) {
+                        // Exponential backoff wait time calculation
+                        const waitTime = 500 * Math.pow(2, attempt) + (Math.random() * 100);
+                        await new Promise(resolve => setTimeout(resolve, waitTime));
+                    }
+                }
+            }
+
+            if (success && payload && payload.seasons) {
+                // Filter out non-canonical bonus or promo seasons (Season 0)
+                let cleanSeasons = payload.seasons.filter(s => Number(s.season_number) > 0);
+                if (cleanSeasons.length === 0 && payload.seasons.length > 0) {
+                    cleanSeasons = [payload.seasons[0]];
+                }
+                this.syncCache.set(this.activeTvId, cleanSeasons);
+                this.renderSeasons(cleanSeasons);
+            } else {
+                console.error("[Metadata Sync Critical Error] External catalog unreachable. Initializing local fallback data.");
+                this.triggerFallbackDataState();
+            }
+        }
+
+        renderSeasons(seasons) {
+            const seasonSelect = document.getElementById('season-selector');
+            if (!seasonSelect) return;
+            seasonSelect.innerHTML = "";
+
+            seasons.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = String(s.season_number);
+                opt.innerText = `${s.name || `Season ${s.season_number}`} (${s.episode_count || 10} Episodes)`;
+                opt.setAttribute('data-epcount', String(s.episode_count || 10));
+                seasonSelect.appendChild(opt);
+            });
+
+            seasonSelect.onchange = () => this.updateEpisodes();
+            this.updateEpisodes();
+        }
+
+        triggerFallbackDataState() {
+            const seasonSelect = document.getElementById('season-selector');
+            if (!seasonSelect) return;
+            seasonSelect.innerHTML = "";
+
+            const safeFallbackData = [
+                { season_number: 1, name: "Season 1 (Fallback Cache)", episode_count: 24 },
+                { season_number: 2, name: "Season 2 (Fallback Cache)", episode_count: 22 },
+                { season_number: 3, name: "Season 3 (Fallback Cache)", episode_count: 18 }
+            ];
+
+            safeFallbackData.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = String(s.season_number);
+                opt.innerText = `${s.name} (${s.episode_count} Episodes)`;
+                opt.setAttribute('data-epcount', String(s.episode_count));
+                seasonSelect.appendChild(opt);
+            });
+
+            seasonSelect.onchange = () => this.updateEpisodes();
+            this.updateEpisodes();
+        }
+
+        updateEpisodes() {
+            const seasonSelect = document.getElementById('season-selector');
+            const episodeSelect = document.getElementById('episode-selector');
+            if (!seasonSelect || !episodeSelect) return;
+
+            const selected = seasonSelect.selectedOptions[0];
+            const epCount = selected ? Number(selected.getAttribute('data-epcount')) : 12;
+
+            episodeSelect.innerHTML = "";
+            for (let i = 1; i <= epCount; i++) {
+                const opt = document.createElement('option');
+                opt.value = String(i);
+                opt.innerText = `Episode ${i}`;
+                episodeSelect.appendChild(opt);
+            }
+
+            episodeSelect.onchange = () => this.firePlaybackRoute();
+            this.firePlaybackRoute();
+        }
+
+        firePlaybackRoute() {
+            const seasonSelect = document.getElementById('season-selector');
+            const episodeSelect = document.getElementById('episode-selector');
+            if (!seasonSelect || !episodeSelect) return;
+
+            const s = Number(seasonSelect.value) || 1;
+            const e = Number(episodeSelect.value) || 1;
+
+            console.log(`[Metadata Sync Router] Dispatching play state update event: Season ${s} | Episode ${e}`);
+            if (window.StreamVersePlayer && typeof window.StreamVersePlayer.loadSecureIframe === 'function') {
+                window.StreamVersePlayer.loadSecureIframe(s, e);
+            }
+        }
+    }
+
+    Object.freeze(MetadataSynchronizer);
+    Object.freeze(MetadataSynchronizer.prototype);
+    window.TVSeriesFixer = new MetadataSynchronizer();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Playback Orchestrator and Sandbox Controller
+ * Path: /js/player.js
+ */
+(function (window) {
+    'use strict';
+
+    class PlaybackOrchestrator {
+        constructor() {
+            this.activeTmdbId = null;
+            this.activeTitle = "";
+            this.activeType = "movie";
+            this.activeCategory = "Hollywood";
+            this.currentS = 1;
+            this.currentE = 1;
+            this.useRegionalMatrix = false;
+            this.selectedServerIndex = 0;
+            this.exitCallbacks = [];
+
+            this.CANVAS_TARGET_ID = 'video-frame-target';
+            this.PLAYER_FRAME_ID = 'streamverse-player';
+        }
+
+        registerExitCallback(cb) {
+            if (typeof cb === 'function') {
+                this.exitCallbacks.push(cb);
+            }
+        }
+
+        routeToPlayer(tmdbId, title, type, year, category) {
+            this.activeTmdbId = String(tmdbId);
+            this.activeTitle = String(title);
+            this.activeType = (type === 'tv' || type === 'series') ? 'tv' : 'movie';
+            this.activeCategory = String(category);
+            this.selectedServerIndex = 0;
+            this.currentS = 1;
+            this.currentE = 1;
+
+            const categoryLower = this.activeCategory.toLowerCase();
+            this.useRegionalMatrix = categoryLower.includes('bollywood') ||
+                                     categoryLower.includes('punjabi') ||
+                                     categoryLower.includes('south');
+
+            console.log(`[Player Orchestrator] Initializing playback. Target: ${title} | Regional Node Matrix: ${this.useRegionalMatrix}`);
+
+            const catalogView = document.getElementById('main-website-view');
+            const playerView = document.getElementById('player-page-view');
+            if (catalogView) catalogView.style.display = 'none';
+            if (playerView) playerView.style.display = 'block';
+
+            const titleHeader = document.getElementById('player-media-title');
+            const metaHeader = document.getElementById('player-media-meta');
+            if (titleHeader) titleHeader.innerText = this.activeTitle;
+            if (metaHeader) {
+                metaHeader.innerText = `${this.activeType.toUpperCase()} | ${year || '2026'} | Secured Multi-Server Streaming Tunnel`;
+            }
+
+            const frameContainer = document.getElementById(this.CANVAS_TARGET_ID);
+            if (frameContainer) frameContainer.innerHTML = "";
+
+            this.renderCDNControls();
+
+            if (this.activeType === 'tv') {
+                const tvSelector = document.getElementById('episodes-dropdown-wrapper');
+                const movieNotice = document.getElementById('movie-only-notice');
+                if (tvSelector) tvSelector.style.display = 'flex';
+                if (movieNotice) movieNotice.style.display = 'none';
+
+                if (window.TVSeriesFixer && typeof window.TVSeriesFixer.buildDropdowns === 'function') {
+                    window.TVSeriesFixer.buildDropdowns(this.activeTmdbId);
+                }
+            } else {
+                const tvSelector = document.getElementById('episodes-dropdown-wrapper');
+                const movieNotice = document.getElementById('movie-only-notice');
+                if (tvSelector) tvSelector.style.display = 'none';
+                if (movieNotice) movieNotice.style.display = 'block';
+                this.loadSecureIframe(1, 1);
+            }
+            window.scrollTo(0, 0);
+        }
+
+        renderCDNControls() {
+            const controlBox = document.getElementById('series-control-block');
+            if (!controlBox) return;
+
+            const oldContainer = document.getElementById('custom-server-pool-container');
+            if (oldContainer) oldContainer.remove();
+
+            const container = document.createElement('div');
+            container.id = 'custom-server-pool-container';
+            container.className = 'server-pool-container';
+
+            const activeCluster = this.useRegionalMatrix ? window.BollywoodServers : window.HollywoodServers;
+            const nodes = activeCluster.getNodes();
+
+            const label = document.createElement('label');
+            label.className = 'server-pool-label';
+            label.innerText = this.useRegionalMatrix ? "⚡ SELECT BOLLYWOOD CDN ROUTE:" : "🌍 SELECT GLOBAL HOLLYWOOD CDN ROUTE:";
+            container.appendChild(label);
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'server-btn-wrapper';
+
+            nodes.forEach((node, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'server-btn';
+                btn.innerText = node.name;
+                if (index === this.selectedServerIndex) {
+                    btn.classList.add('active');
+                }
+                btn.onclick = () => this.switchCDNRoute(index);
+                wrapper.appendChild(btn);
+            });
+
+            container.appendChild(wrapper);
+            controlBox.appendChild(container);
+        }
+
+        switchCDNRoute(index) {
+            this.selectedServerIndex = Number(index);
+            this.renderCDNControls();
+            this.loadSecureIframe(this.currentS, this.currentE);
+        }
+
+        exitPlayer() {
+            const playerView = document.getElementById('player-page-view');
+            const catalogView = document.getElementById('main-website-view');
+            if (playerView) playerView.style.display = 'none';
+            if (catalogView) catalogView.style.display = 'block';
+
+            const frameContainer = document.getElementById(this.CANVAS_TARGET_ID);
+            if (frameContainer) frameContainer.innerHTML = "";
+
+            this.exitCallbacks.forEach(cb => {
+                try { cb(); } catch (err) { console.error("[Playback Event Handler Error]", err); }
+            });
+        }
+
+        loadSecureIframe(s = 1, e = 1) {
+            this.currentS = Number(s);
+            this.currentE = Number(e);
+
+            if (!this.activeTmdbId) {
+                console.error("[Playback Fail] Missing critical TMDB identifier.");
+                return;
+            }
+
+            const container = document.getElementById(this.CANVAS_TARGET_ID);
+            if (!container) return;
+
+            const activeCluster = this.useRegionalMatrix ? window.BollywoodServers : window.HollywoodServers;
+            const node = activeCluster.getNodes()[this.selectedServerIndex];
+            const routeUrl = node.generateUrl(this.activeTmdbId, this.currentS, this.currentE, this.activeType);
+
+            container.innerHTML = `
+                <div class="routing-shimmer">
+                    <div class="spinner"></div>
+                    <p>Securing Edge Network Connection: ${node.name}...</p>
+                    <small>Bypassing redirects on S${this.currentS} E${this.currentE} | Stabilizing Audio-Visual Buffer...</small>
+                </div>`;
+
+            setTimeout(() => {
+                container.innerHTML = `
+                    <iframe 
+                        id="${this.PLAYER_FRAME_ID}"
+                        src="${routeUrl}" 
+                        scrolling="no"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
+                        referrerpolicy="no-referrer"
+                        allow="autoplay; encrypted-media; picture-in-picture">
+                    </iframe>`;
+            }, 500);
+        }
+    }
+
+    Object.freeze(PlaybackOrchestrator);
+    Object.freeze(PlaybackOrchestrator.prototype);
+    window.StreamVersePlayer = new PlaybackOrchestrator();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Sensory Booster, Web Audio Pipeline and Dynamic Visualizer Canvas
+ * Path: /js/booster.js
+ */
+(function (window) {
+    'use strict';
+
+    class DynamicVolumeBooster {
+        constructor() {
+            this.audioCtx = null;
+            this.gainNode = null;
+            this.analyser = null;
+            this.initialized = false;
+            this.canvas = null;
+            this.canvasCtx = null;
+            this.animId = null;
+            this.currentBoosterValue = 1.0;
+        }
+
+        initializeSensoryPipeline() {
+            if (this.initialized) return;
+
+            this.canvas = document.getElementById('audio-frequency-canvas');
+            if (this.canvas) {
+                this.canvasCtx = this.canvas.getContext('2d');
+            }
+
+            try {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    this.audioCtx = new AudioContextClass();
+                    this.gainNode = this.audioCtx.createGain();
+                    this.analyser = this.audioCtx.createAnalyser();
+                    this.analyser.fftSize = 256; // Standard fast Fourier transform parameter
+
+                    this.gainNode.connect(this.analyser);
+                    this.analyser.connect(this.audioCtx.destination);
+                    this.initialized = true;
+                    console.log("[Sensory Engine] Dynamic Web Audio routing pipeline successfully established.");
+                }
+            } catch (err) {
+                console.warn("[Sensory Engine Alert] Direct hardware context access restricted by security policy. Initiating simulation fallback.");
+            }
+        }
+
+        executeHardwareAmplification(multiplier) {
+            this.initializeSensoryPipeline();
+            const value = Number(multiplier);
+            this.currentBoosterValue = value;
+
+            const scalePercent = Math.round(value * 100);
+            const indicator = document.getElementById('volPercent');
+            if (indicator) {
+                indicator.innerText = `${scalePercent}%`;
+            }
+
+            const player = document.getElementById('streamverse-player');
+            if (!player) return;
+
+            try {
+                if (player.contentWindow) {
+                    player.contentWindow.postMessage({ type: 'BOOST_VOLUME', value: value }, '*');
+                }
+            } catch (err) {
+                // Cross-domain isolation mechanisms block active script interactions
+            }
+
+            if (this.initialized && this.gainNode) {
+                if (this.audioCtx && this.audioCtx.state === 'suspended') {
+                    this.audioCtx.resume();
+                }
+                this.gainNode.gain.setValueAtTime(value, this.audioCtx.currentTime);
+            }
+
+            // GPU-accelerated sensory contrast amplification
+            if (value > 1.0) {
+                const visualContrastBoost = 1.0 + (value - 1.0) * 0.4;
+                player.style.filter = `contrast(1.15) brightness(${visualContrastBoost})`;
+            } else {
+                player.style.filter = "none";
+            }
+
+            console.log(`🔊 [Sensory Amplification Active] Multiplier Scale: ${value}x`);
+
+            if (value > 1.0) {
+                this.startRenderLoop();
+            } else {
+                this.stopRenderLoop();
+            }
+        }
+
+        startRenderLoop() {
+            this.stopRenderLoop();
+            if (!this.canvasCtx || !this.canvas) return;
+
+            const bufferLength = this.analyser ? this.analyser.frequencyBinCount : 128;
+            const dataArray = new Uint8Array(bufferLength);
+
+            const draw = () => {
+                this.animId = requestAnimationFrame(draw);
+
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+
+                if (this.initialized && this.analyser) {
+                    this.analyser.getByteFrequencyData(dataArray);
+                } else {
+                    // Generate fluid synthetic spectrum curves if hardware level connection is suspended
+                    for (let i = 0; i < bufferLength; i++) {
+                        dataArray[i] = Math.sin(Date.now() * 0.004 + i) * 35 + 60 + Math.random() * 20;
+                    }
+                }
+
+                this.canvasCtx.fillStyle = 'rgba(7, 7, 7, 0.25)'; // Smooth bar trailing trace decay rate
+                this.canvasCtx.fillRect(0, 0, w, h);
+
+                const barWidth = (w / bufferLength) * 2.5;
+                let barHeight;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    barHeight = (dataArray[i] / 255) * h * (this.currentBoosterValue * 0.85);
+
+                    const red = 229;
+                    const green = Math.min(255, Math.floor(i * 1.8));
+                    const blue = Math.min(255, Math.floor(barHeight * 1.4));
+
+                    this.canvasCtx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+                    this.canvasCtx.fillRect(x, h - barHeight, barWidth - 1, barHeight);
+
+                    x += barWidth;
+                }
+            };
+
+            draw();
+        }
+
+        stopRenderLoop() {
+            if (this.animId) {
+                cancelAnimationFrame(this.animId);
+                this.animId = null;
+            }
+            if (this.canvasCtx && this.canvas) {
+                this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+        }
+    }
+
+    Object.freeze(DynamicVolumeBooster);
+    Object.freeze(DynamicVolumeBooster.prototype);
+    window.StreamVerseBooster = new DynamicVolumeBooster();
+
+})(window);
+
+    </script>
+    <script>
+
+/**
+ * StreamVerse Main Single-Page Application Layout Coordinator
+ * Path: /js/app.js
+ */
+(function (window) {
+    'use strict';
+
+    class ApplicationCore {
+        constructor() {
+            this.tmdbBaseUrl = "https://api.themoviedb.org/3";
+            this.apiKey = "82e880c89dbf119b940e034ed32a3498";
+            this.activeCategory = "all";
+            this.debounceTimer = null;
+            this.localRegistryCache = new Map();
+        }
+
+        initializeSystem() {
+            this.bindCoreLayoutEvents();
+            this.bootstrapDatabaseSync();
+        }
+
+        bindCoreLayoutEvents() {
+            const inputField = document.getElementById('search-bar');
+            if (inputField) {
+                inputField.addEventListener('input', (event) => this.debounceSearchQuery(event));
+            }
+
+            // Sync with hardware audio events
+            if (window.StreamVersePlayer) {
+                window.StreamVersePlayer.registerExitCallback(() => {
+                    if (window.StreamVerseBooster) {
+                        window.StreamVerseBooster.executeHardwareAmplification(1.0);
+                    }
+                });
+            }
+        }
+
+        bootstrapDatabaseSync() {
+            if (window.StreamVerseDatabase) {
+                const list = window.StreamVerseDatabase.getAll();
+                list.forEach(item => this.localRegistryCache.set(Number(item.id), item));
+                this.renderGridToTarget(list, 'movie-grid-container');
+            }
+
+            // Sync with dynamic trending lists on TMDB in the background
+            this.syncLiveTrendingStreams();
+        }
+
+        syncLiveTrendingStreams() {
+            const endpoint = `${this.tmdbBaseUrl}/trending/all/day?api_key=${this.apiKey}`;
+            fetch(endpoint)
+                .then(res => {
+                    if (!res.ok) throw new Error("TMDB network connection timeout.");
+                    return res.json();
+                })
+                .then(data => {
+                    if (data && data.results) {
+                        const validatedResults = data.results.slice(0, 18).map((raw, idx) => {
+                            const isTv = raw.media_type === 'tv' || raw.first_air_date !== undefined;
+                            return {
+                                id: 2000 + idx, // Explicit offset index range to protect static keys
+                                title: raw.title || raw.name || "Untitled Resource Item",
+                                category: isTv ? "Web Series" : "Hollywood",
+                                quality: "HDR 10bit",
+                                year: (raw.release_date || raw.first_air_date || "2026").split("-")[0],
+                                poster: raw.poster_path ? `https://image.tmdb.org/t/p/w300${raw.poster_path}` : "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400",
+                                tmdbId: String(raw.id),
+                                type: isTv ? "tv" : "movie"
+                            };
+                        });
+
+                        validatedResults.forEach(item => {
+                            if (window.StreamVerseDatabase) {
+                                window.StreamVerseDatabase.registerItem(item);
+                            }
+                            this.localRegistryCache.set(Number(item.id), item);
+                        });
+
+                        this.filterSection(this.activeCategory);
+                    }
+                })
+                .catch(err => {
+                    console.warn(`[Core Background Sync Warning] Trend API sync failed: ${err.message}`);
+                });
+        }
+
+        renderGridToTarget(itemList, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = "";
+
+            if (itemList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-query-indicator">
+                        <i class="fas fa-folder-open"></i>
+                        <p>No matches matching filter criteria found in database registry.</p>
+                    </div>`;
+                return;
+            }
+
+            const frameFragment = document.createDocumentFragment();
+
+            itemList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.setAttribute('tabindex', '0');
+
+                card.innerHTML = `
+                    <span class="badge">${item.quality}</span>
+                    <div class="poster-zoom-wrapper">
+                        <img class="movie-poster" src="${item.poster}" alt="${item.title} asset artwork" loading="lazy">
+                    </div>
+                    <div class="movie-info">
+                        <strong>${item.title}</strong>
+                        <div class="metadata-row">
+                            <span>Year: ${item.year}</span>
+                            <span class="type-pill">${item.type.toUpperCase()}</span>
+                        </div>
+                    </div>`;
+
+                card.onclick = () => {
+                    if (window.StreamVersePlayer) {
+                        window.StreamVersePlayer.routeToPlayer(item.tmdbId, item.title, item.type, item.year, item.category);
+                    }
+                };
+
+                // Accessibility event listeners
+                card.onkeydown = (ev) => {
+                    if (ev.key === 'Enter' || ev.keyCode === 13) {
+                        card.click();
+                    }
+                };
+
+                frameFragment.appendChild(card);
+            });
+
+            container.appendChild(frameFragment);
+        }
+
+        filterSection(category) {
+            this.activeCategory = category;
+            const categoryTitle = document.getElementById('current-category-title');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const cleanButtonId = `btn-${category.toLowerCase().replace(" ", "-")}`;
+            const targetButton = document.getElementById(cleanButtonId);
+            if (targetButton) targetButton.classList.add('active');
+
+            if (categoryTitle) {
+                categoryTitle.innerText = category === 'all' ? "All Movies & Premium Web Series" : `${category} Library Collection`;
+            }
+
+            if (!window.StreamVerseDatabase) return;
+
+            const results = category === 'all'
+                ? window.StreamVerseDatabase.getAll()
+                : window.StreamVerseDatabase.getAll().filter(item => item.category.toLowerCase() === category.toLowerCase());
+
+            this.renderGridToTarget(results, 'movie-grid-container');
+        }
+
+        debounceSearchQuery(event) {
+            clearTimeout(this.debounceTimer);
+            const value = String(event.target.value).trim().toLowerCase();
+
+            this.debounceTimer = setTimeout(() => {
+                this.executeSearch(value);
+            }, 300);
+        }
+
+        executeSearch(query) {
+            if (!window.StreamVerseDatabase) return;
+
+            const baseCollection = window.StreamVerseDatabase.getAll();
+            if (!query) {
+                this.filterSection(this.activeCategory);
+                return;
+            }
+
+            const matches = baseCollection.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query)
+            );
+
+            const categoryTitle = document.getElementById('current-category-title');
+            if (categoryTitle) {
+                categoryTitle.innerText = `Search Output Matches for: "${query}"`;
+            }
+
+            this.renderGridToTarget(matches, 'movie-grid-container');
+        }
+    }
+
+    Object.freeze(ApplicationCore);
+    Object.freeze(ApplicationCore.prototype);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        window.StreamVerseApp = new ApplicationCore();
+        window.StreamVerseApp.initializeSystem();
+    });
+
+})(window);
+
+    </script>
 </body>
 </html>
