@@ -1,5 +1,5 @@
 /**
- * StreamVerse Ultra-Premium Auto-Balancing Player Engine - Bollywood Enabled v3
+ * StreamVerse Ultra-Premium Auto-Balancing Player Engine - Bollywood Enabled v3 (PATCHED)
  */
 
 let currentType = "movie";
@@ -14,15 +14,14 @@ window.routeToDedicatedPlayer = function(id, title, type, year) {
     activeTmdbId = id;
     activeTitle = title;
     currentType = type || "movie";
-    currentSelectedServerIndex = 0; // Reset default to first server
+    currentSelectedServerIndex = 0; 
     currentS = 1;
     currentE = 1;
 
-    // Detect if content falls under Bollywood/Desi radar
+    // Detect category safety context
     const activeCategoryElement = document.getElementById('current-category-title');
     const activeCategoryText = activeCategoryElement ? activeCategoryElement.innerText.toLowerCase() : "";
     
-    // Auto flag checker for servers routing integration
     if (activeCategoryText.includes('bollywood') || activeCategoryText.includes('punjabi') || activeCategoryText.includes('south')) {
         isBollywoodContent = true;
     } else {
@@ -40,7 +39,7 @@ window.routeToDedicatedPlayer = function(id, title, type, year) {
 
     document.getElementById('video-frame-target').innerHTML = "";[cite: 12]
 
-    // Setup Server Control UI Switch Panel
+    // Render server options UI panel safely
     renderDynamicServerControls();
 
     if(type === 'tv') {[cite: 12]
@@ -61,7 +60,6 @@ function renderDynamicServerControls() {
     let targetPanel = document.getElementById('series-control-block');
     if (!targetPanel) return;
 
-    // Remove any previously rendered custom server container if exists
     const oldContainer = document.getElementById('custom-server-pool-container');
     if(oldContainer) oldContainer.remove();
 
@@ -105,15 +103,11 @@ window.exitPlayerPage = function() {[cite: 12]
 window.loadIframeStream = function(s = 1, e = 1) {[cite: 12]
     currentS = s;
     currentE = e;
-    if (!activeTmdbId) {[cite: 12]
-        console.error("No activeTmdbId found!");[cite: 12]
-        return;[cite: 12]
-    }
+    if (!activeTmdbId) return;
 
     const frameBox = document.getElementById('video-frame-target');[cite: 12]
     if (!frameBox) return;[cite: 12]
 
-    // Determine target pool link
     let activeList = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
     let srcUrl = activeList[currentSelectedServerIndex].generateUrl(activeTmdbId, s, e, currentType);
 
