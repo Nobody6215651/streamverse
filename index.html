@@ -9,22 +9,27 @@
     <style>
         body { background:#0b0b0b; color:#fff; margin:0; font-family:sans-serif; }
         .navbar { display:flex; justify-content:space-between; align-items:center; padding:15px 5%; background:#000; position:sticky; top:0; z-index:1000; }
+        .logo { font-size:28px; font-weight:bold; }
         .logo span { color:#e50914; }
-        .nav-links a { color:#ddd; margin:0 15px; text-decoration:none; font-weight:500; }
-        .nav-links a:hover { color:#e50914; }
-        #search-bar { background:#1f1f1f; border:1px solid #444; padding:10px 15px; border-radius:30px; width:280px; color:white; }
+        .nav-links a { color:#ddd; margin:0 15px; text-decoration:none; font-weight:500; cursor:pointer; }
+        .nav-links a:hover, .nav-links a.active { color:#e50914; }
+        #search-bar { background:#1f1f1f; border:1px solid #444; padding:10px 20px; border-radius:30px; width:300px; color:white; }
 
-        .section { padding:25px 5%; }
-        .section-title { font-size:28px; margin:25px 0 15px; padding-left:15px; border-left:5px solid #e50914; display:flex; align-items:center; gap:12px; }
+        .section { padding:30px 5%; }
+        .section-title { font-size:29px; margin:25px 0 18px; padding-left:18px; border-left:5px solid #e50914; display:flex; align-items:center; gap:12px; }
 
-        .scroll-container { display:flex; overflow-x:auto; gap:18px; padding:10px 0; scrollbar-width:none; }
+        .scroll-container { display:flex; overflow-x:auto; gap:20px; padding:10px 0; scrollbar-width:none; position:relative; }
         .scroll-container::-webkit-scrollbar { display:none; }
-        .movie-card { min-width:175px; background:#141414; border-radius:10px; overflow:hidden; cursor:pointer; transition:0.3s; }
-        .movie-card:hover { transform:scale(1.08); }
+        .arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.7); color:white; border:none; width:40px; height:60px; font-size:24px; cursor:pointer; z-index:10; }
+        .left-arrow { left:10px; }
+        .right-arrow { right:10px; }
+
+        .movie-card { min-width:175px; background:#141414; border-radius:12px; overflow:hidden; cursor:pointer; transition:0.3s; }
+        .movie-card:hover { transform:scale(1.08); box-shadow:0 10px 25px rgba(229,9,20,0.3); }
         .movie-poster { width:100%; height:260px; object-fit:cover; }
 
-        .boost-panel { position:fixed; bottom:110px; right:30px; background:#1f1f1f; padding:20px; border-radius:12px; width:260px; display:none; box-shadow:0 10px 30px rgba(0,0,0,0.9); z-index:99999; }
-        .boost-btn { position:fixed; bottom:30px; right:30px; background:#00ffcc; color:#000; width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 0 25px rgba(0,255,204,0.7); z-index:99999; cursor:pointer; }
+        .boost-btn { position:fixed; bottom:30px; right:30px; background:linear-gradient(135deg,#00ffcc,#00a8ff); width:70px; height:70px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 0 25px rgba(0,255,204,0.7); z-index:99999; cursor:pointer; }
+        .boost-panel { position:fixed; bottom:120px; right:30px; background:#1f1f1f; padding:20px; border-radius:12px; width:280px; display:none; box-shadow:0 10px 30px rgba(0,0,0,0.9); z-index:99999; }
     </style>
 </head>
 <body>
@@ -33,17 +38,17 @@
     <header class="navbar">
         <div class="logo">Stream<span>Verse</span></div>
         <nav class="nav-links">
-            <a href="#" onclick="loadCategory('trending', event)" class="active">Trending</a>
-            <a href="#" onclick="loadCategory('hollywood', event)">Hollywood</a>
-            <a href="#" onclick="loadCategory('bollywood', event)">Bollywood</a>
-            <a href="#" onclick="loadCategory('punjabi', event)">Punjabi</a>
-            <a href="#" onclick="loadCategory('south', event)">South</a>
-            <a href="#" onclick="loadCategory('series', event)">Series</a>
+            <a onclick="loadCategory('trending', event)" class="active">Trending</a>
+            <a onclick="loadCategory('hollywood', event)">Hollywood</a>
+            <a onclick="loadCategory('bollywood', event)">Bollywood</a>
+            <a onclick="loadCategory('punjabi', event)">Punjabi</a>
+            <a onclick="loadCategory('south', event)">South Indian</a>
+            <a onclick="loadCategory('series', event)">Series</a>
         </nav>
-        <input type="text" id="search-bar" placeholder="Search any movie..." onkeyup="if(event.key==='Enter') searchHandler()">
+        <input type="text" id="search-bar" placeholder="Search any movie or series..." onkeyup="if(event.key==='Enter') searchHandler()">
     </header>
 
-    <!-- GOAT Section - Top -->
+    <!-- GOAT Section -->
     <div class="section">
         <h2 class="section-title">👑 All Time GOAT Movies</h2>
         <div class="scroll-container" id="goat-grid"></div>
@@ -74,21 +79,20 @@
     </div>
 </div>
 
-<!-- Player Page (same as your previous working one) -->
-<div id="player-page-view" class="player-page-container" style="display:none;">
-    <!-- Your player code here -->
-    <button onclick="exitPlayerPage()">← Back</button>
-    <h1 id="player-media-title"></h1>
-    <p id="player-media-meta"></p>
-    <div id="video-frame-target" style="background:#000; min-height:520px;"></div>
+<!-- Player -->
+<div id="player-page-view" style="display:none; padding:40px 5%; background:#000; min-height:100vh;">
+    <button onclick="exitPlayerPage()" style="margin-bottom:20px;">← Back to Home</button>
+    <h1 id="player-media-title" style="font-size:32px;"></h1>
+    <p id="player-media-meta" style="color:#aaa;"></p>
+    <div id="video-frame-target" style="background:#000; min-height:550px; border-radius:12px;"></div>
 </div>
 
 <!-- Volume Booster -->
 <div class="boost-btn" onclick="toggleBoosterPanel()">🔊</div>
 <div class="boost-panel" id="boostPanel">
-    <h4>🎧 Volume Booster (200%)</h4>
+    <h4>🎧 Volume Booster (Up to 200%)</h4>
     <input type="range" id="volumeSlider" min="0.5" max="2" step="0.05" value="1" style="width:100%;">
-    <p id="volText" style="text-align:center; margin:10px 0; font-weight:bold;">100%</p>
+    <p id="volText" style="text-align:center;margin:12px 0;font-weight:bold;color:#00ffcc;">100%</p>
 </div>
 
 <script src="movie_data.js"></script>
@@ -100,58 +104,68 @@
 <script>
     const API_KEY = "82e880c89dbf119b940e034ed32a3498";
 
-    // GOAT Movies
+    // GOAT Movies with real posters
     const goatMovies = [
         {id:238, title:"The Godfather", year:"1972", poster_path:"/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"},
-        {id:240, title:"The Godfather Part II", year:"1974"},
-        {id:278, title:"The Shawshank Redemption", year:"1994"},
-        {id:155, title:"The Dark Knight", year:"2008"},
-        {id:680, title:"Scarface", year:"1983"},
-        {id:157336, title:"Interstellar", year:"2014"},
-        {id:13, title:"Forrest Gump", year:"1994"}
+        {id:240, title:"The Godfather Part II", year:"1974", poster_path:"/hek3koDUewhZ8p6c9zZq7e8wV7W.jpg"},
+        {id:278, title:"The Shawshank Redemption", year:"1994", poster_path:"/9cqNxx0GxF0bflZmeSMuL5tnGFr.jpg"},
+        {id:155, title:"The Dark Knight", year:"2008", poster_path:"/qJ2tW6WMUDux911r6m7haRef0WH.jpg"},
+        {id:680, title:"Scarface", year:"1983", poster_path:"/iQ5HGg3fK8p6v3n0dZ2dQ7p7Z1L.jpg"},
+        {id:157336, title:"Interstellar", year:"2014", poster_path:"/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"}
     ];
 
     function displayHorizontal(items, containerId) {
-        const cont = document.getElementById(containerId);
-        cont.innerHTML = "";
-        items.forEach(m => {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        items.forEach(item => {
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.innerHTML = `<img class="movie-poster" src="https://image.tmdb.org/t/p/w400${m.poster_path || ''}"><div style="padding:10px 8px;"><strong>${m.title}</strong><br><small>${m.year}</small></div>`;
-            card.onclick = () => window.routeToDedicatedPlayer(m.id, m.title, 'movie', m.year);
-            cont.appendChild(card);
+            const poster = item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : 'https://via.placeholder.com/400x600?text=No+Poster';
+            card.innerHTML = `<img class="movie-poster" src="${poster}"><div style="padding:10px 8px;"><strong>${item.title}</strong><br><small>${item.year}</small></div>`;
+            card.onclick = () => window.routeToDedicatedPlayer(item.id, item.title, 'movie', item.year);
+            container.appendChild(card);
         });
     }
 
-    async function loadSection(url, containerId) {
+    async function loadHorizontalSection(url, containerId) {
         try {
             let res = await fetch(url + `&api_key=${API_KEY}`);
             let data = await res.json();
-            displayHorizontal(data.results.slice(0,12), containerId);
-        } catch(e) {}
+            displayHorizontal(data.results.slice(0,15), containerId);
+        } catch(e) { console.log("Failed to load section"); }
     }
 
-    function loadAll() {
+    function loadAllSections() {
         displayHorizontal(goatMovies, 'goat-grid');
-        loadSection('https://api.themoviedb.org/3/trending/movie/day', 'trending-grid');
-        loadSection('https://api.themoviedb.org/3/discover/movie?with_original_language=en', 'hollywood-grid');
-        loadSection('https://api.themoviedb.org/3/discover/movie?with_original_language=hi', 'bollywood-grid');
-        loadSection('https://api.themoviedb.org/3/discover/movie?with_keywords=235476|179430', 'regional-grid');
+        loadHorizontalSection('https://api.themoviedb.org/3/trending/movie/day', 'trending-grid');
+        loadHorizontalSection('https://api.themoviedb.org/3/discover/movie?with_original_language=en&sort_by=popularity.desc', 'hollywood-grid');
+        loadHorizontalSection('https://api.themoviedb.org/3/discover/movie?with_original_language=hi&sort_by=popularity.desc', 'bollywood-grid');
+        loadHorizontalSection('https://api.themoviedb.org/3/discover/movie?with_keywords=235476|179430&sort_by=popularity.desc', 'regional-grid');
     }
 
-    // Booster
+    function searchHandler() {
+        let q = document.getElementById('search-bar').value.trim();
+        if(!q) return loadAllSections();
+        fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(q)}`)
+            .then(r => r.json())
+            .then(data => displayHorizontal(data.results.filter(i => i.poster_path), 'trending-grid'));
+    }
+
+    // Volume Booster
     function toggleBoosterPanel() {
-        const p = document.getElementById('boostPanel');
-        p.style.display = p.style.display === 'block' ? 'none' : 'block';
+        const panel = document.getElementById('boostPanel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
 
     document.getElementById('volumeSlider').addEventListener('input', (e) => {
-        let val = parseFloat(e.target.value);
-        document.getElementById('volText').innerText = Math.round(val*100) + "%";
-        if (typeof executeHardwareAmplification === 'function') executeHardwareAmplification(val);
+        const val = parseFloat(e.target.value);
+        document.getElementById('volText').innerText = Math.round(val * 100) + "%";
+        if (typeof executeHardwareAmplification === 'function') {
+            executeHardwareAmplification(val);
+        }
     });
 
-    document.addEventListener("DOMContentLoaded", loadAll);
+    document.addEventListener("DOMContentLoaded", loadAllSections);
 </script>
 </body>
 </html>
