@@ -883,50 +883,55 @@
             if(targetActiveBtn) targetActiveBtn.classList.add('active-server');
         }
 
-        function rebuildActiveIframeSource() {
-            const iframeRoot = document.getElementById('player-iframe-root');
-            
-            // Extract active contextual selection properties for series calculations safely
-            const seasonElement = document.getElementById('player-season-select');
-            const episodeElement = document.getElementById('player-episode-select');
-            
-            const selectedSeason = seasonElement && seasonElement.value ? seasonElement.value : 1;
-            const selectedEpisode = episodeElement && episodeElement.value ? episodeElement.value : 1;
+function rebuildActiveIframeSource() {
+    const iframeRoot = document.getElementById('player-iframe-root');
+    
+    // Extract active contextual selection properties for series calculations safely
+    const seasonElement = document.getElementById('player-season-select');
+    const episodeElement = document.getElementById('player-episode-select');
+    
+    const selectedSeason = seasonElement && seasonElement.value ? seasonElement.value : 1;
+    const selectedEpisode = episodeElement && episodeElement.value ? episodeElement.value : 1;
 
-            let constructedUrl = "";
+    let constructedUrl = "";
+    let sandboxAttribute = ""; // Anti-ad safety trigger
 
-            // --- MULTI-SERVER STRUCTURAL RESOLVER PARSER ---
-            // Precise cross-origin data path bindings for 2026 modern stream providers
-            if(runtimeActiveServer === 1) {
-                constructedUrl = runtimeActiveType === 'movie'
-                    ? `https://vidsrc.to/embed/movie/${runtimeActiveId}`
-                    : `https://vidsrc.to/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
-            } 
-            else if(runtimeActiveServer === 2) {
-                constructedUrl = runtimeActiveType === 'movie'
-                    ? `https://vidsrc.me/embed/movie?tmdb=${runtimeActiveId}`
-                    : `https://vidsrc.me/embed/tv?tmdb=${runtimeActiveId}&sea=${selectedSeason}&epi=${selectedEpisode}`;
-            } 
-            else if(runtimeActiveServer === 3) {
-                constructedUrl = runtimeActiveType === 'movie'
-                    ? `https://embed.su/embed/movie/${runtimeActiveId}`
-                    : `https://embed.su/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
-            } 
-            else if(runtimeActiveServer === 4) {
-                constructedUrl = runtimeActiveType === 'movie'
-                    ? `https://vidsrc.cc/vidsrc/movie/${runtimeActiveId}`
-                    : `https://vidsrc.cc/vidsrc/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
-            }
+    // --- MULTI-SERVER STRUCTURAL RESOLVER PARSER ---
+    if(runtimeActiveServer === 1) {
+        constructedUrl = runtimeActiveType === 'movie'
+            ? `https://vidsrc.to/embed/movie/${runtimeActiveId}`
+            : `https://vidsrc.to/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
+        
+        // Strict Sandbox: Yeh line Server 1 ke saare popunders aur redirect ads ko block kar degi
+        sandboxAttribute = 'sandbox="allow-scripts allow-same-origin allow-forms"';
+    } 
+    else if(runtimeActiveServer === 2) {
+        constructedUrl = runtimeActiveType === 'movie'
+            ? `https://vidsrc.me/embed/movie?tmdb=${runtimeActiveId}`
+            : `https://vidsrc.me/embed/tv?tmdb=${runtimeActiveId}&sea=${selectedSeason}&epi=${selectedEpisode}`;
+    } 
+    else if(runtimeActiveServer === 3) {
+        constructedUrl = runtimeActiveType === 'movie'
+            ? `https://embed.su/embed/movie/${runtimeActiveId}`
+            : `https://embed.su/embed/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
+    } 
+    else if(runtimeActiveServer === 4) {
+        constructedUrl = runtimeActiveType === 'movie'
+            ? `https://vidsrc.cc/vidsrc/movie/${runtimeActiveId}`
+            : `https://vidsrc.cc/vidsrc/tv/${runtimeActiveId}/${selectedSeason}/${selectedEpisode}`;
+    }
 
-            // Inject compiled tracking address safely into the core sandboxed DOM Node container
-            iframeRoot.innerHTML = `
-                <iframe 
-                    src="${constructedUrl}" 
-                    allowfullscreen 
-                    scrolling="no"
-                    referrerpolicy="origin"
-                    allow="autoplay; encrypted-media; picture-in-picture">
-                </iframe>`;
+    // Inject compiled tracking address safely into the core sandboxed DOM Node container
+    iframeRoot.innerHTML = `
+        <iframe 
+            src="${constructedUrl}" 
+            allowfullscreen 
+            scrolling="no"
+            referrerpolicy="origin"
+            ${sandboxAttribute}
+            allow="autoplay; encrypted-media; picture-in-picture">
+        </iframe>`;
+}
         }
     </script>
 </body>
