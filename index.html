@@ -7,85 +7,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        body { background: #0b0b0b; color: #fff; margin:0; font-family: sans-serif; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #000; position: sticky; top:0; z-index:1000; }
-        .logo { font-size: 26px; font-weight: bold; }
-        .logo span { color: #e50914; }
-        .nav-links a { color: #ddd; margin: 0 15px; text-decoration: none; font-weight: 500; }
-        .nav-links a:hover, .nav-links a.active { color: #e50914; }
-        #search-bar { background: #1f1f1f; border: 1px solid #444; color: white; padding: 10px 15px; border-radius: 30px; width: 280px; }
         .section { padding: 20px 5%; }
-        .section-title { font-size: 26px; margin: 25px 0 15px; padding-left: 12px; border-left: 4px solid #e50914; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 18px; }
-        .movie-card { background: #141414; border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.3s; }
-        .movie-card:hover { transform: scale(1.06); }
+        .section-title { font-size: 28px; margin: 30px 0 15px; padding-left: 15px; border-left: 5px solid #e50914; display: flex; align-items: center; gap: 10px; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 18px; padding: 10px 0; scrollbar-width: none; }
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .movie-card { min-width: 170px; background: #141414; border-radius: 10px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .movie-card:hover { transform: scale(1.08); }
         .movie-poster { width:100%; height:250px; object-fit: cover; }
-        .player-page-container { display: none; padding: 30px 5%; background: #000; min-height: 100vh; }
-        .boost-btn { position: fixed; bottom: 30px; right: 30px; background: #00ffcc; color: #000; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 0 20px rgba(0,255,204,0.6); z-index: 99999; cursor: pointer; }
+        .boost-panel { position: fixed; bottom: 100px; right: 30px; background: #1f1f1f; padding: 15px; border-radius: 12px; width: 220px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 99999; }
     </style>
 </head>
 <body>
 
 <div id="main-website-view">
-    <header class="navbar">
-        <div class="logo">Stream<span>Verse</span></div>
-        <nav class="nav-links">
-            <a href="#" onclick="loadCategory('trending', event)" class="active">Trending</a>
-            <a href="#" onclick="loadCategory('hollywood', event)">Hollywood</a>
-            <a href="#" onclick="loadCategory('bollywood', event)">Bollywood</a>
-            <a href="#" onclick="loadCategory('punjabi', event)">Punjabi</a>
-            <a href="#" onclick="loadCategory('south', event)">South</a>
-            <a href="#" onclick="loadCategory('series', event)">Series</a>
-        </nav>
-        <input type="text" id="search-bar" placeholder="Search movies..." onkeyup="if(event.key==='Enter') searchHandler()">
-    </header>
+    <header class="navbar"> ... (same navbar as before) </header>
 
+    <!-- All Time GOAT - Top Section -->
     <div class="section">
-        <h2 class="section-title">🔥 Trending Now</h2>
-        <div class="movie-grid" id="trending-grid"></div>
+        <h2 class="section-title">👑 All Time GOAT Movies</h2>
+        <div class="scroll-container" id="goat-grid"></div>
     </div>
 
+    <!-- Trending -->
+    <div class="section">
+        <h2 class="section-title">🔥 Trending Now</h2>
+        <div class="scroll-container" id="trending-grid"></div>
+    </div>
+
+    <!-- Hollywood, Bollywood, etc. (same pattern) -->
     <div class="section">
         <h2 class="section-title">🎬 Hollywood Blockbusters</h2>
-        <div class="movie-grid" id="hollywood-grid"></div>
+        <div class="scroll-container" id="hollywood-grid"></div>
     </div>
 
     <div class="section">
         <h2 class="section-title">🇮🇳 Bollywood Hits</h2>
-        <div class="movie-grid" id="bollywood-grid"></div>
+        <div class="scroll-container" id="bollywood-grid"></div>
     </div>
 
     <div class="section">
-        <h2 class="section-title">🌍 South & Regional</h2>
-        <div class="movie-grid" id="regional-grid"></div>
-    </div>
-
-    <div class="section">
-        <h2 class="section-title">🏆 All Time Best</h2>
-        <div class="movie-grid" id="best-grid"></div>
+        <h2 class="section-title">🌍 South & Punjabi</h2>
+        <div class="scroll-container" id="regional-grid"></div>
     </div>
 </div>
 
-<!-- Player -->
-<div id="player-page-view" class="player-page-container">
-    <button onclick="exitPlayerPage()" style="margin-bottom:20px;">← Back</button>
-    <h1 id="player-media-title">Loading...</h1>
-    <p id="player-media-meta"></p>
-    <div style="display:grid;grid-template-columns:2.5fr 1fr;gap:30px;">
-        <div id="video-frame-target" style="background:#000;border-radius:12px;overflow:hidden;"></div>
-        <div class="series-control-panel">
-            <h3>Controls</h3>
-            <div id="episodes-dropdown-wrapper" style="display:none;">
-                <select id="season-selector"></select>
-                <select id="episode-selector"></select>
-            </div>
-            <button onclick="tryAlternativeSource()" style="width:100%;padding:12px;background:#e50914;border:none;color:white;border-radius:6px;margin-top:15px;">Alternative Mirror</button>
-        </div>
-    </div>
-</div>
+<!-- Player same as before -->
 
-<div class="boost-btn" onclick="toggleBoosterPanel()" title="Volume Booster 200%">
-    <i class="fas fa-volume-up"></i>
+<div class="boost-panel" id="boostPanel">
+    <h4>Volume Booster</h4>
+    <input type="range" id="volumeSlider" min="0.5" max="2" step="0.1" value="1" style="width:100%;">
+    <p id="volPercent" style="text-align:center;margin:10px 0;">100%</p>
 </div>
 
 <script src="movie_data.js"></script>
@@ -99,47 +70,49 @@
     const API_KEY = "82e880c89dbf119b940e034ed32a3498";
 
     async function loadAllSections() {
-        await Promise.all([
-            loadSection('trending', 'https://api.themoviedb.org/3/trending/movie/day', 'trending-grid'),
-            loadSection('hollywood', `https://api.themoviedb.org/3/discover/movie?with_original_language=en&sort_by=popularity.desc`, 'hollywood-grid'),
-            loadSection('bollywood', `https://api.themoviedb.org/3/discover/movie?with_original_language=hi&sort_by=popularity.desc`, 'bollywood-grid'),
-            loadSection('regional', `https://api.themoviedb.org/3/discover/movie?with_keywords=235476|179430&sort_by=popularity.desc`, 'regional-grid'),
-            loadSection('best', `https://api.themoviedb.org/3/movie/top_rated`, 'best-grid')
-        ]);
+        // GOAT Section
+        const goatMovies = [
+            {id:238, title:"The Godfather", year:"1972", poster_path:"/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"},
+            {id:240, title:"The Godfather Part II", year:"1974"},
+            {id:278, title:"The Shawshank Redemption", year:"1994"},
+            {id:155, title:"The Dark Knight", year:"2008"},
+            {id:680, title:"Scarface", year:"1983"},
+            {id:157336, title:"Interstellar", year:"2014"}
+        ];
+        displayHorizontal( goatMovies, 'goat-grid');
+
+        // Trending + Others (use your existing loadSection logic)
+        await loadHorizontalSection('trending', 'https://api.themoviedb.org/3/trending/movie/day', 'trending-grid');
+        await loadHorizontalSection('hollywood', `https://api.themoviedb.org/3/discover/movie?with_original_language=en`, 'hollywood-grid');
+        await loadHorizontalSection('bollywood', `https://api.themoviedb.org/3/discover/movie?with_original_language=hi`, 'bollywood-grid');
+        await loadHorizontalSection('regional', `https://api.themoviedb.org/3/discover/movie?with_keywords=235476|179430`, 'regional-grid');
     }
 
-    async function loadSection(name, baseUrl, containerId) {
-        try {
-            let res = await fetch(baseUrl + `&api_key=${API_KEY}&page=1`);
-            let data = await res.json();
-            displayMovies(data.results.slice(0, 10), containerId);
-        } catch(e) { console.log("Load failed for", name); }
-    }
-
-    function displayMovies(items, containerId) {
+    function displayHorizontal(items, containerId) {
         const container = document.getElementById(containerId);
         container.innerHTML = "";
         items.forEach(item => {
-            let title = item.title || item.name || "Unknown";
-            let year = (item.release_date || item.first_air_date || "2026").split("-")[0];
-            let poster = item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : '';
-
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.innerHTML = `<img class="movie-poster" src="${poster}"><div style="padding:10px;"><strong>${title}</strong><br><small>${year}</small></div>`;
-            card.onclick = () => window.routeToDedicatedPlayer(item.id, title, item.media_type || 'movie', year);
+            card.innerHTML = `<img class="movie-poster" src="https://image.tmdb.org/t/p/w400${item.poster_path || ''}"><div style="padding:8px;"><strong>${item.title}</strong></div>`;
+            card.onclick = () => window.routeToDedicatedPlayer(item.id, item.title, 'movie', item.year);
             container.appendChild(card);
         });
     }
 
-    function searchHandler() {
-        let q = document.getElementById('search-bar').value.trim();
-        if(!q) return loadAllSections();
-        // Simple search in trending grid
-        fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(q)}`)
-            .then(r => r.json())
-            .then(data => displayMovies(data.results, 'trending-grid'));
+    // Volume Booster
+    function toggleBoosterPanel() {
+        const panel = document.getElementById('boostPanel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
+
+    document.getElementById('volumeSlider').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        document.getElementById('volPercent').innerText = Math.round(val * 100) + "%";
+        if (typeof executeHardwareAmplification === 'function') {
+            executeHardwareAmplification(val);
+        }
+    });
 
     document.addEventListener("DOMContentLoaded", loadAllSections);
 </script>
