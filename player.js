@@ -1,5 +1,5 @@
 /**
- * StreamVerse Ultra-Premium Auto-Balancing Player Engine - Bollywood Enabled v3 (PATCHED)
+ * StreamVerse Ultra-Premium Auto-Balancing Player Engine - FIXED v4
  */
 
 let currentType = "movie";
@@ -14,77 +14,73 @@ window.routeToDedicatedPlayer = function(id, title, type, year) {
     activeTmdbId = id;
     activeTitle = title;
     currentType = type || "movie";
-    currentSelectedServerIndex = 0; 
+    currentSelectedServerIndex = 0;
     currentS = 1;
     currentE = 1;
 
-    // Detect category safety context
-    const activeCategoryElement = document.getElementById('current-category-title');
-    const activeCategoryText = activeCategoryElement ? activeCategoryElement.innerText.toLowerCase() : "";
+    // Better category detection
+    const categoryTitle = document.getElementById('current-category-title')?.innerText.toLowerCase() || "";
+    isBollywoodContent = /bollywood|punjabi|south|desi|pathaan|hind/.test(categoryTitle);
+
+    console.log(`🎥 Opening: ${title} (${type}) | Bollywood Mode: ${isBollywoodContent}`);
+
+    // UI Switch
+    document.getElementById('main-website-view').style.display = 'none';
+    document.getElementById('player-page-view').style.display = 'block';
     
-    if (activeCategoryText.includes('bollywood') || activeCategoryText.includes('punjabi') || activeCategoryText.includes('south')) {
-        isBollywoodContent = true;
-    } else {
-        isBollywoodContent = false;
-    }
+    document.getElementById('player-media-title').innerText = title;
+    document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Auto Mirror System`;
 
-    console.log(`🎥 Opening: ${title} (${type}) ID: ${id} | Desi Engine: ${isBollywoodContent}`);[cite: 12]
+    document.getElementById('video-frame-target').innerHTML = "";
 
-    document.getElementById('main-website-view').style.display = 'none';[cite: 12]
-    const playerView = document.getElementById('player-page-view');[cite: 12]
-    playerView.style.display = 'block';[cite: 12]
-    
-    document.getElementById('player-media-title').innerText = title;[cite: 12]
-    document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Automated Ultra-Fast Stream Node`;[cite: 12]
-
-    document.getElementById('video-frame-target').innerHTML = "";[cite: 12]
-
-    // Render server options UI panel safely
     renderDynamicServerControls();
 
-    if(type === 'tv') {[cite: 12]
-        document.getElementById('movie-only-notice').style.display = 'none';[cite: 12]
-        document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';[cite: 12]
-        if (typeof buildAutomatedDropdowns === "function") {[cite: 12]
-            buildAutomatedDropdowns(id);[cite: 12]
+    if(type === 'tv') {
+        document.getElementById('movie-only-notice').style.display = 'none';
+        document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';
+        if (typeof buildAutomatedDropdowns === "function") {
+            buildAutomatedDropdowns(id);
         }
     } else {
-        document.getElementById('episodes-dropdown-wrapper').style.display = 'none';[cite: 12]
-        document.getElementById('movie-only-notice').style.display = 'block';[cite: 12]
-        loadIframeStream(1, 1);[cite: 12]
+        document.getElementById('episodes-dropdown-wrapper').style.display = 'none';
+        document.getElementById('movie-only-notice').style.display = 'block';
+        loadIframeStream(1, 1);
     }
-    window.scrollTo(0, 0);[cite: 12]
+    window.scrollTo(0, 0);
 };
 
 function renderDynamicServerControls() {
     let targetPanel = document.getElementById('series-control-block');
     if (!targetPanel) return;
 
-    const oldContainer = document.getElementById('custom-server-pool-container');
-    if(oldContainer) oldContainer.remove();
+    // Remove old container to prevent duplicates
+    const old = document.getElementById('custom-server-pool-container');
+    if (old) old.remove();
 
-    const serverContainer = document.createElement('div');
-    serverContainer.id = 'custom-server-pool-container';
-    serverContainer.style.marginTop = "20px";
-    serverContainer.style.borderTop = "1px solid #333";
-    serverContainer.style.paddingTop = "15px";
+    const container = document.createElement('div');
+    container.id = 'custom-server-pool-container';
+    container.style.marginTop = "20px";
+    container.style.borderTop = "1px solid #333";
+    container.style.paddingTop = "15px";
 
-    let labelText = isBollywoodContent ? "⚡ SELECT BOLLYWOOD SERVER:" : "🌍 SELECT GLOBAL HOLLYWOOD SERVER:";
-    let activeList = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
+    const servers = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
+    let html = `<label style="font-size:11px;color:#aaa;letter-spacing:1px;display:block;margin-bottom:10px;">
+        ${isBollywoodContent ? "⚡ BOLLYWOOD SERVERS" : "🌍 GLOBAL SERVERS"}
+    </label><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
 
-    let serverButtonsHtml = `<label style="font-size:11px;color:#aaa;letter-spacing:1px;display:block;margin-bottom:10px;">${labelText}</label><div style="display:flex;flex-wrap:wrap;gap:8px;">`;
-    
-    activeList.forEach((srv, idx) => {
-        let activeClass = idx === currentSelectedServerIndex ? 'background:#e50914;border-color:#e50914;' : 'background:#222;border-color:#444;';
-        serverButtonsHtml += `
-            <button class="server-btn" style="color:#fff;padding:8px 12px;cursor:pointer;border-radius:4px;border:1px solid;font-size:12px;font-weight:bold;${activeClass}" onclick="switchActiveStreamingServer(${idx})">
-                ${srv.name}
-            </button>
-        `;
+    servers.forEach((server, i) => {
+        const isActive = i === currentSelectedServerIndex;
+        html += `
+            <button onclick="switchActiveStreamingServer(${i})" 
+                    style="padding:8px 14px; font-size:13px; border-radius:6px; cursor:pointer; border:1px solid ${isActive ? '#e50914' : '#444'}; 
+                    background:${isActive ? '#e50914' : '#222'}; color:white;">
+                ${server.name}
+            </button>`;
     });
-    serverButtonsHtml += `</div>`;
-    serverContainer.innerHTML = serverButtonsHtml;
-    targetPanel.appendChild(serverContainer);
+
+    html += `</div>`;
+    container.innerHTML = html;
+    targetPanel.appendChild(container);
 }
 
 window.switchActiveStreamingServer = function(index) {
@@ -93,35 +89,31 @@ window.switchActiveStreamingServer = function(index) {
     loadIframeStream(currentS, currentE);
 };
 
-window.exitPlayerPage = function() {[cite: 12]
-    document.getElementById('player-page-view').style.display = 'none';[cite: 12]
-    document.getElementById('main-website-view').style.display = 'block';[cite: 12]
-    document.getElementById('video-frame-target').innerHTML = "";[cite: 12]
-    window.dispatchEvent(new Event('playerClosed'));[cite: 12]
+window.exitPlayerPage = function() {
+    document.getElementById('player-page-view').style.display = 'none';
+    document.getElementById('main-website-view').style.display = 'block';
+    document.getElementById('video-frame-target').innerHTML = "";
+    window.dispatchEvent(new Event('playerClosed'));
 };
 
-window.loadIframeStream = function(s = 1, e = 1) {[cite: 12]
+window.loadIframeStream = function(s = 1, e = 1) {
     currentS = s;
     currentE = e;
-    if (!activeTmdbId) return;
+    if (!activeTmdbId) return console.error("No TMDB ID");
 
-    const frameBox = document.getElementById('video-frame-target');[cite: 12]
-    if (!frameBox) return;[cite: 12]
+    const frameBox = document.getElementById('video-frame-target');
+    if (!frameBox) return;
 
-    let activeList = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
-    let srcUrl = activeList[currentSelectedServerIndex].generateUrl(activeTmdbId, s, e, currentType);
+    const servers = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
+    let srcUrl = servers[currentSelectedServerIndex].generateUrl(activeTmdbId, s, e, currentType);
 
-    frameBox.innerHTML = `<div style="color:#e50914;padding:60px 20px;text-align:center;font-size:18px;">Routing via ${activeList[currentSelectedServerIndex].name}... (S${s} E${e})<br><small>Connecting to master stream cloud database...</small></div>`;[cite: 12]
+    frameBox.innerHTML = `<div style="color:#e50914;padding:50px;text-align:center;">Loading from ${servers[currentSelectedServerIndex].name}...</div>`;
 
     setTimeout(() => {
         frameBox.innerHTML = `
-            <iframe 
-                id="streamverse-player"
-                src="${srcUrl}" 
-                scrolling="no"
-                frameborder="0"
-                allowfullscreen="true"
-                allow="autoplay; encrypted-media">
-            </iframe>`;[cite: 12]
-    }, 400);
+            <iframe id="streamverse-player" src="${srcUrl}" 
+                scrolling="no" frameborder="0" allowfullscreen 
+                allow="autoplay; encrypted-media" style="width:100%;height:520px;">
+            </iframe>`;
+    }, 300);
 };
