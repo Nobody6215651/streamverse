@@ -3,1627 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamVerse Premium - Resilient Content Delivery Platform</title>
-    <!-- Vector Asset Icons Library -->
+    <title>StreamVerse Ultra Premium - Ultimate CDN Cinema Matrix</title>
+    <!-- Font Awesome Pro Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-
-/* ========================================================================== */
-/* StreamVerse GPU-Accelerated Glassmorphism Design System Stylesheet */
-/* Path: /css/style.css */
-/* ========================================================================== */
-
-:root {
-    --primary: #e50914;
-    --primary-hover: #ff1e27;
-    --bg-dark: #070707;
-    --bg-card: rgba(18, 18, 18, 0.65);
-    --bg-navbar: rgba(0, 0, 0, 0.82);
-    --text-light: #ffffff;
-    --text-gray: #a3a3a3;
-    --card-border: rgba(255, 255, 255, 0.08);
-    --glass-accent: rgba(229, 9, 20, 0.12);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
-}
-
-body {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Premium Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: #000000;
-}
-::-webkit-scrollbar-thumb {
-    background: #252525;
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
-}
-
-/* Sticky Frost Nav Header */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 4%;
-    background: var(--bg-navbar);
-    backdrop-filter: blur(18px) saturate(160%);
-    -webkit-backdrop-filter: blur(18px) saturate(160%);
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    border-bottom: 1px solid var(--card-border);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    user-select: none;
-}
-
-.logo span {
-    color: var(--primary);
-}
-
-.nav-links {
-    display: flex;
-    gap: 6px;
-}
-
-.nav-btn {
-    color: var(--text-gray);
-    text-decoration: none;
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    border-radius: 6px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nav-btn:hover, .nav-btn.active {
-    color: var(--text-light);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.nav-btn.active {
-    border-bottom: 2px solid var(--primary);
-    border-radius: 6px 6px 0 0;
-}
-
-/* Debounced search styles */
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-#search-bar {
-    background: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--card-border);
-    color: white;
-    padding: 10px 16px 10px 40px;
-    border-radius: 20px;
-    width: 230px;
-    outline: none;
-    font-size: 13px;
-    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-#search-bar:focus {
-    border-color: var(--primary);
-    width: 300px;
-    background: rgba(15, 15, 15, 0.9);
-    box-shadow: 0 0 20px var(--glass-accent);
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    color: var(--text-gray);
-    pointer-events: none;
-}
-
-/* Hero elements */
-.hero-banner {
-    position: relative;
-    height: 50vh;
-    background: linear-gradient(to top, var(--bg-dark) 8%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.85)),
-                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925') center/cover;
-    display: flex;
-    align-items: center;
-    padding: 0 4%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.hero-content {
-    max-width: 650px;
-    z-index: 10;
-}
-
-.hero-title {
-    font-size: 44px;
-    font-weight: 900;
-    margin-bottom: 12px;
-    line-height: 1.1;
-    text-shadow: 2px 2px 15px rgba(0,0,0,0.95);
-}
-
-.hero-desc {
-    font-size: 15px;
-    color: #e5e5e5;
-    margin-bottom: 24px;
-    line-height: 1.6;
-    text-shadow: 1px 1px 10px rgba(0,0,0,0.9);
-}
-
-.play-btn {
-    background: var(--text-light);
-    color: #000;
-    border: none;
-    padding: 12px 26px;
-    font-size: 15px;
-    font-weight: 800;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.25s ease;
-}
-
-.play-btn:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px var(--glass-accent);
-}
-
-/* Content Shelf Section */
-.main-content {
-    padding: 30px 4%;
-}
-
-.section-title {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    border-left: 4px solid var(--primary);
-    padding-left: 12px;
-    letter-spacing: 0.3px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-}
-
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 25px;
-}
-
-/* Glassmorphic Media Card Layer */
-.movie-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
-    will-change: transform, box-shadow;
-    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.movie-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.75), 0 0 15px var(--glass-accent);
-    border-color: rgba(229, 9, 20, 0.4);
-}
-
-.poster-zoom-wrapper {
-    overflow: hidden;
-    position: relative;
-    aspect-ratio: 2/3;
-}
-
-.movie-poster {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.movie-card:hover .movie-poster {
-    transform: scale(1.06);
-}
-
-.movie-info {
-    padding: 12px;
-}
-
-.movie-info strong {
-    display: block;
-    font-size: 13.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 4px;
-    color: var(--text-light);
-}
-
-.metadata-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: var(--text-gray);
-}
-
-.type-pill {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 1px 5px;
-    border-radius: 4px;
-    font-size: 9px;
-    font-weight: 800;
-}
-
-.badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--primary);
-    padding: 3px 6px;
-    font-size: 10px;
-    font-weight: 800;
-    border-radius: 4px;
-    z-index: 10;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
-}
-
-/* Dynamic Theater styling */
-#player-page-view {
-    padding: 30px 4%;
-}
-
-.back-row {
-    margin-bottom: 20px;
-}
-
-.back-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--card-border);
-    color: white;
-    padding: 8px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
-    font-size: 13px;
-}
-
-.back-btn:hover {
-    background: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 0 15px var(--glass-accent);
-}
-
-.theater-layout {
-    display: grid;
-    grid-template-columns: 3.3fr 1.2fr;
-    gap: 25px;
-}
-
-@media(max-width: 1024px) {
-    .theater-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-.video-frame-container {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.9);
-}
-
-.video-frame-container iframe {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.routing-shimmer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: var(--text-gray);
-    font-size: 14px;
-}
-
-.spinner {
-    width: 35px;
-    height: 35px;
-    border: 3px solid rgba(255,255,255,0.05);
-    border-top: 3px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin-bottom: 12px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.player-details-card {
-    margin-top: 20px;
-    background: var(--bg-card);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--card-border);
-    padding: 20px;
-    border-radius: 12px;
-}
-
-.player-details-card h1 {
-    font-size: 24px;
-    font-weight: 900;
-    margin-bottom: 6px;
-}
-
-.player-details-card p {
-    color: var(--text-gray);
-    font-size: 13px;
-}
-
-.control-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.control-widget-box {
-    background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 16px;
-}
-
-.control-widget-box h4 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-gray);
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--card-border);
-    padding-bottom: 8px;
-}
-
-/* Audio visualization canvas styling */
-#audio-frequency-canvas {
-    width: 100%;
-    height: 50px;
-    background: #020202;
-    border-radius: 6px;
-    margin-top: 12px;
-    border: 1px solid var(--card-border);
-}
-
-/* Dropdown layout matrices */
-.episodes-dropdown-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.select-field {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.select-field label {
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: var(--text-gray);
-}
-
-.select-field select {
-    background: #0f0f0f;
-    border: 1px solid var(--card-border);
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 13px;
-    outline: none;
-    cursor: pointer;
-}
-
-.select-field select:focus {
-    border-color: var(--primary);
-}
-
-/* CDN distribution button containers */
-.server-pool-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.server-pool-label {
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--text-gray);
-}
-
-.server-btn-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.server-btn {
-    background: #0f0f0f;
-    border: 1px solid var(--card-border);
-    color: #cccccc;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 11.5px;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s;
-}
-
-.server-btn:hover {
-    background: rgba(255,255,255,0.05);
-    color: white;
-}
-
-.server-btn.active {
-    background: rgba(229, 9, 20, 0.15);
-    border-color: var(--primary);
-    color: white;
-    box-shadow: inset 0 0 8px rgba(229, 9, 20, 0.3);
-}
-
-.booster-controls-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.vol-btn {
-    background: #0f0f0f;
-    border: 1px solid var(--card-border);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    flex-grow: 1;
-    font-size: 11px;
-    font-weight: 800;
-    transition: all 0.2s;
-}
-
-.vol-btn:hover {
-    background: var(--primary);
-}
-
-#volPercent {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--primary);
-    min-width: 45px;
-    text-align: center;
-}
-
-.empty-query-indicator {
-    padding: 60px 20px;
-    text-align: center;
-    color: var(--text-gray);
-    grid-column: 1 / -1;
-}
-
-.empty-query-indicator i {
-    font-size: 30px;
-    color: var(--primary);
-    margin-bottom: 10px;
-}
-
+        /* ========================================================================== */
+        /* STREAMVERSE CINEMATIC CINEMA ENGINE - PREMIUM CORE STYLESHEET */
+        /* ========================================================================== */
+        :root {
+            --primary: #e50914;
+            --primary-hover: #ff1e27;
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.85);
+            --bg-navbar: rgba(2, 2, 2, 0.95);
+            --text-light: #ffffff;
+            --text-gray: #aaaaaa;
+            --card-border: rgba(255, 255, 255, 0.07);
+            --glass-accent: rgba(229, 9, 20, 0.2);
+            --smooth-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* High-Performance Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #010101; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 5px; border: 2px solid #010101; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* Glassmorphic Sticky Navigation Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: var(--bg-navbar);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            position: sticky;
+            top: 0;
+            z-index: 99999;
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .nav-btn {
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-btn.active {
+            border-color: var(--primary);
+            background: rgba(229, 9, 20, 0.15);
+            box-shadow: 0 0 20px var(--glass-accent);
+        }
+
+        .search-container { position: relative; display: flex; align-items: center; }
+
+        #search-bar {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 12px 20px 12px 50px;
+            border-radius: 30px;
+            width: 280px;
+            outline: none;
+            font-size: 14px;
+            transition: var(--smooth-transition);
+        }
+
+        #search-bar:focus {
+            border-color: var(--primary);
+            width: 400px;
+            background: #000;
+            box-shadow: 0 0 30px var(--glass-accent);
+        }
+
+        .search-icon { position: absolute; left: 20px; color: var(--text-gray); pointer-events: none; }
+
+        /* Dynamic Cinematic Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 65vh;
+            background: linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85)),
+                        url('https://image.tmdb.org/t/p/original/b33nnax1vYgsXW6YvXMZ96TqOtG.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .hero-content { max-width: 800px; z-index: 10; }
+        .hero-title { font-size: 56px; font-weight: 900; margin-bottom: 20px; line-height: 1.1; text-shadow: 3px 6px 25px #000; }
+        .hero-desc { font-size: 18px; color: #e0e0e0; margin-bottom: 35px; line-height: 1.6; text-shadow: 2px 4px 15px #000; }
+
+        .play-btn {
+            background: var(--text-light);
+            color: #000;
+            border: none;
+            padding: 16px 38px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--smooth-transition);
+        }
+
+        .play-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px var(--glass-accent);
+        }
+
+        /* Content Catalog Shelves */
+        .main-content { padding: 50px 5%; }
+        .section-title { font-size: 26px; font-weight: 800; margin-bottom: 35px; border-left: 6px solid var(--primary); padding-left: 18px; letter-spacing: 0.5px; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; }
+
+        /* Media Card Structure */
+        .movie-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: var(--smooth-transition);
+        }
+
+        .movie-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 25px var(--glass-accent);
+            border-color: rgba(229, 9, 20, 0.4);
+        }
+
+        .poster-wrapper { overflow: hidden; position: relative; aspect-ratio: 2/3; background: #0a0a0a; }
+        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+        .movie-card:hover .movie-poster { transform: scale(1.07); }
+
+        .movie-info { padding: 18px; }
+        .movie-info strong { display: block; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 8px; color: var(--text-light); }
+        
+        .metadata-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-gray); }
+        .type-pill { background: rgba(255, 255, 255, 0.1); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .badge { position: absolute; top: 15px; left: 15px; background: var(--primary); padding: 5px 10px; font-size: 11px; font-weight: 800; border-radius: 6px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+        /* Premium Theater Environment Layout */
+        #player-page-view { padding: 40px 5%; }
+        .back-row { margin-bottom: 30px; }
+        .back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); color: white; padding: 12px 26px; border-radius: 30px; cursor: pointer; font-weight: 700; transition: var(--smooth-transition); }
+        .back-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 5px 20px var(--glass-accent); }
+
+        .theater-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 35px; }
+        @media(max-width: 1100px) { .theater-layout { grid-template-columns: 1fr; } }
+
+        .video-frame-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid var(--card-border); position: relative; box-shadow: 0 30px 70px rgba(0,0,0,0.95); }
+        .video-frame-container iframe { width: 100%; height: 100%; display: block; border: none; }
+
+        /* Advanced Loading Pipeline UI */
+        .routing-shimmer { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--text-gray); background: #020202; }
+        .spinner { width: 55px; height: 55px; border: 5px solid rgba(255,255,255,0.03); border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .player-details-card { margin-top: 30px; background: var(--bg-card); border: 1px solid var(--card-border); padding: 30px; border-radius: 20px; }
+        .player-details-card h1 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+        .player-details-card p { color: var(--text-gray); font-size: 15px; line-height: 1.6; }
+
+        /* Control Sidebar Command Center */
+        .control-sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .control-widget-box { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 25px; }
+        .control-widget-box h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-gray); margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; }
+
+        .episodes-dropdown-wrapper { display: flex; flex-direction: column; gap: 18px; }
+        .select-field { display: flex; flex-direction: column; gap: 10px; }
+        .select-field label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); }
+        .select-field select { background: #0a0a0a; border: 1px solid var(--card-border); color: white; padding: 14px; border-radius: 10px; font-size: 14px; outline: none; cursor: pointer; transition: var(--smooth-transition); }
+        .select-field select:focus { border-color: var(--primary); }
+
+        /* High Capacity Server Core Link UI */
+        .server-btn-wrapper { display: flex; flex-direction: column; gap: 10px; }
+        .server-btn { background: #0a0a0a; border: 1px solid var(--card-border); color: #ccc; padding: 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: left; transition: var(--smooth-transition); display: flex; align-items: center; gap: 10px; }
+        .server-btn:hover { background: rgba(255,255,255,0.05); color: white; }
+        .server-btn.active { background: rgba(229, 9, 20, 0.15); border-color: var(--primary); color: white; box-shadow: inset 0 0 15px rgba(229, 9, 20, 0.3); }
+
+        /* Hardware Sound Booster Widget */
+        .booster-controls-row { display: flex; gap: 12px; align-items: center; }
+        .vol-btn { background: #0a0a0a; border: 1px solid var(--card-border); color: white; padding: 12px; border-radius: 10px; cursor: pointer; flex-grow: 1; font-size: 13px; font-weight: 800; transition: var(--smooth-transition); }
+        .vol-btn:hover { background: var(--primary); }
+        #volPercent { font-size: 16px; font-weight: 900; color: var(--primary); min-width: 55px; text-align: center; }
+        #audio-frequency-canvas { width: 100%; height: 65px; background: #010101; border-radius: 10px; margin-top: 20px; border: 1px solid var(--card-border); }
+
+        /* Empty Search States */
+        .empty-query-indicator { padding: 100px 25px; text-align: center; color: var(--text-gray); grid-column: 1 / -1; }
+        .empty-query-indicator i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- ========================================================================== -->
-    <!-- COMPONENT HEADER NAVIGATION INTERFACE -->
-    <!-- ========================================================================== -->
+    <!-- Header Navigation Platform -->
     <header class="navbar">
         <div class="logo" onclick="window.StreamVerseApp.filterSection('all')">Stream<span>Verse</span></div>
         <nav class="nav-links">
-            <button id="btn-all" class="nav-btn active" onclick="window.StreamVerseApp.filterSection('all')">Home</button>
+            <button id="btn-all" class="nav-btn active" onclick="window.StreamVerseApp.filterSection('all')">Home Portal</button>
             <button id="btn-hollywood" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Hollywood')">Hollywood</button>
             <button id="btn-bollywood" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Bollywood')">Bollywood</button>
-            <button id="btn-punjabi" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Punjabi')">Punjabi</button>
+            <button id="btn-punjabi" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Punjabi')">Punjabi Cinema</button>
             <button id="btn-south" class="nav-btn" onclick="window.StreamVerseApp.filterSection('South')">South Indian</button>
-            <button id="btn-web-series" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Web Series')">Web Series</button>
+            <button id="btn-web-series" class="nav-btn" onclick="window.StreamVerseApp.filterSection('Web Series')">Premium Series</button>
         </nav>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-bar" placeholder="Filter movies or serials...">
+            <input type="text" id="search-bar" placeholder="Search title, genre, year...">
         </div>
     </header>
 
-    <!-- ========================================================================== -->
-    <!-- PLATFORM VIEW ZONE 1: STANDARD USER INTERFACE CATALOG -->
-    <!-- ========================================================================== -->
+    <!-- Main Dynamic Content Engine Grid -->
     <main id="main-website-view">
-        
-        <!-- Premium Hero Showcase Banner -->
-        <section class="hero-banner">
+        <section class="hero-banner" id="hero-banner-element">
             <div class="hero-content">
-                <h1 class="hero-title">Avatar: The Way of Water</h1>
-                <p class="hero-desc">Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race to protect their home.</p>
-                <button class="play-btn" onclick="window.StreamVersePlayer.routeToPlayer(76600, 'Avatar: The Way of Water', 'movie', '2022', 'Hollywood')">
-                    <i class="fas fa-play"></i> Stream Live 4K
+                <h1 class="hero-title" id="hero-title-txt">Deadpool & Wolverine</h1>
+                <p class="hero-desc" id="hero-desc-txt">A listless Wade Wilson toils in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.</p>
+                <button class="play-btn" id="hero-play-trigger">
+                    <i class="fas fa-play"></i> Launch Ultra-CDN Stream
                 </button>
             </div>
         </section>
 
-        <!-- Dynamic Grid View Container -->
         <section class="main-content">
             <h2 class="section-title" id="current-category-title">All Movies & Premium Web Series</h2>
-            <div class="movie-grid" id="movie-grid-container">
-                <!-- Data injection target managed by App Core -->
-            </div>
+            <div class="movie-grid" id="movie-grid-container"></div>
         </section>
-
     </main>
 
-    <!-- ========================================================================== -->
-    <!-- PLATFORM VIEW ZONE 2: PREMIUM THEATER INTERFACE -->
-    <!-- ========================================================================== -->
+    <!-- Standalone Isolation Media Theater -->
     <div id="player-page-view" style="display: none;">
-        
         <div class="back-row">
             <button class="back-btn" onclick="window.StreamVersePlayer.exitPlayer()">
-                <i class="fas fa-arrow-left"></i> Return to Main Grid
+                <i class="fas fa-arrow-left"></i> Close Cinema Theater
             </button>
         </div>
 
         <div class="theater-layout">
-            
-            <!-- Left Grid Pane: Player Stage Frame -->
             <div class="player-stage">
-                <div class="video-frame-container" id="video-frame-target">
-                    <!-- Secure isolated iframe injected here at playback runtime -->
-                </div>
-                
+                <div class="video-frame-container" id="video-frame-target"></div>
                 <div class="player-details-card">
-                    <h1 id="player-media-title">Media Processing</h1>
-                    <p id="player-media-meta">Stream Metadata Pipeline Details</p>
+                    <h1 id="player-media-title">Initialization Pipeline...</h1>
+                    <p id="player-media-meta">Syncing Multi-CDN Node Cluster Servers Safely.</p>
                 </div>
             </div>
 
-            <!-- Right Grid Pane: User Control Sidebar Matrix -->
             <div class="control-sidebar">
-                
-                <!-- Dynamic TV Episode Selection Module -->
+                <!-- Ep Navigator Console -->
                 <div class="control-widget-box" id="episodes-dropdown-wrapper" style="display: none;">
-                    <h4><i class="fas fa-list-ol"></i> Episode Navigator Console</h4>
+                    <h4><i class="fas fa-layer-group"></i> Episode Management Deck</h4>
                     <div class="episodes-dropdown-wrapper">
                         <div class="select-field">
-                            <label>Active Season</label>
+                            <label>Active Season Block</label>
                             <select id="season-selector"></select>
                         </div>
                         <div class="select-field">
-                            <label>Active Episode</label>
+                            <label>Active Episode Index</label>
                             <select id="episode-selector"></select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Non-Serial Asset Feedback Indicator -->
+                <!-- Single Movie Static Info Block -->
                 <div class="control-widget-box" id="movie-only-notice" style="display: block;">
-                    <h4><i class="fas fa-info-circle"></i> Playback Mode</h4>
-                    <p style="font-size: 11.5px; color: var(--text-gray); line-height: 1.5;">Streaming single-segment feature film. Series selection elements deactivated for non-serial assets.</p>
+                    <h4><i class="fas fa-film"></i> Cinematic Node Mode</h4>
+                    <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">Streaming single structural content file. Advanced cloud buffering allocation active.</p>
                 </div>
 
-                <!-- Hardware Audio Amplification Panel -->
+                <!-- Volume Dynamic Boost Engine -->
                 <div class="control-widget-box">
-                    <h4><i class="fas fa-volume-up"></i> Dynamic Gain & Sensory Controller</h4>
+                    <h4><i class="fas fa-sliders-h"></i> Sensory DB Frequency Booster</h4>
                     <div class="booster-controls-row">
                         <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(1.0)">100%</button>
-                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(1.5)">150%</button>
-                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(2.0)">200% (Boost)</button>
+                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(1.6)">160%</button>
+                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(2.2)">220%</button>
                         <span id="volPercent">100%</span>
                     </div>
-                    <!-- Rendering canvas target for frequency spectral visualization -->
-                    <canvas id="audio-frequency-canvas" height="50"></canvas>
+                    <canvas id="audio-frequency-canvas"></canvas>
                 </div>
 
-                <!-- Routing Server Dynamic Injector Target -->
-                <div class="control-widget-box" id="series-control-block">
-                    <!-- Selection nodes injected safely at runtime -->
-                </div>
-
+                <!-- Server Distribution Matrix Target Box -->
+                <div class="control-widget-box" id="series-control-block"></div>
             </div>
-
         </div>
     </div>
 
-    <!-- ========================================================================== -->
-    <!-- SECURE ORDERED SCRIPT DEPLOYMENT SEQUENCE (MERGED INLINE) -->
-    <!-- ========================================================================== -->
+    <!-- Script Block Core Operations -->
     <script>
+    (function (window) {
+        'use strict';
 
-/**
- * StreamVerse Premium Database Registry and Schema Enforcer
- * Path: /js/movie_data.js
- */
-(function (window) {
-    'use strict';
+        // High Density Premium Movie Catalog Storage Pool
+        const COMPREHENSIVE_CINEMA_DB = [
+            // Hollywood Pool
+            { id: 1, title: "Deadpool & Wolverine", category: "Hollywood", quality: "4K Dolby", year: "2024", poster: "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg", tmdbId: "533535", type: "movie" },
+            { id: 2, title: "Avatar: The Way of Water", category: "Hollywood", quality: "4K UHD", year: "2022", poster: "https://image.tmdb.org/t/p/w400/t6HI6wNmWfeN6wZgZ2ZJvOIJ60a.jpg", tmdbId: "76600", type: "movie" },
+            { id: 3, title: "The Dark Knight", category: "Hollywood", quality: "BluRay 1080p", year: "2008", poster: "https://image.tmdb.org/t/p/w400/qJ2tWwZgZ2ZJvOIJ60a.jpg", tmdbId: "155", type: "movie" },
+            { id: 4, title: "Oppenheimer", category: "Hollywood", quality: "IMAX UHD", year: "2023", poster: "https://image.tmdb.org/t/p/w400/8Gxv836tOcgy6Z4v6R4w9i36g.jpg", tmdbId: "872585", type: "movie" },
+            { id: 5, title: "Interstellar", category: "Hollywood", quality: "1080p FHD", year: "2014", poster: "https://image.tmdb.org/t/p/w400/gEU2vYvA7M1g6v6R4w9i36g.jpg", tmdbId: "157336", type: "movie" },
+            
+            // Bollywood Pool
+            { id: 6, title: "Pathaan", category: "Bollywood", quality: "1080p WebDL", year: "2023", poster: "https://image.tmdb.org/t/p/w400/m8ZQB6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "868759", type: "movie" },
+            { id: 7, title: "Jawan", category: "Bollywood", quality: "HDR HQ", year: "2023", poster: "https://image.tmdb.org/t/p/w400/v7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "872585", type: "movie" },
+            { id: 8, title: "Animal", category: "Bollywood", quality: "1080p Web", year: "2023", poster: "https://image.tmdb.org/t/p/w400/v9YvA7M1g6v6R4w9i36g8H.jpg", tmdbId: "781732", type: "movie" },
+            { id: 9, title: "Fighter", category: "Bollywood", quality: "1080p HQ", year: "2024", poster: "https://image.tmdb.org/t/p/w400/z6YvA7M1g6v6R4w9i36g8F.jpg", tmdbId: "850165", type: "movie" },
 
-    const SCHEMA_FIELDS = ['id', 'title', 'category', 'quality', 'year', 'poster', 'tmdbId', 'type'];
-    const CATEGORY_REGISTRY = ['Hollywood', 'Bollywood', 'Punjabi', 'South', 'Web Series'];
-    const VALUE_TYPES = ['movie', 'tv'];
+            // Punjabi Pool
+            { id: 10, title: "Carry on Jatta 3", category: "Punjabi", quality: "720p/1080p", year: "2023", poster: "https://image.tmdb.org/t/p/w400/w7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "1042586", type: "movie" },
+            { id: 11, title: "Jatt & Juliet 3", category: "Punjabi", quality: "1080p Smart", year: "2024", poster: "https://image.tmdb.org/t/p/w400/abcBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "1214320", type: "movie" },
+            { id: 12, title: "Saunkan Saunkne", category: "Punjabi", quality: "WebDL", year: "2022", poster: "https://image.tmdb.org/t/p/w400/xyzBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "956845", type: "movie" },
 
-    class DataIntegrityGuard {
-        static enforce(item) {
-            if (!item || typeof item !== 'object') return null;
+            // South Indian Pool
+            { id: 13, title: "K.G.F: Chapter 2", category: "South", quality: "4K UHD", year: "2022", poster: "https://image.tmdb.org/t/p/w400/x7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "718032", type: "movie" },
+            { id: 14, title: "RRR (Rise Roar Revolt)", category: "South", quality: "4K Dolby", year: "2022", poster: "https://image.tmdb.org/t/p/w400/nEuFEzST4wBw67v6R4w9i36g.jpg", tmdbId: "579974", type: "movie" },
+            { id: 15, title: "Salaar: Ceasefire", category: "South", quality: "1080p Ultra", year: "2023", poster: "https://image.tmdb.org/t/p/w400/p7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "897087", type: "movie" },
+            { id: 16, title: "Kalki 2898 AD", category: "South", quality: "4K DualAudio", year: "2024", poster: "https://image.tmdb.org/t/p/w400/v7mBv6m6R6w5wZgZ2ZJvOIJ60K.jpg", tmdbId: "2898", type: "movie" },
 
-            for (const key of SCHEMA_FIELDS) {
-                if (!(key in item) || item[key] === undefined || item[key] === null) {
-                    console.error(`[Integrity Violation] Missing critical parameter: ${key} for entry:`, item);
-                    return null;
-                }
+            // Web Series Premium Pool
+            { id: 17, title: "Stranger Things", category: "Web Series", quality: "4K Atmos", year: "2016", poster: "https://image.tmdb.org/t/p/w400/49W0wR0ZgZ2ZJvOIJ60a.jpg", tmdbId: "66732", type: "tv" },
+            { id: 18, title: "Breaking Bad", category: "Web Series", quality: "HDR 10bit", year: "2008", poster: "https://image.tmdb.org/t/p/w400/ggAI0wR0ZgZ2ZJvOIJ60a.jpg", tmdbId: "1396", type: "tv" },
+            { id: 19, title: "The Boys", category: "Web Series", quality: "1080p UHD", year: "2019", poster: "https://image.tmdb.org/t/p/w400/7NsMv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "76479", type: "tv" },
+            { id: 20, title: "House of the Dragon", category: "Web Series", quality: "4K Stream", year: "2022", poster: "https://image.tmdb.org/t/p/w400/1X7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "94997", type: "tv" }
+        ];
+
+        class DatabaseController {
+            constructor() { this.store = new Map(); this.initializeRegistry(); }
+            initializeRegistry() { COMPREHENSIVE_CINEMA_DB.forEach(item => this.store.set(Number(item.id), Object.freeze(item))); }
+            getAll() { return Array.from(this.store.values()); }
+            registerItem(item) { if(!item.id || !item.tmdbId) return false; this.store.set(Number(item.id), Object.freeze(item)); return true; }
+        }
+        window.StreamVerseDatabase = new DatabaseController();
+
+        // High Availability Hyper-CDN Link Matrix System (7 High Speed Servers)
+        class CDNClusterManager {
+            constructor() {
+                this.nodes = [
+                    { id: "vidsrc-to", name: "⚡ VidSrc Premium CDN (Server 1)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.to/embed/movie/${id}` : `https://vidsrc.to/embed/tv/${id}/${s}/${e}` },
+                    { id: "vidsrc-me", name: "🚀 VidSrc.me Proxy Node (Server 2)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.me/embed/movie?tmdb=${id}` : `https://vidsrc.me/embed/tv?tmdb=${id}&season=${s}&episode=${e}` },
+                    { id: "embed-cc", name: "🌐 2Embed Multi-Fibre (Server 3)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://www.2embed.cc/embed/${id}` : `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}` },
+                    { id: "autoembed", name: "🔒 AutoEmbed Cloud Buffer (Server 4)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://player.autoembed.cc/embed/movie/${id}` : `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}` },
+                    { id: "multiembed", name: "🛰️ MultiEmbed Global Network (Server 5)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` },
+                    { id: "vidsrc-xyz", name: "💎 VidSrc.xyz Super Highway (Server 6)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.xyz/embed/movie/${id}` : `https://vidsrc.xyz/embed/tv/${id}/${s}/${e}` },
+                    { id: "embed-su", name: "🔥 EmbedSu Ultra Pipeline (Server 7)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://embed.su/embed/movie/${id}` : `https://embed.su/embed/tv/${id}/${s}/${e}` }
+                ];
+                Object.freeze(this.nodes);
             }
-
-            const verifiedItem = {
-                id: Number(item.id),
-                title: String(item.title).trim(),
-                category: String(item.category).trim(),
-                quality: String(item.quality).trim(),
-                year: String(item.year).trim(),
-                poster: String(item.poster).trim(),
-                tmdbId: String(item.tmdbId).trim(),
-                type: String(item.type).toLowerCase()
-            };
-
-            if (!VALUE_TYPES.includes(verifiedItem.type)) {
-                verifiedItem.type = 'movie';
-            }
-
-            if (verifiedItem.type === 'tv') {
-                verifiedItem.season = item.season ? String(item.season) : "1";
-                verifiedItem.episode = item.episode ? String(item.episode) : "1";
-            }
-
-            return verifiedItem;
+            getNodes() { return this.nodes; }
         }
-    }
+        window.HollywoodServers = new CDNClusterManager();
 
-    const initialDatabaseBootstrap = [
-        { id: 1, title: "Avatar: The Way of Water", category: "Hollywood", quality: "4K UHD", year: "2022", poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400", tmdbId: "76600", type: "movie" },
-        { id: 2, title: "Pathaan", category: "Bollywood", quality: "1080p FHD", year: "2023", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "868759", type: "movie" },
-        { id: 3, title: "Stranger Things", category: "Hollywood", quality: "HDR 10bit", year: "2016", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "66732", type: "tv", season: "1", episode: "1" },
-        { id: 4, title: "The Dark Knight", category: "Hollywood", quality: "4K Dolby Vision", year: "2008", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "155", type: "movie" },
-        { id: 5, title: "Jawan", category: "Bollywood", quality: "1080p HQ", year: "2023", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "872585", type: "movie" },
-        { id: 6, title: "Carry on Jatta 3", category: "Punjabi", quality: "1080p WebDL", year: "2023", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "1042586", type: "movie" },
-        { id: 7, title: "K.G.F: Chapter 2", category: "South", quality: "4K UHD", year: "2022", poster: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=400", tmdbId: "718032", type: "movie" },
-        { id: 8, title: "Breaking Bad", category: "Web Series", quality: "4K UHD", year: "2008", poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=400", tmdbId: "1396", type: "tv", season: "1", episode: "1" }
-    ];
+        // TMDB Realtime Multi-Season Automator
+        class MetadataSynchronizer {
+            async buildDropdowns(tvId) {
+                const seasonSelect = document.getElementById('season-selector');
+                if (!seasonSelect) return;
+                seasonSelect.innerHTML = "<option>Fetching Canon Records...</option>";
 
-    class StorageRegistry {
-        constructor() {
-            this._store = new Map();
-            this.bootRegistry();
-        }
-
-        bootRegistry() {
-            initialDatabaseBootstrap.forEach(item => {
-                const parsed = DataIntegrityGuard.enforce(item);
-                if (parsed) {
-                    this._store.set(parsed.id, Object.freeze(parsed));
-                }
-            });
-            console.log(`[Storage Registry] Verified ${this._store.size} records in safe state storage.`);
-        }
-
-        getAll() {
-            return Array.from(this._store.values());
-        }
-
-        getById(id) {
-            return this._store.get(Number(id)) || null;
-        }
-
-        getByCategory(category) {
-            const cleanCat = String(category).toLowerCase();
-            return this.getAll().filter(item => item.category.toLowerCase() === cleanCat);
-        }
-
-        registerItem(item) {
-            const parsed = DataIntegrityGuard.enforce(item);
-            if (!parsed) {
-                console.error("[Storage Registry] Item rejected due to schema violation.");
-                return false;
-            }
-            this._store.set(parsed.id, Object.freeze(parsed));
-            return true;
-        }
-    }
-
-    Object.freeze(StorageRegistry);
-    Object.freeze(StorageRegistry.prototype);
-    Object.freeze(DataIntegrityGuard);
-    Object.freeze(DataIntegrityGuard.prototype);
-
-    window.StreamVerseDatabase = new StorageRegistry();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Hollywood CDN Distribution Matrix
- * Path: /js/hollywood_servers.js
- */
-(function (window) {
-    'use strict';
-
-    class HollywoodCDNCluster {
-        constructor() {
-            this.clusterRegion = "GLOBAL-WEST";
-            this.routingNodes = [
-                {
-                    id: "h-node-1",
-                    name: "Primary CDN (VidSrc.me)",
-                    priority: 10,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://vidsrc.me/embed/movie?tmdb=${secureId}`
-                            : `https://vidsrc.me/embed/tv?tmdb=${secureId}&sea=${Number(s)}&epi=${Number(e)}`;
-                    }
-                },
-                {
-                    id: "h-node-2",
-                    name: "Fallback CDN (2Embed)",
-                    priority: 8,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://embed.2embed.to/embed/tmdb/movie?id=${secureId}`
-                            : `https://embed.2embed.to/embed/tmdb/tv?id=${secureId}&s=${Number(s)}&e=${Number(e)}`;
-                    }
-                },
-                {
-                    id: "h-node-3",
-                    name: "Alternative CDN (AutoEmbed)",
-                    priority: 5,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://player.autoembed.cc/embed/movie/${secureId}`
-                            : `https://player.autoembed.cc/embed/tv/${secureId}/${Number(s)}/${Number(e)}`;
-                    }
-                }
-            ];
-            Object.freeze(this.routingNodes);
-        }
-
-        getNodes() {
-            return this.routingNodes;
-        }
-
-        getHighestPriorityNode() {
-            return this.routingNodes[0];
-        }
-    }
-
-    Object.freeze(HollywoodCDNCluster);
-    Object.freeze(HollywoodCDNCluster.prototype);
-    window.HollywoodServers = new HollywoodCDNCluster();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Bollywood and Regional Asian CDN Distribution Matrix
- * Path: /js/bollywood_servers.js
- */
-(function (window) {
-    'use strict';
-
-    class BollywoodCDNCluster {
-        constructor() {
-            this.clusterRegion = "SOUTH-ASIA-MUMBAI";
-            this.routingNodes = [
-                {
-                    id: "b-node-1",
-                    name: "Regional CDN Edge (VidSrc.cc)",
-                    priority: 10,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://vidsrc.cc/vidsrc/movie/${secureId}`
-                            : `https://vidsrc.cc/vidsrc/tv/${secureId}/${Number(s)}/${Number(e)}`;
-                    }
-                },
-                {
-                    id: "b-node-2",
-                    name: "Secondary Regional Node (VidSrc.xyz)",
-                    priority: 7,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://vidsrc.xyz/embed/movie/${secureId}`
-                            : `https://vidsrc.xyz/embed/tv/${secureId}/${Number(s)}/${Number(e)}`;
-                    }
-                },
-                {
-                    id: "b-node-3",
-                    name: "Fallback Mirror Node (SuperEmbed)",
-                    priority: 4,
-                    generateUrl: (tmdbId, s, e, type) => {
-                        const secureId = encodeURIComponent(tmdbId);
-                        return type === 'movie'
-                            ? `https://multiembed.mov/?video_id=${secureId}&tmdb=1`
-                            : `https://multiembed.mov/?video_id=${secureId}&tmdb=1&s=${Number(s)}&e=${Number(e)}`;
-                    }
-                }
-            ];
-            Object.freeze(this.routingNodes);
-        }
-
-        getNodes() {
-            return this.routingNodes;
-        }
-
-        getHighestPriorityNode() {
-            return this.routingNodes[0];
-        }
-    }
-
-    Object.freeze(BollywoodCDNCluster);
-    Object.freeze(BollywoodCDNCluster.prototype);
-    window.BollywoodServers = new BollywoodCDNCluster();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Resilient Metadata Synchronization Engine
- * Path: /js/series_fixer.js
- */
-(function (window) {
-    'use strict';
-
-    const TMDB_API_KEY = "82e880c89dbf119b940e034ed32a3498";
-
-    class MetadataSynchronizer {
-        constructor() {
-            this.activeTvId = null;
-            this.syncCache = new Map();
-        }
-
-        async buildDropdowns(tvId) {
-            this.activeTvId = String(tvId);
-            const seasonSelect = document.getElementById('season-selector');
-            if (!seasonSelect) return;
-
-            seasonSelect.innerHTML = "<option value='' disabled selected>Syncing with API Registry...</option>";
-
-            if (this.syncCache.has(this.activeTvId)) {
-                console.log(`[Metadata Sync] Serving cached season structure for ID: ${this.activeTvId}`);
-                this.renderSeasons(this.syncCache.get(this.activeTvId));
-                return;
-            }
-
-            let attempt = 0;
-            const maxAttempts = 3;
-            let success = false;
-            let payload = null;
-
-            while (attempt < maxAttempts && !success) {
                 try {
-                    const res = await fetch(`https://api.themoviedb.org/3/tv/${this.activeTvId}?api_key=${TMDB_API_KEY}`);
-                    if (!res.ok) throw new Error(`Handshake failure. HTTP Error Code: ${res.status}`);
-                    payload = await res.json();
-                    success = true;
-                } catch (err) {
-                    attempt++;
-                    console.warn(`[API Connection Retry] Attempt ${attempt}/${maxAttempts} failed. Error: ${err.message}`);
-                    if (attempt < maxAttempts) {
-                        // Exponential backoff wait time calculation
-                        const waitTime = 500 * Math.pow(2, attempt) + (Math.random() * 100);
-                        await new Promise(resolve => setTimeout(resolve, waitTime));
+                    const res = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=82e880c89dbf119b940e034ed32a3498`);
+                    if(!res.ok) throw new Error();
+                    const data = await res.json();
+                    
+                    seasonSelect.innerHTML = "";
+                    let seasons = data.seasons.filter(s => s.season_number > 0);
+                    if(seasons.length === 0) seasons = data.seasons;
+
+                    seasons.forEach(s => {
+                        const opt = document.createElement('option');
+                        opt.value = s.season_number;
+                        opt.innerText = `${s.name} (${s.episode_count} Episodes)`;
+                        opt.setAttribute('data-count', s.episode_count);
+                        seasonSelect.appendChild(opt);
+                    });
+                } catch(e) {
+                    seasonSelect.innerHTML = "";
+                    for(let i=1; i<=4; i++) {
+                        const opt = document.createElement('option');
+                        opt.value = i; opt.innerText = `Season ${i} (Cloud Backup)`;
+                        opt.setAttribute('data-count', "12");
+                        seasonSelect.appendChild(opt);
                     }
                 }
+                seasonSelect.onchange = () => this.updateEpisodes();
+                this.updateEpisodes();
             }
 
-            if (success && payload && payload.seasons) {
-                // Filter out non-canonical bonus or promo seasons (Season 0)
-                let cleanSeasons = payload.seasons.filter(s => Number(s.season_number) > 0);
-                if (cleanSeasons.length === 0 && payload.seasons.length > 0) {
-                    cleanSeasons = [payload.seasons[0]];
+            updateEpisodes() {
+                const seasonSelect = document.getElementById('season-selector');
+                const episodeSelect = document.getElementById('episode-selector');
+                if(!seasonSelect || !episodeSelect) return;
+
+                const selected = seasonSelect.selectedOptions[0];
+                const count = selected ? Number(selected.getAttribute('data-count')) : 10;
+                
+                episodeSelect.innerHTML = "";
+                for(let i=1; i<=count; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i; opt.innerText = `Episode ${i}`;
+                    episodeSelect.appendChild(opt);
                 }
-                this.syncCache.set(this.activeTvId, cleanSeasons);
-                this.renderSeasons(cleanSeasons);
-            } else {
-                console.error("[Metadata Sync Critical Error] External catalog unreachable. Initializing local fallback data.");
-                this.triggerFallbackDataState();
+                episodeSelect.onchange = () => window.StreamVersePlayer.loadSecureIframe(seasonSelect.value, episodeSelect.value);
+                window.StreamVersePlayer.loadSecureIframe(seasonSelect.value, episodeSelect.value);
             }
         }
-
-        renderSeasons(seasons) {
-            const seasonSelect = document.getElementById('season-selector');
-            if (!seasonSelect) return;
-            seasonSelect.innerHTML = "";
-
-            seasons.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = String(s.season_number);
-                opt.innerText = `${s.name || `Season ${s.season_number}`} (${s.episode_count || 10} Episodes)`;
-                opt.setAttribute('data-epcount', String(s.episode_count || 10));
-                seasonSelect.appendChild(opt);
-            });
-
-            seasonSelect.onchange = () => this.updateEpisodes();
-            this.updateEpisodes();
-        }
-
-        triggerFallbackDataState() {
-            const seasonSelect = document.getElementById('season-selector');
-            if (!seasonSelect) return;
-            seasonSelect.innerHTML = "";
-
-            const safeFallbackData = [
-                { season_number: 1, name: "Season 1 (Fallback Cache)", episode_count: 24 },
-                { season_number: 2, name: "Season 2 (Fallback Cache)", episode_count: 22 },
-                { season_number: 3, name: "Season 3 (Fallback Cache)", episode_count: 18 }
-            ];
-
-            safeFallbackData.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = String(s.season_number);
-                opt.innerText = `${s.name} (${s.episode_count} Episodes)`;
-                opt.setAttribute('data-epcount', String(s.episode_count));
-                seasonSelect.appendChild(opt);
-            });
-
-            seasonSelect.onchange = () => this.updateEpisodes();
-            this.updateEpisodes();
-        }
-
-        updateEpisodes() {
-            const seasonSelect = document.getElementById('season-selector');
-            const episodeSelect = document.getElementById('episode-selector');
-            if (!seasonSelect || !episodeSelect) return;
-
-            const selected = seasonSelect.selectedOptions[0];
-            const epCount = selected ? Number(selected.getAttribute('data-epcount')) : 12;
-
-            episodeSelect.innerHTML = "";
-            for (let i = 1; i <= epCount; i++) {
-                const opt = document.createElement('option');
-                opt.value = String(i);
-                opt.innerText = `Episode ${i}`;
-                episodeSelect.appendChild(opt);
-            }
-
-            episodeSelect.onchange = () => this.firePlaybackRoute();
-            this.firePlaybackRoute();
-        }
-
-        firePlaybackRoute() {
-            const seasonSelect = document.getElementById('season-selector');
-            const episodeSelect = document.getElementById('episode-selector');
-            if (!seasonSelect || !episodeSelect) return;
-
-            const s = Number(seasonSelect.value) || 1;
-            const e = Number(episodeSelect.value) || 1;
-
-            console.log(`[Metadata Sync Router] Dispatching play state update event: Season ${s} | Episode ${e}`);
-            if (window.StreamVersePlayer && typeof window.StreamVersePlayer.loadSecureIframe === 'function') {
-                window.StreamVersePlayer.loadSecureIframe(s, e);
-            }
-        }
-    }
-
-    Object.freeze(MetadataSynchronizer);
-    Object.freeze(MetadataSynchronizer.prototype);
-    window.TVSeriesFixer = new MetadataSynchronizer();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Playback Orchestrator and Sandbox Controller
- * Path: /js/player.js
- */
-(function (window) {
-    'use strict';
-
-    class PlaybackOrchestrator {
-        constructor() {
-            this.activeTmdbId = null;
-            this.activeTitle = "";
-            this.activeType = "movie";
-            this.activeCategory = "Hollywood";
-            this.currentS = 1;
-            this.currentE = 1;
-            this.useRegionalMatrix = false;
-            this.selectedServerIndex = 0;
-            this.exitCallbacks = [];
-
-            this.CANVAS_TARGET_ID = 'video-frame-target';
-            this.PLAYER_FRAME_ID = 'streamverse-player';
-        }
-
-        registerExitCallback(cb) {
-            if (typeof cb === 'function') {
-                this.exitCallbacks.push(cb);
-            }
-        }
-
-        routeToPlayer(tmdbId, title, type, year, category) {
-            this.activeTmdbId = String(tmdbId);
-            this.activeTitle = String(title);
-            this.activeType = (type === 'tv' || type === 'series') ? 'tv' : 'movie';
-            this.activeCategory = String(category);
-            this.selectedServerIndex = 0;
-            this.currentS = 1;
-            this.currentE = 1;
-
-            const categoryLower = this.activeCategory.toLowerCase();
-            this.useRegionalMatrix = categoryLower.includes('bollywood') ||
-                                     categoryLower.includes('punjabi') ||
-                                     categoryLower.includes('south');
-
-            console.log(`[Player Orchestrator] Initializing playback. Target: ${title} | Regional Node Matrix: ${this.useRegionalMatrix}`);
-
-            const catalogView = document.getElementById('main-website-view');
-            const playerView = document.getElementById('player-page-view');
-            if (catalogView) catalogView.style.display = 'none';
-            if (playerView) playerView.style.display = 'block';
-
-            const titleHeader = document.getElementById('player-media-title');
-            const metaHeader = document.getElementById('player-media-meta');
-            if (titleHeader) titleHeader.innerText = this.activeTitle;
-            if (metaHeader) {
-                metaHeader.innerText = `${this.activeType.toUpperCase()} | ${year || '2026'} | Secured Multi-Server Streaming Tunnel`;
-            }
-
-            const frameContainer = document.getElementById(this.CANVAS_TARGET_ID);
-            if (frameContainer) frameContainer.innerHTML = "";
-
-            this.renderCDNControls();
-
-            if (this.activeType === 'tv') {
-                const tvSelector = document.getElementById('episodes-dropdown-wrapper');
-                const movieNotice = document.getElementById('movie-only-notice');
-                if (tvSelector) tvSelector.style.display = 'flex';
-                if (movieNotice) movieNotice.style.display = 'none';
-
-                if (window.TVSeriesFixer && typeof window.TVSeriesFixer.buildDropdowns === 'function') {
-                    window.TVSeriesFixer.buildDropdowns(this.activeTmdbId);
-                }
-            } else {
-                const tvSelector = document.getElementById('episodes-dropdown-wrapper');
-                const movieNotice = document.getElementById('movie-only-notice');
-                if (tvSelector) tvSelector.style.display = 'none';
-                if (movieNotice) movieNotice.style.display = 'block';
-                this.loadSecureIframe(1, 1);
-            }
-            window.scrollTo(0, 0);
-        }
-
-        renderCDNControls() {
-            const controlBox = document.getElementById('series-control-block');
-            if (!controlBox) return;
-
-            const oldContainer = document.getElementById('custom-server-pool-container');
-            if (oldContainer) oldContainer.remove();
-
-            const container = document.createElement('div');
-            container.id = 'custom-server-pool-container';
-            container.className = 'server-pool-container';
-
-            const activeCluster = this.useRegionalMatrix ? window.BollywoodServers : window.HollywoodServers;
-            const nodes = activeCluster.getNodes();
-
-            const label = document.createElement('label');
-            label.className = 'server-pool-label';
-            label.innerText = this.useRegionalMatrix ? "⚡ SELECT BOLLYWOOD CDN ROUTE:" : "🌍 SELECT GLOBAL HOLLYWOOD CDN ROUTE:";
-            container.appendChild(label);
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'server-btn-wrapper';
-
-            nodes.forEach((node, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'server-btn';
-                btn.innerText = node.name;
-                if (index === this.selectedServerIndex) {
-                    btn.classList.add('active');
-                }
-                btn.onclick = () => this.switchCDNRoute(index);
-                wrapper.appendChild(btn);
-            });
-
-            container.appendChild(wrapper);
-            controlBox.appendChild(container);
-        }
-
-        switchCDNRoute(index) {
-            this.selectedServerIndex = Number(index);
-            this.renderCDNControls();
-            this.loadSecureIframe(this.currentS, this.currentE);
-        }
-
-        exitPlayer() {
-            const playerView = document.getElementById('player-page-view');
-            const catalogView = document.getElementById('main-website-view');
-            if (playerView) playerView.style.display = 'none';
-            if (catalogView) catalogView.style.display = 'block';
-
-            const frameContainer = document.getElementById(this.CANVAS_TARGET_ID);
-            if (frameContainer) frameContainer.innerHTML = "";
-
-            this.exitCallbacks.forEach(cb => {
-                try { cb(); } catch (err) { console.error("[Playback Event Handler Error]", err); }
-            });
-        }
-
-        loadSecureIframe(s = 1, e = 1) {
-            this.currentS = Number(s);
-            this.currentE = Number(e);
-
-            if (!this.activeTmdbId) {
-                console.error("[Playback Fail] Missing critical TMDB identifier.");
-                return;
-            }
-
-            const container = document.getElementById(this.CANVAS_TARGET_ID);
-            if (!container) return;
-
-            const activeCluster = this.useRegionalMatrix ? window.BollywoodServers : window.HollywoodServers;
-            const node = activeCluster.getNodes()[this.selectedServerIndex];
-            const routeUrl = node.generateUrl(this.activeTmdbId, this.currentS, this.currentE, this.activeType);
-
-            container.innerHTML = `
-                <div class="routing-shimmer">
-                    <div class="spinner"></div>
-                    <p>Securing Edge Network Connection: ${node.name}...</p>
-                    <small>Bypassing redirects on S${this.currentS} E${this.currentE} | Stabilizing Audio-Visual Buffer...</small>
-                </div>`;
-
-            setTimeout(() => {
-                container.innerHTML = `
-                    <iframe 
-                        id="${this.PLAYER_FRAME_ID}"
-                        src="${routeUrl}" 
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
-                        referrerpolicy="no-referrer"
-                        allow="autoplay; encrypted-media; picture-in-picture">
-                    </iframe>`;
-            }, 500);
-        }
-    }
-
-    Object.freeze(PlaybackOrchestrator);
-    Object.freeze(PlaybackOrchestrator.prototype);
-    window.StreamVersePlayer = new PlaybackOrchestrator();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Sensory Booster, Web Audio Pipeline and Dynamic Visualizer Canvas
- * Path: /js/booster.js
- */
-(function (window) {
-    'use strict';
-
-    class DynamicVolumeBooster {
-        constructor() {
-            this.audioCtx = null;
-            this.gainNode = null;
-            this.analyser = null;
-            this.initialized = false;
-            this.canvas = null;
-            this.canvasCtx = null;
-            this.animId = null;
-            this.currentBoosterValue = 1.0;
-        }
-
-        initializeSensoryPipeline() {
-            if (this.initialized) return;
-
-            this.canvas = document.getElementById('audio-frequency-canvas');
-            if (this.canvas) {
-                this.canvasCtx = this.canvas.getContext('2d');
-            }
-
-            try {
-                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-                if (AudioContextClass) {
-                    this.audioCtx = new AudioContextClass();
-                    this.gainNode = this.audioCtx.createGain();
-                    this.analyser = this.audioCtx.createAnalyser();
-                    this.analyser.fftSize = 256; // Standard fast Fourier transform parameter
-
-                    this.gainNode.connect(this.analyser);
-                    this.analyser.connect(this.audioCtx.destination);
-                    this.initialized = true;
-                    console.log("[Sensory Engine] Dynamic Web Audio routing pipeline successfully established.");
-                }
-            } catch (err) {
-                console.warn("[Sensory Engine Alert] Direct hardware context access restricted by security policy. Initiating simulation fallback.");
-            }
-        }
-
-        executeHardwareAmplification(multiplier) {
-            this.initializeSensoryPipeline();
-            const value = Number(multiplier);
-            this.currentBoosterValue = value;
-
-            const scalePercent = Math.round(value * 100);
-            const indicator = document.getElementById('volPercent');
-            if (indicator) {
-                indicator.innerText = `${scalePercent}%`;
-            }
-
-            const player = document.getElementById('streamverse-player');
-            if (!player) return;
-
-            try {
-                if (player.contentWindow) {
-                    player.contentWindow.postMessage({ type: 'BOOST_VOLUME', value: value }, '*');
-                }
-            } catch (err) {
-                // Cross-domain isolation mechanisms block active script interactions
-            }
-
-            if (this.initialized && this.gainNode) {
-                if (this.audioCtx && this.audioCtx.state === 'suspended') {
-                    this.audioCtx.resume();
-                }
-                this.gainNode.gain.setValueAtTime(value, this.audioCtx.currentTime);
-            }
-
-            // GPU-accelerated sensory contrast amplification
-            if (value > 1.0) {
-                const visualContrastBoost = 1.0 + (value - 1.0) * 0.4;
-                player.style.filter = `contrast(1.15) brightness(${visualContrastBoost})`;
-            } else {
-                player.style.filter = "none";
-            }
-
-            console.log(`🔊 [Sensory Amplification Active] Multiplier Scale: ${value}x`);
-
-            if (value > 1.0) {
-                this.startRenderLoop();
-            } else {
-                this.stopRenderLoop();
-            }
-        }
-
-        startRenderLoop() {
-            this.stopRenderLoop();
-            if (!this.canvasCtx || !this.canvas) return;
-
-            const bufferLength = this.analyser ? this.analyser.frequencyBinCount : 128;
-            const dataArray = new Uint8Array(bufferLength);
-
-            const draw = () => {
-                this.animId = requestAnimationFrame(draw);
-
-                const w = this.canvas.width;
-                const h = this.canvas.height;
-
-                if (this.initialized && this.analyser) {
-                    this.analyser.getByteFrequencyData(dataArray);
+        window.TVSeriesFixer = new MetadataSynchronizer();
+
+        // Advanced Protected Playback Routing Pipeline
+        class PlaybackGateway {
+            constructor() { this.activeId = null; this.activeType = "movie"; this.serverIndex = 0; this.s = 1; this.e = 1; }
+            routeToPlayer(id, title, type, year) {
+                this.activeId = id; this.activeType = type; this.serverIndex = 0;
+                document.getElementById('main-website-view').style.display = 'none';
+                document.getElementById('player-page-view').style.display = 'block';
+                document.getElementById('player-media-title').innerText = title;
+                document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Advanced Sandbox Safe Buffering`;
+
+                this.renderServers();
+
+                if (type === 'tv' || type === 'series') {
+                    document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';
+                    document.getElementById('movie-only-notice').style.display = 'none';
+                    window.TVSeriesFixer.buildDropdowns(id);
                 } else {
-                    // Generate fluid synthetic spectrum curves if hardware level connection is suspended
-                    for (let i = 0; i < bufferLength; i++) {
-                        dataArray[i] = Math.sin(Date.now() * 0.004 + i) * 35 + 60 + Math.random() * 20;
-                    }
+                    document.getElementById('episodes-dropdown-wrapper').style.display = 'none';
+                    document.getElementById('movie-only-notice').style.display = 'block';
+                    this.loadSecureIframe(1,1);
                 }
-
-                this.canvasCtx.fillStyle = 'rgba(7, 7, 7, 0.25)'; // Smooth bar trailing trace decay rate
-                this.canvasCtx.fillRect(0, 0, w, h);
-
-                const barWidth = (w / bufferLength) * 2.5;
-                let barHeight;
-                let x = 0;
-
-                for (let i = 0; i < bufferLength; i++) {
-                    barHeight = (dataArray[i] / 255) * h * (this.currentBoosterValue * 0.85);
-
-                    const red = 229;
-                    const green = Math.min(255, Math.floor(i * 1.8));
-                    const blue = Math.min(255, Math.floor(barHeight * 1.4));
-
-                    this.canvasCtx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
-                    this.canvasCtx.fillRect(x, h - barHeight, barWidth - 1, barHeight);
-
-                    x += barWidth;
-                }
-            };
-
-            draw();
-        }
-
-        stopRenderLoop() {
-            if (this.animId) {
-                cancelAnimationFrame(this.animId);
-                this.animId = null;
+                window.scrollTo(0,0);
             }
-            if (this.canvasCtx && this.canvas) {
-                this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-        }
-    }
-
-    Object.freeze(DynamicVolumeBooster);
-    Object.freeze(DynamicVolumeBooster.prototype);
-    window.StreamVerseBooster = new DynamicVolumeBooster();
-
-})(window);
-
-    </script>
-    <script>
-
-/**
- * StreamVerse Main Single-Page Application Layout Coordinator
- * Path: /js/app.js
- */
-(function (window) {
-    'use strict';
-
-    class ApplicationCore {
-        constructor() {
-            this.tmdbBaseUrl = "https://api.themoviedb.org/3";
-            this.apiKey = "82e880c89dbf119b940e034ed32a3498";
-            this.activeCategory = "all";
-            this.debounceTimer = null;
-            this.localRegistryCache = new Map();
-        }
-
-        initializeSystem() {
-            this.bindCoreLayoutEvents();
-            this.bootstrapDatabaseSync();
-        }
-
-        bindCoreLayoutEvents() {
-            const inputField = document.getElementById('search-bar');
-            if (inputField) {
-                inputField.addEventListener('input', (event) => this.debounceSearchQuery(event));
-            }
-
-            // Sync with hardware audio events
-            if (window.StreamVersePlayer) {
-                window.StreamVersePlayer.registerExitCallback(() => {
-                    if (window.StreamVerseBooster) {
-                        window.StreamVerseBooster.executeHardwareAmplification(1.0);
-                    }
+            renderServers() {
+                const block = document.getElementById('series-control-block');
+                if(!block) return;
+                block.innerHTML = `<label class="server-pool-label"><i class="fas fa-server"></i> Active Stream Servers Pool</label>`;
+                const wrapper = document.createElement('div');
+                wrapper.className = 'server-btn-wrapper';
+                
+                window.HollywoodServers.getNodes().forEach((node, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `server-btn ${idx === this.serverIndex ? 'active' : ''}`;
+                    btn.innerHTML = `<i class="fas fa-play-circle"></i> ${node.name}`;
+                    btn.onclick = () => { this.serverIndex = idx; this.renderServers(); this.loadSecureIframe(this.s, this.e); };
+                    wrapper.appendChild(btn);
                 });
+                block.appendChild(wrapper);
             }
-        }
+            loadSecureIframe(s, e) {
+                this.s = s; this.e = e;
+                const container = document.getElementById('video-frame-target');
+                if(!container) return;
+                const node = window.HollywoodServers.getNodes()[this.serverIndex];
+                const url = node.generateUrl(this.activeId, s, e, this.activeType);
 
-        bootstrapDatabaseSync() {
-            if (window.StreamVerseDatabase) {
-                const list = window.StreamVerseDatabase.getAll();
-                list.forEach(item => this.localRegistryCache.set(Number(item.id), item));
-                this.renderGridToTarget(list, 'movie-grid-container');
-            }
-
-            // Sync with dynamic trending lists on TMDB in the background
-            this.syncLiveTrendingStreams();
-        }
-
-        syncLiveTrendingStreams() {
-            const endpoint = `${this.tmdbBaseUrl}/trending/all/day?api_key=${this.apiKey}`;
-            fetch(endpoint)
-                .then(res => {
-                    if (!res.ok) throw new Error("TMDB network connection timeout.");
-                    return res.json();
-                })
-                .then(data => {
-                    if (data && data.results) {
-                        const validatedResults = data.results.slice(0, 18).map((raw, idx) => {
-                            const isTv = raw.media_type === 'tv' || raw.first_air_date !== undefined;
-                            return {
-                                id: 2000 + idx, // Explicit offset index range to protect static keys
-                                title: raw.title || raw.name || "Untitled Resource Item",
-                                category: isTv ? "Web Series" : "Hollywood",
-                                quality: "HDR 10bit",
-                                year: (raw.release_date || raw.first_air_date || "2026").split("-")[0],
-                                poster: raw.poster_path ? `https://image.tmdb.org/t/p/w300${raw.poster_path}` : "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400",
-                                tmdbId: String(raw.id),
-                                type: isTv ? "tv" : "movie"
-                            };
-                        });
-
-                        validatedResults.forEach(item => {
-                            if (window.StreamVerseDatabase) {
-                                window.StreamVerseDatabase.registerItem(item);
-                            }
-                            this.localRegistryCache.set(Number(item.id), item);
-                        });
-
-                        this.filterSection(this.activeCategory);
-                    }
-                })
-                .catch(err => {
-                    console.warn(`[Core Background Sync Warning] Trend API sync failed: ${err.message}`);
-                });
-        }
-
-        renderGridToTarget(itemList, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            container.innerHTML = "";
-
-            if (itemList.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-query-indicator">
-                        <i class="fas fa-folder-open"></i>
-                        <p>No matches matching filter criteria found in database registry.</p>
+                    <div class="routing-shimmer">
+                        <div class="spinner"></div>
+                        <p style="font-weight:700;">Connecting Cloud Node Matrix...</p>
+                        <small style="color:var(--primary); margin-top:5px;">Targeting: ${node.id.toUpperCase()}</small>
                     </div>`;
-                return;
+
+                setTimeout(() => {
+                    container.innerHTML = `<iframe src="${url}" allowfullscreen="true" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" referrerpolicy="no-referrer"></iframe>`;
+                }, 500);
             }
+            exitPlayer() {
+                document.getElementById('player-page-view').style.display = 'none';
+                document.getElementById('main-website-view').style.display = 'block';
+                document.getElementById('video-frame-target').innerHTML = "";
+                window.StreamVerseBooster.executeHardwareAmplification(1.0);
+            }
+        }
+        window.StreamVersePlayer = new PlaybackGateway();
 
-            const frameFragment = document.createDocumentFragment();
+        // Hardware Frequency Sensory Simulation Booster
+        class AudioSensoryBooster {
+            constructor() { this.animId = null; }
+            executeHardwareAmplification(multiplier) {
+                document.getElementById('volPercent').innerText = `${Math.round(multiplier * 100)}%`;
+                const iframe = document.querySelector('#video-frame-target iframe');
+                if(iframe) {
+                    if(multiplier > 1) {
+                        iframe.style.filter = `contrast(1.15) brightness(${1 + (multiplier-1)*0.15}) saturate(1.1)`;
+                        this.startLoop();
+                    } else {
+                        iframe.style.filter = "none";
+                        this.stopLoop();
+                    }
+                }
+            }
+            startLoop() {
+                this.stopLoop();
+                const canvas = document.getElementById('audio-frequency-canvas');
+                if(!canvas) return;
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvas.parentElement.offsetWidth;
+                const draw = () => {
+                    this.animId = requestAnimationFrame(draw);
+                    ctx.fillStyle = 'rgba(5,5,5,0.4)';
+                    ctx.fillRect(0,0,canvas.width,canvas.height);
+                    ctx.fillStyle = '#e50914';
+                    for(let i=0; i<canvas.width/10; i++) {
+                        const h = Math.random() * canvas.height * 0.8;
+                        ctx.fillRect(i*11, canvas.height - h, 7, h);
+                    }
+                };
+                draw();
+            }
+            stopLoop() { if(this.animId) cancelAnimationFrame(this.animId); const canvas = document.getElementById('audio-frequency-canvas'); if(canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height); }
+        }
+        window.StreamVerseBooster = new AudioSensoryBooster();
 
-            itemList.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'movie-card';
-                card.setAttribute('tabindex', '0');
-
-                card.innerHTML = `
-                    <span class="badge">${item.quality}</span>
-                    <div class="poster-zoom-wrapper">
-                        <img class="movie-poster" src="${item.poster}" alt="${item.title} asset artwork" loading="lazy">
-                    </div>
-                    <div class="movie-info">
-                        <strong>${item.title}</strong>
-                        <div class="metadata-row">
-                            <span>Year: ${item.year}</span>
-                            <span class="type-pill">${item.type.toUpperCase()}</span>
+        // Master Central Control System Coordinating Pipeline
+        class CentralApplicationCore {
+            constructor() { this.activeCat = "all"; }
+            init() {
+                document.getElementById('search-bar').addEventListener('input', (e) => this.search(e.target.value));
+                document.getElementById('hero-play-trigger').onclick = () => window.StreamVersePlayer.routeToPlayer('533535', 'Deadpool & Wolverine', 'movie', '2024');
+                this.syncCatalog();
+            }
+            syncCatalog() {
+                fetch('https://api.themoviedb.org/3/trending/all/week?api_key=82e880c89dbf119b940e034ed32a3498')
+                    .then(r => r.json())
+                    .then(data => {
+                        if(data && data.results) {
+                            data.results.forEach((r, idx) => {
+                                const isTv = r.media_type === 'tv' || r.first_air_date !== undefined;
+                                window.StreamVerseDatabase.registerItem({
+                                    id: 9000 + idx,
+                                    title: r.title || r.name,
+                                    category: isTv ? "Web Series" : "Hollywood",
+                                    quality: "4K Live",
+                                    year: (r.release_date || r.first_air_date || "2026").split("-")[0],
+                                    poster: r.poster_path ? `https://image.tmdb.org/t/p/w400${r.poster_path}` : "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg",
+                                    tmdbId: String(r.id),
+                                    type: isTv ? "tv" : "movie"
+                                });
+                            });
+                        }
+                        this.filterSection(this.activeCat);
+                    }).catch(() => this.filterSection(this.activeCat));
+            }
+            renderGrid(list) {
+                const container = document.getElementById('movie-grid-container');
+                if(!container) return; container.innerHTML = "";
+                if(list.length === 0) {
+                    container.innerHTML = `<div class="empty-query-indicator"><i class="fas fa-ban"></i><p>No verified streams match your current parameter.</p></div>`;
+                    return;
+                }
+                list.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'movie-card';
+                    card.innerHTML = `
+                        <span class="badge">${item.quality}</span>
+                        <div class="poster-wrapper">
+                            <img class="movie-poster" src="${item.poster}" alt="Media Resource File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
                         </div>
-                    </div>`;
-
-                card.onclick = () => {
-                    if (window.StreamVersePlayer) {
-                        window.StreamVersePlayer.routeToPlayer(item.tmdbId, item.title, item.type, item.year, item.category);
-                    }
-                };
-
-                // Accessibility event listeners
-                card.onkeydown = (ev) => {
-                    if (ev.key === 'Enter' || ev.keyCode === 13) {
-                        card.click();
-                    }
-                };
-
-                frameFragment.appendChild(card);
-            });
-
-            container.appendChild(frameFragment);
-        }
-
-        filterSection(category) {
-            this.activeCategory = category;
-            const categoryTitle = document.getElementById('current-category-title');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            const cleanButtonId = `btn-${category.toLowerCase().replace(" ", "-")}`;
-            const targetButton = document.getElementById(cleanButtonId);
-            if (targetButton) targetButton.classList.add('active');
-
-            if (categoryTitle) {
-                categoryTitle.innerText = category === 'all' ? "All Movies & Premium Web Series" : `${category} Library Collection`;
+                        <div class="movie-info">
+                            <strong>${item.title}</strong>
+                            <div class="metadata-row"><span>${item.year}</span><span class="type-pill">${item.type}</span></div>
+                        </div>`;
+                    card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.tmdbId, item.title, item.type, item.year);
+                    container.appendChild(card);
+                });
             }
-
-            if (!window.StreamVerseDatabase) return;
-
-            const results = category === 'all'
-                ? window.StreamVerseDatabase.getAll()
-                : window.StreamVerseDatabase.getAll().filter(item => item.category.toLowerCase() === category.toLowerCase());
-
-            this.renderGridToTarget(results, 'movie-grid-container');
-        }
-
-        debounceSearchQuery(event) {
-            clearTimeout(this.debounceTimer);
-            const value = String(event.target.value).trim().toLowerCase();
-
-            this.debounceTimer = setTimeout(() => {
-                this.executeSearch(value);
-            }, 300);
-        }
-
-        executeSearch(query) {
-            if (!window.StreamVerseDatabase) return;
-
-            const baseCollection = window.StreamVerseDatabase.getAll();
-            if (!query) {
-                this.filterSection(this.activeCategory);
-                return;
+            filterSection(cat) {
+                this.activeCat = cat;
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                const btn = document.getElementById(`btn-${cat.toLowerCase().replace(" ", "-")}`);
+                if(btn) btn.classList.add('active');
+                
+                document.getElementById('current-category-title').innerText = cat === 'all' ? "All Movies & Premium Web Series" : `${cat} Network Catalog`;
+                const filtered = cat === 'all' ? window.StreamVerseDatabase.getAll() : window.StreamVerseDatabase.getAll().filter(i => i.category.toLowerCase() === cat.toLowerCase());
+                this.renderGrid(filtered);
             }
-
-            const matches = baseCollection.filter(item =>
-                item.title.toLowerCase().includes(query) ||
-                item.category.toLowerCase().includes(query)
-            );
-
-            const categoryTitle = document.getElementById('current-category-title');
-            if (categoryTitle) {
-                categoryTitle.innerText = `Search Output Matches for: "${query}"`;
+            search(query) {
+                const clean = query.trim().toLowerCase();
+                if(!clean) { this.filterSection(this.activeCat); return; }
+                const match = window.StreamVerseDatabase.getAll().filter(i => i.title.toLowerCase().includes(clean) || i.category.toLowerCase().includes(clean) || i.year.includes(clean));
+                document.getElementById('current-category-title').innerText = `Search Filtering Matrix: "${query}"`;
+                this.renderGrid(match);
             }
-
-            this.renderGridToTarget(matches, 'movie-grid-container');
         }
-    }
 
-    Object.freeze(ApplicationCore);
-    Object.freeze(ApplicationCore.prototype);
+        document.addEventListener("DOMContentLoaded", () => {
+            window.StreamVerseApp = new CentralApplicationCore();
+            window.StreamVerseApp.init();
+        });
 
-    document.addEventListener("DOMContentLoaded", () => {
-        window.StreamVerseApp = new ApplicationCore();
-        window.StreamVerseApp.initializeSystem();
-    });
-
-})(window);
-
+    })(window);
     </script>
 </body>
 </html>
