@@ -1,5 +1,5 @@
 /**
- * StreamVerse Player - FIXED v5 (Stable)
+ * StreamVerse Player - FINAL STABLE v6
  */
 
 let currentType = "movie";
@@ -18,52 +18,49 @@ window.routeToDedicatedPlayer = function(id, title, type, year) {
     currentS = 1;
     currentE = 1;
 
-    const catTitle = document.getElementById('current-category-title')?.innerText.toLowerCase() || "";
-    isBollywoodContent = /bollywood|punjabi|south|pathaan/.test(catTitle);
+    const cat = document.getElementById('current-category-title')?.innerText.toLowerCase() || "";
+    isBollywoodContent = /bollywood|punjabi|south|pathaan/.test(cat);
 
-    console.log(`Opening: ${title} | Bollywood: ${isBollywoodContent}`);
+    console.log("🚀 Opening Player:", title, type);
 
-    // Show Player
+    // Show Player Page
     document.getElementById('main-website-view').style.display = 'none';
     document.getElementById('player-page-view').style.display = 'block';
 
     document.getElementById('player-media-title').innerText = title;
-    document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Auto Mirror System`;
+    document.getElementById('player-media-meta').innerText = `${(type || 'movie').toUpperCase()} | ${year} | Auto Mirror System`;
 
-    document.getElementById('video-frame-target').innerHTML = "";
+    // Clear previous video
+    document.getElementById('video-frame-target').innerHTML = "<div style='padding:100px;text-align:center;color:#666;'>Connecting to stream...</div>";
 
-    // Render Server Buttons
+    // Render servers
     renderDynamicServerControls();
 
-    // Load First Stream
-    if (type === 'tv') {
-        document.getElementById('episodes-dropdown-wrapper').style.display = 'block';
-        if (typeof buildAutomatedDropdowns === "function") buildAutomatedDropdowns(id);
-    } else {
-        document.getElementById('episodes-dropdown-wrapper').style.display = 'none';
+    // FORCE LOAD VIDEO
+    setTimeout(() => {
         loadIframeStream(1, 1);
-    }
+    }, 300);
 };
 
 function renderDynamicServerControls() {
-    const panel = document.getElementById('series-control-panel') || document.querySelector('.series-control-panel');
+    let panel = document.querySelector('.series-control-panel');
     if (!panel) return;
 
-    // Remove old controls
-    const old = document.getElementById('server-controls');
+    // Remove old
+    let old = document.getElementById('server-controls');
     if (old) old.remove();
 
     const container = document.createElement('div');
     container.id = 'server-controls';
-    container.style.marginTop = "15px";
+    container.style.margin = "15px 0";
 
     const servers = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
 
-    let html = `<p style="margin:10px 0 8px 0;font-size:13px;color:#aaa;">Select Server:</p><div style="display:flex;gap:8px;flex-wrap:wrap;">`;
+    let html = `<strong style="color:#aaa;font-size:13px;">Servers:</strong><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">`;
 
     servers.forEach((srv, i) => {
-        const active = i === currentSelectedServerIndex ? 'background:#e50914;color:white;' : 'background:#222;color:#ddd;';
-        html += `<button onclick="switchServer(${i})" style="padding:8px 14px;border-radius:6px;border:none;cursor:pointer;${active}">${srv.name}</button>`;
+        const style = i === currentSelectedServerIndex ? 'background:#e50914;color:white;' : 'background:#222;color:#ccc;';
+        html += `<button onclick="window.switchServer(${i})" style="padding:9px 16px;border:none;border-radius:6px;cursor:pointer;${style}">${srv.name}</button>`;
     });
 
     html += `</div>`;
@@ -71,30 +68,34 @@ function renderDynamicServerControls() {
     panel.appendChild(container);
 }
 
-window.switchServer = function(index) {
-    currentSelectedServerIndex = index;
+window.switchServer = function(i) {
+    currentSelectedServerIndex = i;
     renderDynamicServerControls();
     loadIframeStream(currentS, currentE);
 };
 
 window.loadIframeStream = function(s = 1, e = 1) {
-    currentS = s;
-    currentE = e;
-    if (!activeTmdbId) return;
+    currentS = s; currentE = e;
+    if (!activeTmdbId) {
+        console.error("No ID");
+        return;
+    }
 
     const frameBox = document.getElementById('video-frame-target');
     const servers = isBollywoodContent ? bollywoodServersList : hollywoodServersList;
-    const srcUrl = servers[currentSelectedServerIndex].generateUrl(activeTmdbId, s, e, currentType);
+    const url = servers[currentSelectedServerIndex].generateUrl(activeTmdbId, s, e, currentType);
 
-    frameBox.innerHTML = `<div style="padding:80px 20px;text-align:center;color:#e50914;">Loading from ${servers[currentSelectedServerIndex].name}...</div>`;
+    frameBox.innerHTML = `<div style="padding:60px 20px;text-align:center;color:#e50914;">Loading ${servers[currentSelectedServerIndex].name}...</div>`;
 
     setTimeout(() => {
         frameBox.innerHTML = `
-            <iframe src="${srcUrl}" 
-                style="width:100%; height:520px; border:none;" 
-                allowfullscreen allow="autoplay">
+            <iframe 
+                src="${url}"
+                style="width:100%;height:520px;border:none;background:#000;"
+                allowfullscreen 
+                allow="autoplay; encrypted-media">
             </iframe>`;
-    }, 600);
+    }, 400);
 };
 
 window.exitPlayerPage = function() {
@@ -104,7 +105,7 @@ window.exitPlayerPage = function() {
 };
 
 window.tryAlternativeSource = function() {
-    if (!activeTmdbId) return;
+    if (!activeTmdbId) return alert("No media loaded");
     const url = currentType === 'movie' 
         ? `https://embed.2embed.to/embed/tmdb/movie?id=${activeTmdbId}`
         : `https://embed.2embed.to/embed/tmdb/tv?id=${activeTmdbId}&s=1&e=1`;
