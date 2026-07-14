@@ -129,6 +129,7 @@
             align-items: center;
             padding: 0 5%;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: background 0.5s ease-in-out;
         }
 
         .hero-content { max-width: 800px; z-index: 10; }
@@ -228,13 +229,6 @@
         .server-btn:hover { background: rgba(255,255,255,0.05); color: white; }
         .server-btn.active { background: rgba(229, 9, 20, 0.15); border-color: var(--primary); color: white; box-shadow: inset 0 0 15px rgba(229, 9, 20, 0.3); }
 
-        /* Hardware Sound Booster Widget */
-        .booster-controls-row { display: flex; gap: 12px; align-items: center; }
-        .vol-btn { background: #0a0a0a; border: 1px solid var(--card-border); color: white; padding: 12px; border-radius: 10px; cursor: pointer; flex-grow: 1; font-size: 13px; font-weight: 800; transition: var(--smooth-transition); }
-        .vol-btn:hover { background: var(--primary); }
-        #volPercent { font-size: 16px; font-weight: 900; color: var(--primary); min-width: 55px; text-align: center; }
-        #audio-frequency-canvas { width: 100%; height: 65px; background: #010101; border-radius: 10px; margin-top: 20px; border: 1px solid var(--card-border); }
-
         /* Empty Search States */
         .empty-query-indicator { padding: 100px 25px; text-align: center; color: var(--text-gray); grid-column: 1 / -1; }
         .empty-query-indicator i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
@@ -263,8 +257,8 @@
     <main id="main-website-view">
         <section class="hero-banner" id="hero-banner-element">
             <div class="hero-content">
-                <h1 class="hero-title" id="hero-title-txt">Deadpool & Wolverine</h1>
-                <p class="hero-desc" id="hero-desc-txt">A listless Wade Wilson toils in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.</p>
+                <h1 class="hero-title" id="hero-title-txt">Loading Dynamic Spotlight...</h1>
+                <p class="hero-desc" id="hero-desc-txt">Syncing verified platform nodes to secure high-speed links immediately.</p>
                 <button class="play-btn" id="hero-play-trigger">
                     <i class="fas fa-play"></i> Launch Ultra-CDN Stream
                 </button>
@@ -316,20 +310,11 @@
                     <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">Streaming single structural content file. Advanced cloud buffering allocation active.</p>
                 </div>
 
-                <!-- Volume Dynamic Boost Engine -->
-                <div class="control-widget-box">
-                    <h4><i class="fas fa-sliders-h"></i> Sensory DB Frequency Booster</h4>
-                    <div class="booster-controls-row">
-                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(1.0)">100%</button>
-                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(1.6)">160%</button>
-                        <button class="vol-btn" onclick="window.StreamVerseBooster.executeHardwareAmplification(2.2)">220%</button>
-                        <span id="volPercent">100%</span>
-                    </div>
-                    <canvas id="audio-frequency-canvas"></canvas>
-                </div>
-
                 <!-- Server Distribution Matrix Target Box -->
-                <div class="control-widget-box" id="series-control-block"></div>
+                <div class="control-widget-box">
+                    <h4><i class="fas fa-server"></i> Active Stream Servers Pool</h4>
+                    <div id="series-control-block"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -339,58 +324,104 @@
     (function (window) {
         'use strict';
 
-        // High Density Premium Movie Catalog Storage Pool
-        const COMPREHENSIVE_CINEMA_DB = [
-            // Hollywood Pool
-            { id: 1, title: "Deadpool & Wolverine", category: "Hollywood", quality: "4K Dolby", year: "2024", poster: "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg", tmdbId: "533535", type: "movie" },
-            { id: 2, title: "Avatar: The Way of Water", category: "Hollywood", quality: "4K UHD", year: "2022", poster: "https://image.tmdb.org/t/p/w400/t6HI6wNmWfeN6wZgZ2ZJvOIJ60a.jpg", tmdbId: "76600", type: "movie" },
-            { id: 3, title: "The Dark Knight", category: "Hollywood", quality: "BluRay 1080p", year: "2008", poster: "https://image.tmdb.org/t/p/w400/qJ2tWwZgZ2ZJvOIJ60a.jpg", tmdbId: "155", type: "movie" },
-            { id: 4, title: "Oppenheimer", category: "Hollywood", quality: "IMAX UHD", year: "2023", poster: "https://image.tmdb.org/t/p/w400/8Gxv836tOcgy6Z4v6R4w9i36g.jpg", tmdbId: "872585", type: "movie" },
-            { id: 5, title: "Interstellar", category: "Hollywood", quality: "1080p FHD", year: "2014", poster: "https://image.tmdb.org/t/p/w400/gEU2vYvA7M1g6v6R4w9i36g.jpg", tmdbId: "157336", type: "movie" },
-            
-            // Bollywood Pool
-            { id: 6, title: "Pathaan", category: "Bollywood", quality: "1080p WebDL", year: "2023", poster: "https://image.tmdb.org/t/p/w400/m8ZQB6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "868759", type: "movie" },
-            { id: 7, title: "Jawan", category: "Bollywood", quality: "HDR HQ", year: "2023", poster: "https://image.tmdb.org/t/p/w400/v7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "872585", type: "movie" },
-            { id: 8, title: "Animal", category: "Bollywood", quality: "1080p Web", year: "2023", poster: "https://image.tmdb.org/t/p/w400/v9YvA7M1g6v6R4w9i36g8H.jpg", tmdbId: "781732", type: "movie" },
-            { id: 9, title: "Fighter", category: "Bollywood", quality: "1080p HQ", year: "2024", poster: "https://image.tmdb.org/t/p/w400/z6YvA7M1g6v6R4w9i36g8F.jpg", tmdbId: "850165", type: "movie" },
+        const TMDB_API_KEY = "82e880c89dbf119b940e034ed32a3498";
 
-            // Punjabi Pool
-            { id: 10, title: "Carry on Jatta 3", category: "Punjabi", quality: "720p/1080p", year: "2023", poster: "https://image.tmdb.org/t/p/w400/w7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "1042586", type: "movie" },
-            { id: 11, title: "Jatt & Juliet 3", category: "Punjabi", quality: "1080p Smart", year: "2024", poster: "https://image.tmdb.org/t/p/w400/abcBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "1214320", type: "movie" },
-            { id: 12, title: "Saunkan Saunkne", category: "Punjabi", quality: "WebDL", year: "2022", poster: "https://image.tmdb.org/t/p/w400/xyzBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "956845", type: "movie" },
-
-            // South Indian Pool
-            { id: 13, title: "K.G.F: Chapter 2", category: "South", quality: "4K UHD", year: "2022", poster: "https://image.tmdb.org/t/p/w400/x7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "718032", type: "movie" },
-            { id: 14, title: "RRR (Rise Roar Revolt)", category: "South", quality: "4K Dolby", year: "2022", poster: "https://image.tmdb.org/t/p/w400/nEuFEzST4wBw67v6R4w9i36g.jpg", tmdbId: "579974", type: "movie" },
-            { id: 15, title: "Salaar: Ceasefire", category: "South", quality: "1080p Ultra", year: "2023", poster: "https://image.tmdb.org/t/p/w400/p7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "897087", type: "movie" },
-            { id: 16, title: "Kalki 2898 AD", category: "South", quality: "4K DualAudio", year: "2024", poster: "https://image.tmdb.org/t/p/w400/v7mBv6m6R6w5wZgZ2ZJvOIJ60K.jpg", tmdbId: "2898", type: "movie" },
-
-            // Web Series Premium Pool
-            { id: 17, title: "Stranger Things", category: "Web Series", quality: "4K Atmos", year: "2016", poster: "https://image.tmdb.org/t/p/w400/49W0wR0ZgZ2ZJvOIJ60a.jpg", tmdbId: "66732", type: "tv" },
-            { id: 18, title: "Breaking Bad", category: "Web Series", quality: "HDR 10bit", year: "2008", poster: "https://image.tmdb.org/t/p/w400/ggAI0wR0ZgZ2ZJvOIJ60a.jpg", tmdbId: "1396", type: "tv" },
-            { id: 19, title: "The Boys", category: "Web Series", quality: "1080p UHD", year: "2019", poster: "https://image.tmdb.org/t/p/w400/7NsMv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "76479", type: "tv" },
-            { id: 20, title: "House of the Dragon", category: "Web Series", quality: "4K Stream", year: "2022", poster: "https://image.tmdb.org/t/p/w400/1X7mBv6m6R6w5wZgZ2ZJvOIJ60a.jpg", tmdbId: "94997", type: "tv" }
-        ];
-
-        class DatabaseController {
-            constructor() { this.store = new Map(); this.initializeRegistry(); }
-            initializeRegistry() { COMPREHENSIVE_CINEMA_DB.forEach(item => this.store.set(Number(item.id), Object.freeze(item))); }
-            getAll() { return Array.from(this.store.values()); }
-            registerItem(item) { if(!item.id || !item.tmdbId) return false; this.store.set(Number(item.id), Object.freeze(item)); return true; }
+        // Decentralized Dynamic Catalog Coordinator
+        class DynamicDatabaseController {
+            constructor() {
+                this.items = [];
+            }
+            async fetchTrending() {
+                try {
+                    const response = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API_KEY}`);
+                    const data = await response.json();
+                    return this.parseTMDBResults(data.results || []);
+                } catch (e) {
+                    return [];
+                }
+            }
+            async fetchCategory(category) {
+                let endpoint = '';
+                if (category === 'Web Series') {
+                    endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=hi|en`;
+                } else {
+                    let langParam = 'en';
+                    if (category === 'Bollywood') {
+                        langParam = 'hi';
+                    } else if (category === 'Punjabi') {
+                        langParam = 'pa';
+                    } else if (category === 'South') {
+                        langParam = 'te|ta|ml|kn';
+                    }
+                    endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=${langParam}`;
+                }
+                try {
+                    const response = await fetch(endpoint);
+                    const data = await response.json();
+                    return this.parseTMDBResults(data.results || [], category);
+                } catch (e) {
+                    return [];
+                }
+            }
+            async fetchSearch(query) {
+                try {
+                    const response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}`);
+                    const data = await response.json();
+                    return this.parseTMDBResults(data.results || []);
+                } catch (e) {
+                    return [];
+                }
+            }
+            parseTMDBResults(results, categoryOverride = null) {
+                return results.map(item => {
+                    const isTV = item.media_type === 'tv' || !item.release_date;
+                    let detectedCategory = categoryOverride;
+                    if (!detectedCategory) {
+                        if (isTV) {
+                            detectedCategory = "Web Series";
+                        } else {
+                            const origLang = item.original_language;
+                            if (origLang === 'hi') detectedCategory = 'Bollywood';
+                            else if (origLang === 'pa') detectedCategory = 'Punjabi';
+                            else if (['te', 'ta', 'ml', 'kn'].includes(origLang)) detectedCategory = 'South';
+                            else detectedCategory = 'Hollywood';
+                        }
+                    }
+                    return {
+                        id: item.id,
+                        title: item.title || item.name || "Untitled Cinema",
+                        category: detectedCategory,
+                        quality: "4K Stream",
+                        year: (item.release_date || item.first_air_date || "2024").split("-")[0],
+                        poster: item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg",
+                        backdrop_path: item.backdrop_path || "",
+                        overview: item.overview || "No plot description available in secure indexing nodes.",
+                        type: isTV ? "tv" : "movie"
+                    };
+                });
+            }
         }
-        window.StreamVerseDatabase = new DatabaseController();
+        window.StreamVerseDatabase = new DynamicDatabaseController();
 
-        // High Availability Hyper-CDN Link Matrix System (7 High Speed Servers)
+        // Consolidated High-Performance Multi-CDN Routing Core
         class CDNClusterManager {
             constructor() {
                 this.nodes = [
-                    { id: "vidsrc-to", name: "⚡ VidSrc Premium CDN (Server 1)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.to/embed/movie/${id}` : `https://vidsrc.to/embed/tv/${id}/${s}/${e}` },
-                    { id: "vidsrc-me", name: "🚀 VidSrc.me Proxy Node (Server 2)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.me/embed/movie?tmdb=${id}` : `https://vidsrc.me/embed/tv?tmdb=${id}&season=${s}&episode=${e}` },
-                    { id: "embed-cc", name: "🌐 2Embed Multi-Fibre (Server 3)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://www.2embed.cc/embed/${id}` : `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}` },
-                    { id: "autoembed", name: "🔒 AutoEmbed Cloud Buffer (Server 4)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://player.autoembed.cc/embed/movie/${id}` : `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}` },
-                    { id: "multiembed", name: "🛰️ MultiEmbed Global Network (Server 5)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` },
-                    { id: "vidsrc-xyz", name: "💎 VidSrc.xyz Super Highway (Server 6)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.xyz/embed/movie/${id}` : `https://vidsrc.xyz/embed/tv/${id}/${s}/${e}` },
-                    { id: "embed-su", name: "🔥 EmbedSu Ultra Pipeline (Server 7)", generateUrl: (id, s, e, t) => t === 'movie' ? `https://embed.su/embed/movie/${id}` : `https://embed.su/embed/tv/${id}/${s}/${e}` }
+                    { 
+                        id: "multiembed", 
+                        name: "🛰️ MultiEmbed Global Network (Server 5)", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
+                    },
+                    { 
+                        id: "desicinema", 
+                        name: "🎬 DesiCinema Bollywood Node (Server 2)", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://desicinemas.ink/embed/movie/${id}` : `https://desicinemas.ink/embed/tv/${id}/${s}/${e}` 
+                    },
+                    { 
+                        id: "net77", 
+                        name: "⚡ Net77 NetMirror Streaming CDN (Server 3)", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://net77.cc/embed/movie/${id}` : `https://net77.cc/embed/tv/${id}/${s}/${e}` 
+                    }
                 ];
                 Object.freeze(this.nodes);
             }
@@ -398,7 +429,7 @@
         }
         window.HollywoodServers = new CDNClusterManager();
 
-        // TMDB Realtime Multi-Season Automator
+        // TV Show Dynamic Season & Episode Sync Engine
         class MetadataSynchronizer {
             async buildDropdowns(tvId) {
                 const seasonSelect = document.getElementById('season-selector');
@@ -406,7 +437,7 @@
                 seasonSelect.innerHTML = "<option>Fetching Canon Records...</option>";
 
                 try {
-                    const res = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=82e880c89dbf119b940e034ed32a3498`);
+                    const res = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${TMDB_API_KEY}`);
                     if(!res.ok) throw new Error();
                     const data = await res.json();
                     
@@ -454,7 +485,7 @@
         }
         window.TVSeriesFixer = new MetadataSynchronizer();
 
-        // Advanced Protected Playback Routing Pipeline
+        // Secure Multi-Server Streaming Router
         class PlaybackGateway {
             constructor() { this.activeId = null; this.activeType = "movie"; this.serverIndex = 0; this.s = 1; this.e = 1; }
             routeToPlayer(id, title, type, year) {
@@ -480,7 +511,7 @@
             renderServers() {
                 const block = document.getElementById('series-control-block');
                 if(!block) return;
-                block.innerHTML = `<label class="server-pool-label"><i class="fas fa-server"></i> Active Stream Servers Pool</label>`;
+                block.innerHTML = "";
                 const wrapper = document.createElement('div');
                 wrapper.className = 'server-btn-wrapper';
                 
@@ -515,78 +546,55 @@
                 document.getElementById('player-page-view').style.display = 'none';
                 document.getElementById('main-website-view').style.display = 'block';
                 document.getElementById('video-frame-target').innerHTML = "";
-                window.StreamVerseBooster.executeHardwareAmplification(1.0);
             }
         }
         window.StreamVersePlayer = new PlaybackGateway();
 
-        // Hardware Frequency Sensory Simulation Booster
-        class AudioSensoryBooster {
-            constructor() { this.animId = null; }
-            executeHardwareAmplification(multiplier) {
-                document.getElementById('volPercent').innerText = `${Math.round(multiplier * 100)}%`;
-                const iframe = document.querySelector('#video-frame-target iframe');
-                if(iframe) {
-                    if(multiplier > 1) {
-                        iframe.style.filter = `contrast(1.15) brightness(${1 + (multiplier-1)*0.15}) saturate(1.1)`;
-                        this.startLoop();
-                    } else {
-                        iframe.style.filter = "none";
-                        this.stopLoop();
-                    }
-                }
-            }
-            startLoop() {
-                this.stopLoop();
-                const canvas = document.getElementById('audio-frequency-canvas');
-                if(!canvas) return;
-                const ctx = canvas.getContext('2d');
-                canvas.width = canvas.parentElement.offsetWidth;
-                const draw = () => {
-                    this.animId = requestAnimationFrame(draw);
-                    ctx.fillStyle = 'rgba(5,5,5,0.4)';
-                    ctx.fillRect(0,0,canvas.width,canvas.height);
-                    ctx.fillStyle = '#e50914';
-                    for(let i=0; i<canvas.width/10; i++) {
-                        const h = Math.random() * canvas.height * 0.8;
-                        ctx.fillRect(i*11, canvas.height - h, 7, h);
-                    }
-                };
-                draw();
-            }
-            stopLoop() { if(this.animId) cancelAnimationFrame(this.animId); const canvas = document.getElementById('audio-frequency-canvas'); if(canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height); }
-        }
-        window.StreamVerseBooster = new AudioSensoryBooster();
-
-        // Master Central Control System Coordinating Pipeline
+        // Master Central Orchestration Controller
         class CentralApplicationCore {
             constructor() { this.activeCat = "all"; }
-            init() {
+            async init() {
                 document.getElementById('search-bar').addEventListener('input', (e) => this.search(e.target.value));
-                document.getElementById('hero-play-trigger').onclick = () => window.StreamVersePlayer.routeToPlayer('533535', 'Deadpool & Wolverine', 'movie', '2024');
-                this.syncCatalog();
+                await this.filterSection('all');
             }
-            syncCatalog() {
-                fetch('https://api.themoviedb.org/3/trending/all/week?api_key=82e880c89dbf119b940e034ed32a3498')
-                    .then(r => r.json())
-                    .then(data => {
-                        if(data && data.results) {
-                            data.results.forEach((r, idx) => {
-                                const isTv = r.media_type === 'tv' || r.first_air_date !== undefined;
-                                window.StreamVerseDatabase.registerItem({
-                                    id: 9000 + idx,
-                                    title: r.title || r.name,
-                                    category: isTv ? "Web Series" : "Hollywood",
-                                    quality: "4K Live",
-                                    year: (r.release_date || r.first_air_date || "2026").split("-")[0],
-                                    poster: r.poster_path ? `https://image.tmdb.org/t/p/w400${r.poster_path}` : "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg",
-                                    tmdbId: String(r.id),
-                                    type: isTv ? "tv" : "movie"
-                                });
-                            });
-                        }
-                        this.filterSection(this.activeCat);
-                    }).catch(() => this.filterSection(this.activeCat));
+            async filterSection(cat) {
+                this.activeCat = cat;
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                const btn = document.getElementById(`btn-${cat.toLowerCase().replace(" ", "-")}`);
+                if(btn) btn.classList.add('active');
+                
+                document.getElementById('current-category-title').innerText = cat === 'all' ? "All Movies & Premium Web Series" : `${cat} Network Catalog`;
+                
+                let list = [];
+                if (cat === 'all') {
+                    list = await window.StreamVerseDatabase.fetchTrending();
+                    // Hydrate dynamic spotlight banner with the top trending title
+                    if (list.length > 0) {
+                        this.hydrateSpotlight(list[0]);
+                    }
+                } else {
+                    list = await window.StreamVerseDatabase.fetchCategory(cat);
+                }
+                this.renderGrid(list);
+            }
+            async search(query) {
+                const clean = query.trim().toLowerCase();
+                if(!clean) { this.filterSection(this.activeCat); return; }
+                document.getElementById('current-category-title').innerText = `Search Filtering Matrix: "${query}"`;
+                const list = await window.StreamVerseDatabase.fetchSearch(clean);
+                this.renderGrid(list);
+            }
+            hydrateSpotlight(item) {
+                const title = item.title;
+                const desc = item.overview;
+                const bg = item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : "https://image.tmdb.org/t/p/original/b33nnax1vYgsXW6YvXMZ96TqOtG.jpg";
+                
+                document.getElementById('hero-title-txt').innerText = title;
+                document.getElementById('hero-desc-txt').innerText = desc;
+                document.getElementById('hero-banner-element').style.backgroundImage = `linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85)), url('${bg}')`;
+                document.getElementById('hero-play-trigger').onclick = () => {
+                    window.StreamVersePlayer.routeToPlayer(item.id, title, item.type, item.year);
+                };
             }
             renderGrid(list) {
                 const container = document.getElementById('movie-grid-container');
@@ -607,26 +615,9 @@
                             <strong>${item.title}</strong>
                             <div class="metadata-row"><span>${item.year}</span><span class="type-pill">${item.type}</span></div>
                         </div>`;
-                    card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.tmdbId, item.title, item.type, item.year);
+                    card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.id, item.title, item.type, item.year);
                     container.appendChild(card);
                 });
-            }
-            filterSection(cat) {
-                this.activeCat = cat;
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                const btn = document.getElementById(`btn-${cat.toLowerCase().replace(" ", "-")}`);
-                if(btn) btn.classList.add('active');
-                
-                document.getElementById('current-category-title').innerText = cat === 'all' ? "All Movies & Premium Web Series" : `${cat} Network Catalog`;
-                const filtered = cat === 'all' ? window.StreamVerseDatabase.getAll() : window.StreamVerseDatabase.getAll().filter(i => i.category.toLowerCase() === cat.toLowerCase());
-                this.renderGrid(filtered);
-            }
-            search(query) {
-                const clean = query.trim().toLowerCase();
-                if(!clean) { this.filterSection(this.activeCat); return; }
-                const match = window.StreamVerseDatabase.getAll().filter(i => i.title.toLowerCase().includes(clean) || i.category.toLowerCase().includes(clean) || i.year.includes(clean));
-                document.getElementById('current-category-title').innerText = `Search Filtering Matrix: "${query}"`;
-                this.renderGrid(match);
             }
         }
 
