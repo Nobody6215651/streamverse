@@ -412,16 +412,6 @@
                         name: "🛰️ MultiEmbed Global Network (Recomended)", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
                     },
-                    { 
-                        id: "desicinema", 
-                        name: "Comming Soon (Server 2)", 
-                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://desicinemas.ink/embed/movie/${id}` : `https://desicinemas.ink/embed/tv/${id}/${s}/${e}` 
-                    },
-                    { 
-                        id: "net77", 
-                        name: " Comming Soon (Server 3)", 
-                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://net77.cc/embed/movie/${id}` : `https://net77.cc/embed/tv/${id}/${s}/${e}` 
-                    }
                 ];
                 Object.freeze(this.nodes);
             }
