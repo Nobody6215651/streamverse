@@ -409,18 +409,18 @@
                 this.nodes = [
                     { 
                         id: "multiembed", 
-                        name: "MultiEmbed Global Network (Recomended )", 
+                        name: "🛰️ MultiEmbed Global Network (Server 5)", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
                     },
                     { 
-                        id: "vidlink", 
-                        name: "🎬 VidLink Premium HD (Server 2)", 
-                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidlink.pro/embed/movie/${id}` : `https://vidlink.pro/embed/tv/${id}/${s}/${e}` 
+                        id: "desicinema", 
+                        name: "🎬 DesiCinema Bollywood Node (Server 2)", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://desicinemas.ink/embed/movie/${id}` : `https://desicinemas.ink/embed/tv/${id}/${s}/${e}` 
                     },
                     { 
-                        id: "vidsrc", 
-                        name: "⚡ VidSrc Premium Streaming (Server 3)", 
-                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.to/embed/movie/${id}` : `https://vidsrc.to/embed/tv/${id}/${s}/${e}` 
+                        id: "net77", 
+                        name: "⚡ Net77 NetMirror Streaming CDN (Server 3)", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://net77.cc/embed/movie/${id}` : `https://net77.cc/embed/tv/${id}/${s}/${e}` 
                     }
                 ];
                 Object.freeze(this.nodes);
