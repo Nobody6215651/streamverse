@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamVerse Ultra Premium - Ultimate CDN Cinema Matrix</title>
-    <!-- Font Awesome Pro Icons -->
-    <link class="m-0" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ========================================================================== */
-        /* STREAMVERSE CINEMATIC CINEMA ENGINE - PREMIUM CORE STYLESHEET */
+        /* STREAMVERSE CINEMATIC ENGINE - HIGH-FIDELITY CORE STYLESHEET */
         /* ========================================================================== */
         :root {
             --primary: #e50914;
             --primary-hover: #ff1e27;
-            --bg-dark: #050505;
-            --bg-card: rgba(20, 20, 20, 0.85);
-            --bg-navbar: rgba(2, 2, 2, 0.95);
+            --primary-glow: rgba(229, 9, 20, 0.4);
+            --bg-dark: #09090b;
+            --bg-card: rgba(18, 18, 24, 0.65);
+            --bg-navbar: rgba(9, 9, 11, 0.75);
             --text-light: #ffffff;
-            --text-gray: #aaaaaa;
-            --card-border: rgba(255, 255, 255, 0.07);
-            --glass-accent: rgba(229, 9, 20, 0.2);
+            --text-gray: #a1a1aa;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glass-accent: rgba(255, 255, 255, 0.03);
             --smooth-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -37,52 +38,57 @@
             scroll-behavior: smooth;
         }
 
-        /* High-Performance Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: #010101; }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 5px; border: 2px solid #010101; }
+        /* High-Performance Custom Scrollbar for Global View */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        /* Glassmorphic Sticky Navigation Header */
+        /* Floating Frosted Glass Capsule Sticky Navigation Header */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
+            padding: 15px 4%;
             background: var(--bg-navbar);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 99999;
             border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
             text-transform: uppercase;
             color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .logo span { color: var(--primary); }
+        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
 
-        .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .nav-links { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+        .nav-links::-webkit-scrollbar { display: none; }
 
         .nav-btn {
             color: var(--text-gray);
             text-decoration: none;
-            padding: 12px 22px;
-            font-size: 14px;
+            padding: 10px 18px;
+            font-size: 13px;
             font-weight: 700;
-            border-radius: 30px;
+            border-radius: 20px;
             border: 1px solid transparent;
             background: transparent;
             cursor: pointer;
             transition: var(--smooth-transition);
+            white-space: nowrap;
         }
 
         .nav-btn:hover, .nav-btn.active {
@@ -92,8 +98,8 @@
 
         .nav-btn.active {
             border-color: var(--primary);
-            background: rgba(229, 9, 20, 0.15);
-            box-shadow: 0 0 20px var(--glass-accent);
+            background: rgba(229, 9, 20, 0.12);
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
         .search-container { position: relative; display: flex; align-items: center; }
@@ -102,136 +108,562 @@
             background: rgba(10, 10, 10, 0.8);
             border: 1px solid var(--card-border);
             color: white;
-            padding: 12px 20px 12px 50px;
+            padding: 10px 18px 10px 42px;
             border-radius: 30px;
-            width: 280px;
+            width: 220px;
             outline: none;
-            font-size: 14px;
+            font-size: 13px;
             transition: var(--smooth-transition);
         }
 
         #search-bar:focus {
             border-color: var(--primary);
-            width: 400px;
+            width: 320px;
             background: #000;
-            box-shadow: 0 0 30px var(--glass-accent);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        .search-icon { position: absolute; left: 20px; color: var(--text-gray); pointer-events: none; }
+        .search-icon { position: absolute; left: 16px; color: var(--text-gray); pointer-events: none; }
 
-        /* Dynamic Cinematic Hero Banner */
-        .hero-banner {
+        /* Dynamic Auto-Sliding Hero Carousel Banner */
+        .hero-carousel {
             position: relative;
-            height: 65vh;
-            background: linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85)),
-                        url('https://image.tmdb.org/t/p/original/b33nnax1vYgsXW6YvXMZ96TqOtG.jpg') center/cover no-repeat;
+            height: 70vh;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             padding: 0 5%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            transition: background 0.5s ease-in-out;
         }
 
-        .hero-content { max-width: 800px; z-index: 10; }
-        .hero-title { font-size: 56px; font-weight: 900; margin-bottom: 20px; line-height: 1.1; text-shadow: 3px 6px 25px #000; }
-        .hero-desc { font-size: 18px; color: #e0e0e0; margin-bottom: 35px; line-height: 1.6; text-shadow: 2px 4px 15px #000; }
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.85) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 750px;
+            z-index: 12;
+            transform: translateY(20px);
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-slide.active .hero-content {
+            transform: translateY(0);
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            text-shadow: 2px 4px 15px rgba(0,0,0,0.9);
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: #e4e4e7;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-shadow: 1px 2px 10px rgba(0,0,0,0.9);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+        }
 
         .play-btn {
             background: var(--text-light);
             color: #000;
             border: none;
-            padding: 16px 38px;
-            font-size: 16px;
+            padding: 14px 32px;
+            font-size: 15px;
             font-weight: 800;
             border-radius: 30px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: var(--smooth-transition);
         }
 
         .play-btn:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px var(--glass-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--primary-glow);
         }
 
-        /* Content Catalog Shelves */
-        .main-content { padding: 50px 5%; }
-        .section-title { font-size: 26px; font-weight: 800; margin-bottom: 35px; border-left: 6px solid var(--primary); padding-left: 18px; letter-spacing: 0.5px; }
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; }
+        .info-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            transition: var(--smooth-transition);
+        }
+
+        .info-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Carousel Slide Dots Indicator Deck */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 25px;
+            right: 5%;
+            z-index: 15;
+            display: flex;
+            gap: 8px;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .indicator-dot.active {
+            background: var(--primary);
+            width: 28px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Horizontal Rows Container and Structures */
+        .main-content { padding: 40px 4%; display: flex; flex-direction: column; gap: 40px; }
+        .row-container { display: flex; flex-direction: column; gap: 15px; position: relative; }
+        .row-title { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; }
+        .row-title i { color: var(--primary); }
+
+        /* Branded Dynamic App Channel Badges Grid */
+        .channel-track {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px 0;
+            scroll-behavior: smooth;
+        }
+        .channel-track::-webkit-scrollbar { display: none; }
+
+        .channel-badge {
+            min-width: 160px;
+            height: 75px;
+            background: linear-gradient(135deg, rgba(20,20,25,0.8), rgba(10,10,12,0.9));
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .channel-badge:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, rgba(30,30,35,0.9), rgba(15,15,18,0.95));
+        }
+
+        .channel-badge img {
+            max-width: 75%;
+            max-height: 55%;
+            object-fit: contain;
+            opacity: 0.7;
+            transition: var(--smooth-transition);
+        }
+
+        .channel-badge:hover img {
+            opacity: 1;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+
+        /* Global Cinematic Scroll Track with Hidden Scrollbar */
+        .shelf-track {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px 0 20px 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .shelf-track::-webkit-scrollbar { display: none; }
 
         /* Media Card Structure */
         .movie-card {
+            min-width: 175px;
+            max-width: 175px;
             background: var(--bg-card);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             position: relative;
             transition: var(--smooth-transition);
+            display: flex;
+            flex-direction: column;
         }
 
         .movie-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 25px var(--glass-accent);
-            border-color: rgba(229, 9, 20, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px var(--primary-glow);
+            border-color: rgba(229, 9, 20, 0.35);
         }
 
-        .poster-wrapper { overflow: hidden; position: relative; aspect-ratio: 2/3; background: #0a0a0a; }
-        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-        .movie-card:hover .movie-poster { transform: scale(1.07); }
+        .poster-wrapper { overflow: hidden; position: relative; aspect-ratio: 2/3; background: #0c0c0e; }
+        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .movie-card:hover .movie-poster { transform: scale(1.06); }
 
-        .movie-info { padding: 18px; }
-        .movie-info strong { display: block; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 8px; color: var(--text-light); }
+        .movie-info { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+        .movie-info strong { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-light); }
         
-        .metadata-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-gray); }
-        .type-pill { background: rgba(255, 255, 255, 0.1); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
-        .badge { position: absolute; top: 15px; left: 15px; background: var(--primary); padding: 5px 10px; font-size: 11px; font-weight: 800; border-radius: 6px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .metadata-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-gray); }
+        .type-pill { background: rgba(255, 255, 255, 0.08); padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; }
+        .badge { position: absolute; top: 10px; left: 10px; background: var(--primary); padding: 4px 8px; font-size: 10px; font-weight: 800; border-radius: 4px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+        /* Modern Top 10 Today Row Design with Overlapping Large Numbers */
+        .rank-card {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            min-width: 250px;
+            max-width: 250px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .rank-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .rank-number {
+            font-size: 150px;
+            font-weight: 900;
+            line-height: 0.75;
+            color: var(--bg-dark);
+            -webkit-text-stroke: 3px rgba(255, 255, 255, 0.28);
+            letter-spacing: -10px;
+            position: absolute;
+            left: -10px;
+            bottom: -5px;
+            z-index: 1;
+            user-select: none;
+            transition: var(--smooth-transition);
+        }
+
+        .rank-card:hover .rank-number {
+            -webkit-text-stroke: 3px var(--primary);
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+        }
+
+        .rank-poster-wrapper {
+            width: 140px;
+            aspect-ratio: 2/3;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-left: 85px;
+            z-index: 2;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border: 1px solid var(--card-border);
+            transition: var(--smooth-transition);
+        }
+
+        .rank-card:hover .rank-poster-wrapper {
+            border-color: rgba(229, 9, 20, 0.35);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px var(--primary-glow);
+        }
+
+        .rank-poster {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Interactive CineDice Suggestion Deck Widget */
+        .cinedice-panel {
+            background: linear-gradient(135deg, rgba(20,20,25,0.7), rgba(10,10,12,0.85));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.5fr;
+            align-items: center;
+            gap: 40px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            margin-top: 10px;
+        }
+
+        @media(max-width: 950px) {
+            .cinedice-panel { grid-template-columns: 1fr; gap: 30px; justify-items: center; text-align: center; }
+        }
+
+        .cinedice-intro h3 { font-size: 24px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .cinedice-intro h3 span { color: var(--primary); }
+        .cinedice-intro p { font-size: 14px; color: var(--text-gray); line-height: 1.5; margin-bottom: 20px; }
+
+        .cinedice-options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .cinedice-options label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); letter-spacing: 0.5px; }
+        
+        .dice-select {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+            width: 100%;
+        }
+        .dice-select:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+
+        /* Elegant 3D Hardware Accelerated Cubic Dice Construction */
+        .dice-cube-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .dice-scene {
+            width: 80px;
+            height: 80px;
+            perspective: 400px;
+            cursor: pointer;
+        }
+
+        .dice-cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+
+        .dice-face {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(#27272a, #09090b);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 15px rgba(229, 9, 20, 0.3), 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        /* 3D Space Transformations for Cube Faces */
+        .face-front  { transform: rotateY(  0deg) translateZ(40px); }
+        .face-back   { transform: rotateY(180deg) translateZ(40px); }
+        .face-right  { transform: rotateY( 90deg) translateZ(40px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(40px); }
+        .face-top    { transform: rotateX( 90deg) translateZ(40px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+        /* Dynamic Rendered Dots for Dice Faces */
+        .dice-dots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 70%;
+            height: 70%;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-light);
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Configuration map for each dice face */
+        .face-front .dot:nth-child(5) { opacity: 1; background-color: var(--primary); }
+        
+        .face-back .dot:nth-child(1),
+        .face-back .dot:nth-child(9) { opacity: 1; }
+        
+        .face-right .dot:nth-child(1),
+        .face-right .dot:nth-child(5),
+        .face-right .dot:nth-child(9) { opacity: 1; }
+        
+        .face-left .dot:nth-child(1),
+        .face-left .dot:nth-child(3),
+        .face-left .dot:nth-child(7),
+        .face-left .dot:nth-child(9) { opacity: 1; }
+        
+        .face-top .dot:nth-child(1),
+        .face-top .dot:nth-child(3),
+        .face-top .dot:nth-child(5),
+        .face-top .dot:nth-child(7),
+        .face-top .dot:nth-child(9) { opacity: 1; }
+        
+        .face-bottom .dot:nth-child(1),
+        .face-bottom .dot:nth-child(3),
+        .face-bottom .dot:nth-child(4),
+        .face-bottom .dot:nth-child(6),
+        .face-bottom .dot:nth-child(7),
+        .face-bottom .dot:nth-child(9) { opacity: 1; }
+
+        /* Kinetic Animation Loop for Dice Spin */
+        @keyframes diceTumble {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(720deg) rotateY(1080deg) rotateZ(360deg); }
+        }
+
+        .dice-cube.spinning {
+            animation: diceTumble 1.4s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+        }
+
+        .roll-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: var(--smooth-transition);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .roll-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--primary);
+        }
+
+        /* Movie Display Card Suggestion Panel */
+        .dice-result-card {
+            background: rgba(0,0,0,0.4);
+            border: 1px dashed var(--card-border);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: var(--smooth-transition);
+            width: 100%;
+            min-height: 150px;
+        }
+
+        .dice-result-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .dice-res-poster {
+            width: 80px;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .dice-res-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .dice-res-title { font-size: 16px; font-weight: 800; }
+        .dice-res-meta { font-size: 11px; color: var(--text-gray); }
+        .dice-res-overview { font-size: 12px; color: #d4d4d8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* Premium Theater Environment Layout */
-        #player-page-view { padding: 40px 5%; }
-        .back-row { margin-bottom: 30px; }
-        .back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); color: white; padding: 12px 26px; border-radius: 30px; cursor: pointer; font-weight: 700; transition: var(--smooth-transition); }
-        .back-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 5px 20px var(--glass-accent); }
+        #player-page-view { padding: 40px 4%; }
+        .back-row { margin-bottom: 25px; }
+        .back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); color: white; padding: 12px 24px; border-radius: 30px; cursor: pointer; font-weight: 700; transition: var(--smooth-transition); display: inline-flex; align-items: center; gap: 8px; }
+        .back-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 5px 20px var(--primary-glow); }
 
-        .theater-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 35px; }
+        .theater-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 30px; }
         @media(max-width: 1100px) { .theater-layout { grid-template-columns: 1fr; } }
 
-        .video-frame-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid var(--card-border); position: relative; box-shadow: 0 30px 70px rgba(0,0,0,0.95); }
+        .video-frame-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid var(--card-border); position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.95); }
         .video-frame-container iframe { width: 100%; height: 100%; display: block; border: none; }
 
-        /* Advanced Loading Pipeline UI */
+        /* Dynamic Loading Animations */
         .routing-shimmer { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--text-gray); background: #020202; }
-        .spinner { width: 55px; height: 55px; border: 5px solid rgba(255,255,255,0.03); border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px; }
+        .spinner { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.03); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .player-details-card { margin-top: 30px; background: var(--bg-card); border: 1px solid var(--card-border); padding: 30px; border-radius: 20px; }
-        .player-details-card h1 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
-        .player-details-card p { color: var(--text-gray); font-size: 15px; line-height: 1.6; }
+        .player-details-card { margin-top: 25px; background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 16px; }
+        .player-details-card h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; }
+        .player-details-card p { color: var(--text-gray); font-size: 14px; line-height: 1.5; }
 
-        /* Control Sidebar Command Center */
-        .control-sidebar { display: flex; flex-direction: column; gap: 30px; }
-        .control-widget-box { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 25px; }
-        .control-widget-box h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-gray); margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 12px; }
+        /* Sidebar Console Control Deck */
+        .control-sidebar { display: flex; flex-direction: column; gap: 25px; }
+        .control-widget-box { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; }
+        .control-widget-box h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-gray); margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; }
 
-        .episodes-dropdown-wrapper { display: flex; flex-direction: column; gap: 18px; }
-        .select-field { display: flex; flex-direction: column; gap: 10px; }
-        .select-field label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); }
-        .select-field select { background: #0a0a0a; border: 1px solid var(--card-border); color: white; padding: 14px; border-radius: 10px; font-size: 14px; outline: none; cursor: pointer; transition: var(--smooth-transition); }
+        .episodes-dropdown-wrapper { display: flex; flex-direction: column; gap: 15px; }
+        .select-field { display: flex; flex-direction: column; gap: 8px; }
+        .select-field label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); }
+        .select-field select { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: white; padding: 12px; border-radius: 8px; font-size: 13px; outline: none; cursor: pointer; transition: var(--smooth-transition); }
         .select-field select:focus { border-color: var(--primary); }
 
-        /* High Capacity Server Core Link UI */
-        .server-btn-wrapper { display: flex; flex-direction: column; gap: 10px; }
-        .server-btn { background: #0a0a0a; border: 1px solid var(--card-border); color: #ccc; padding: 14px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: left; transition: var(--smooth-transition); display: flex; align-items: center; gap: 10px; }
+        /* Server Connection Buttons */
+        .server-btn-wrapper { display: flex; flex-direction: column; gap: 8px; }
+        .server-btn { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: #ccc; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: left; transition: var(--smooth-transition); display: flex; align-items: center; gap: 8px; }
         .server-btn:hover { background: rgba(255,255,255,0.05); color: white; }
-        .server-btn.active { background: rgba(229, 9, 20, 0.15); border-color: var(--primary); color: white; box-shadow: inset 0 0 15px rgba(229, 9, 20, 0.3); }
+        .server-btn.active { background: rgba(229, 9, 20, 0.12); border-color: var(--primary); color: white; box-shadow: inset 0 0 10px rgba(229, 9, 20, 0.25); }
 
-        /* Empty Search States */
-        .empty-query-indicator { padding: 100px 25px; text-align: center; color: var(--text-gray); grid-column: 1 / -1; }
-        .empty-query-indicator i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        /* Blank/Unmatched Result Fallbacks */
+        .empty-query-indicator { padding: 80px 20px; text-align: center; color: var(--text-gray); width: 100%; grid-column: 1 / -1; }
+        .empty-query-indicator i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -255,19 +687,127 @@
 
     <!-- Main Dynamic Content Engine Grid -->
     <main id="main-website-view">
-        <section class="hero-banner" id="hero-banner-element">
-            <div class="hero-content">
-                <h1 class="hero-title" id="hero-title-txt">Loading Dynamic Spotlight...</h1>
-                <p class="hero-desc" id="hero-desc-txt">Syncing verified platform nodes to secure high-speed links immediately.</p>
-                <button class="play-btn" id="hero-play-trigger">
-                    <i class="fas fa-play"></i> Launch Ultra-CDN Stream
-                </button>
-            </div>
-        </section>
+        <!-- Spotlight Carousel Hero Segment -->
+        <section class="hero-carousel" id="hero-carousel-element"></section>
 
         <section class="main-content">
-            <h2 class="section-title" id="current-category-title">All Movies & Premium Web Series</h2>
-            <div class="movie-grid" id="movie-grid-container"></div>
+            <!-- Dynamic Category Channel Strip -->
+            <div class="row-container">
+                <h3 class="row-title"><i class="fas fa-layer-group"></i> Featured Networks</h3>
+                <div class="channel-track">
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('netflix')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+                    </div>
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('amazon prime')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video">
+                    </div>
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('disney')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+">
+                    </div>
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('hulu')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Hulu_Logo.svg" alt="Hulu">
+                    </div>
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('hbo')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/HBO_logo.svg" alt="HBO Max">
+                    </div>
+                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('apple tv')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV_Plus_Logo.svg" alt="Apple TV+">
+                    </div>
+                </div>
+            </div>
+
+            <!-- The CineDice Interaction UI Dashboard Widget -->
+            <div class="row-container">
+                <h3 class="row-title"><i class="fas fa-dice"></i> CineDice Selection Engine</h3>
+                <div class="cinedice-panel">
+                    <div class="cinedice-intro">
+                        <h3>Don't know what to watch? <span>Roll the Dice!</span></h3>
+                        <p>Let our dynamic algorithmic curation generator decide for you. Select your target market segment, trigger the kinetic cube engine, and stream instantly.</p>
+                        <div class="cinedice-options">
+                            <label>Thematic Focus Region</label>
+                            <select id="dice-region-select" class="dice-select">
+                                <option value="any">Global Content Market (Anywhere)</option>
+                                <option value="Bollywood">Hindi / Bollywood Cinema</option>
+                                <option value="Hollywood">Hollywood Production Matrix</option>
+                                <option value="Punjabi">Punjabi Regional Tracks</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dice Rotation Area -->
+                    <div class="dice-cube-area">
+                        <div class="dice-scene" onclick="window.CineDiceEngine.triggerRoll()">
+                            <div id="dice-element" class="dice-cube show-1">
+                                <div class="dice-face face-front"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                                <div class="dice-face face-back"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                                <div class="dice-face face-right"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                                <div class="dice-face face-left"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                                <div class="dice-face face-top"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                                <div class="dice-face face-bottom"><div class="dice-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            </div>
+                        </div>
+                        <button class="roll-btn" onclick="window.CineDiceEngine.triggerRoll()">Roll Dice</button>
+                    </div>
+
+                    <!-- Suggestion Card Modal Target -->
+                    <div id="dice-result-wrapper" class="dice-result-card">
+                        <img id="dice-res-poster-img" class="dice-res-poster" src="" alt="Pending Roll">
+                        <div class="dice-res-details">
+                            <h4 id="dice-res-title-txt" class="dice-res-title">Roll the Dice to Discover</h4>
+                            <div id="dice-res-meta-txt" class="dice-res-meta">Genre | Year | Rating</div>
+                            <p id="dice-res-desc-txt" class="dice-res-overview">Your cinematic discovery recommendation card will render dynamically in this space upon rolling.</p>
+                            <button id="dice-res-play-btn" class="play-btn" style="padding: 8px 16px; font-size: 12px; display: none;">
+                                <i class="fas fa-play"></i> Watch Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Shelf Content Areas -->
+            <div id="homepage-rows-deck" style="display: flex; flex-direction: column; gap: 40px;">
+                <!-- Overlapping Top 10 TV Shows Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-fire"></i> Top 10 TV Shows Today</h3>
+                    <div class="shelf-track" id="top-tv-shelf"></div>
+                </div>
+
+                <!-- Overlapping Top 10 Movies Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-chart-line"></i> Top 10 Movies Today</h3>
+                    <div class="shelf-track" id="top-movie-shelf"></div>
+                </div>
+
+                <!-- Hollywood Shelf Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-film"></i> Hollywood Network Spotlight</h3>
+                    <div class="shelf-track" id="hollywood-shelf"></div>
+                </div>
+
+                <!-- Bollywood Shelf Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-om"></i> Bollywood Core Theater</h3>
+                    <div class="shelf-track" id="bollywood-shelf"></div>
+                </div>
+
+                <!-- Punjabi Shelf Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-music"></i> Punjabi Cinema Playlist</h3>
+                    <div class="shelf-track" id="punjabi-shelf"></div>
+                </div>
+
+                <!-- Premium Series Shelf Row -->
+                <div class="row-container">
+                    <h3 class="row-title"><i class="fas fa-tv"></i> Premium Series Hub</h3>
+                    <div class="shelf-track" id="series-shelf"></div>
+                </div>
+            </div>
+
+            <!-- Categorized/Search Master Grid View Mode (Fallback Display Zone) -->
+            <div id="category-grid-box" class="row-container" style="display: none;">
+                <h3 class="row-title" id="current-category-title">All Movies & Premium Web Series</h3>
+                <div class="movie-grid" id="movie-grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 20px;"></div>
+            </div>
         </section>
     </main>
 
@@ -326,24 +866,29 @@
 
         const TMDB_API_KEY = "82e880c89dbf119b940e034ed32a3498";
 
-        // Decentralized Dynamic Catalog Coordinator
+        // Dynamic API Hydrator Controller
         class DynamicDatabaseController {
             constructor() {
-                this.items = [];
+                this.cache = {};
             }
-            async fetchTrending() {
+            async fetchTrending(mediaType = 'all') {
+                const cacheKey = `trending_${mediaType}`;
+                if (this.cache[cacheKey]) return this.cache[cacheKey];
                 try {
-                    const response = await fetch(`https://api.themoviedb.org/3/trending/all/week?api_key=${TMDB_API_KEY}`);
+                    const response = await fetch(`https://api.themoviedb.org/3/trending/${mediaType}/week?api_key=${TMDB_API_KEY}`);
                     const data = await response.json();
-                    return this.parseTMDBResults(data.results || []);
+                    const results = this.parseTMDBResults(data.results || []);
+                    this.cache[cacheKey] = results;
+                    return results;
                 } catch (e) {
                     return [];
                 }
             }
             async fetchCategory(category) {
+                if (this.cache[category]) return this.cache[category];
                 let endpoint = '';
                 if (category === 'Web Series') {
-                    endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=hi|en`;
+                    endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=hi|en&vote_count.gte=100`;
                 } else {
                     let langParam = 'en';
                     if (category === 'Bollywood') {
@@ -353,12 +898,14 @@
                     } else if (category === 'South') {
                         langParam = 'te|ta|ml|kn';
                     }
-                    endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=${langParam}`;
+                    endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=${langParam}&vote_count.gte=100`;
                 }
                 try {
                     const response = await fetch(endpoint);
                     const data = await response.json();
-                    return this.parseTMDBResults(data.results || [], category);
+                    const results = this.parseTMDBResults(data.results || [], category);
+                    this.cache[category] = results;
+                    return results;
                 } catch (e) {
                     return [];
                 }
@@ -392,6 +939,7 @@
                         title: item.title || item.name || "Untitled Cinema",
                         category: detectedCategory,
                         quality: "4K Stream",
+                        rating: item.vote_average ? item.vote_average.toFixed(1) : "8.2",
                         year: (item.release_date || item.first_air_date || "2024").split("-")[0],
                         poster: item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg",
                         backdrop_path: item.backdrop_path || "",
@@ -403,13 +951,13 @@
         }
         window.StreamVerseDatabase = new DynamicDatabaseController();
 
-        // Consolidated High-Performance Multi-CDN Routing Core
+        // Consolidated Multi-CDN Routing Core (Sustained User Core Nodes)
         class CDNClusterManager {
             constructor() {
                 this.nodes = [
                     { 
                         id: "multiembed", 
-                        name: "🛰️ MultiEmbed Global Network (Recomended)", 
+                        name: "🛰️ MultiEmbed Global Network (Recommended)", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
                     },
                 ];
@@ -540,12 +1088,89 @@
         }
         window.StreamVersePlayer = new PlaybackGateway();
 
+        // 3D CSS Interactive Suggestion Game Engine
+        class CineDiceController {
+            constructor() {
+                this.diceElement = null;
+                this.isRolling = false;
+                this.regions = {
+                    any: 'all',
+                    Bollywood: 'Bollywood',
+                    Hollywood: 'Hollywood',
+                    Punjabi: 'Punjabi'
+                };
+            }
+            init() {
+                this.diceElement = document.getElementById('dice-element');
+            }
+            async triggerRoll() {
+                if (this.isRolling) return;
+                this.isRolling = true;
+                
+                // Active CSS hardware-accelerated class transition triggers
+                this.diceElement.className = 'dice-cube spinning';
+                
+                const selectedRegion = document.getElementById('dice-region-select').value;
+                const resultBlock = document.getElementById('dice-result-wrapper');
+                resultBlock.classList.remove('active');
+
+                // Simultaneously perform async TMDB pre-fetching during physical animation spin
+                let dataset = [];
+                if (selectedRegion === 'any') {
+                    dataset = await window.StreamVerseDatabase.fetchTrending();
+                } else {
+                    dataset = await window.StreamVerseDatabase.fetchCategory(selectedRegion);
+                }
+
+                const diceRollValue = Math.floor(Math.random() * 6) + 1;
+
+                setTimeout(() => {
+                    this.diceElement.className = 'dice-cube';
+                    this.diceElement.classList.add(`show-${diceRollValue}`);
+                    this.isRolling = false;
+
+                    if (dataset && dataset.length > 0) {
+                        const randomItem = dataset[Math.floor(Math.random() * dataset.length)];
+                        this.hydrateResult(randomItem);
+                    }
+                }, 1500); // 1.5s visual duration matching physical animation loop
+            }
+            hydrateResult(item) {
+                const poster = document.getElementById('dice-res-poster-img');
+                const title = document.getElementById('dice-res-title-txt');
+                const meta = document.getElementById('dice-res-meta-txt');
+                const desc = document.getElementById('dice-res-desc-txt');
+                const playBtn = document.getElementById('dice-res-play-btn');
+                const resultBlock = document.getElementById('dice-result-wrapper');
+
+                poster.src = item.poster;
+                title.innerText = item.title;
+                meta.innerText = `${item.category} | ${item.year} | ⭐ ${item.rating}`;
+                desc.innerText = item.overview;
+                
+                playBtn.style.display = 'inline-flex';
+                playBtn.onclick = () => {
+                    window.StreamVersePlayer.routeToPlayer(item.id, item.title, item.type, item.year);
+                };
+
+                resultBlock.classList.add('active');
+            }
+        }
+        window.CineDiceEngine = new CineDiceController();
+
         // Master Central Orchestration Controller
         class CentralApplicationCore {
-            constructor() { this.activeCat = "all"; }
+            constructor() {
+                this.activeCat = "all";
+                this.carouselTimer = null;
+                this.carouselIndex = 0;
+                this.carouselItems = [];
+            }
             async init() {
                 document.getElementById('search-bar').addEventListener('input', (e) => this.search(e.target.value));
+                window.CineDiceEngine.init();
                 await this.filterSection('all');
+                await this.hydrateAllShelves();
             }
             async filterSection(cat) {
                 this.activeCat = cat;
@@ -553,38 +1178,170 @@
                 const btn = document.getElementById(`btn-${cat.toLowerCase().replace(" ", "-")}`);
                 if(btn) btn.classList.add('active');
                 
-                document.getElementById('current-category-title').innerText = cat === 'all' ? "All Movies & Premium Web Series" : `${cat} Network Catalog`;
-                
-                let list = [];
+                const dynamicRows = document.getElementById('homepage-rows-deck');
+                const gridBox = document.getElementById('category-grid-box');
+
                 if (cat === 'all') {
-                    list = await window.StreamVerseDatabase.fetchTrending();
-                    // Hydrate dynamic spotlight banner with the top trending title
-                    if (list.length > 0) {
-                        this.hydrateSpotlight(list[0]);
-                    }
+                    dynamicRows.style.display = 'flex';
+                    gridBox.style.display = 'none';
+                    await this.hydrateAllShelves();
                 } else {
-                    list = await window.StreamVerseDatabase.fetchCategory(cat);
+                    dynamicRows.style.display = 'none';
+                    gridBox.style.display = 'block';
+                    document.getElementById('current-category-title').innerText = `${cat} Network Catalog`;
+                    const list = await window.StreamVerseDatabase.fetchCategory(cat);
+                    this.renderGrid(list);
                 }
-                this.renderGrid(list);
             }
             async search(query) {
                 const clean = query.trim().toLowerCase();
-                if(!clean) { this.filterSection(this.activeCat); return; }
+                const dynamicRows = document.getElementById('homepage-rows-deck');
+                const gridBox = document.getElementById('category-grid-box');
+
+                if(!clean) { 
+                    this.filterSection(this.activeCat); 
+                    return; 
+                }
+
+                dynamicRows.style.display = 'none';
+                gridBox.style.display = 'block';
                 document.getElementById('current-category-title').innerText = `Search Filtering Matrix: "${query}"`;
+                
                 const list = await window.StreamVerseDatabase.fetchSearch(clean);
                 this.renderGrid(list);
             }
-            hydrateSpotlight(item) {
-                const title = item.title;
-                const desc = item.overview;
-                const bg = item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : "https://image.tmdb.org/t/p/original/b33nnax1vYgsXW6YvXMZ96TqOtG.jpg";
+            async searchByTerm(term) {
+                document.getElementById('search-bar').value = term;
+                await this.search(term);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            async hydrateAllShelves() {
+                const trendingMovies = await window.StreamVerseDatabase.fetchTrending('movie');
+                const trendingShows = await window.StreamVerseDatabase.fetchTrending('tv');
+                const hollywood = await window.StreamVerseDatabase.fetchCategory('Hollywood');
+                const bollywood = await window.StreamVerseDatabase.fetchCategory('Bollywood');
+                const punjabi = await window.StreamVerseDatabase.fetchCategory('Punjabi');
+                const series = await window.StreamVerseDatabase.fetchCategory('Web Series');
+
+                // Dynamic Hero Carousel Loading Strategy
+                if (trendingMovies && trendingMovies.length > 0) {
+                    this.carouselItems = trendingMovies.slice(0, 5);
+                    this.buildCarousel();
+                }
+
+                // Render Overlapping Rank Top 10 rows
+                this.renderRankShelf(trendingShows.slice(0, 10), 'top-tv-shelf');
+                this.renderRankShelf(trendingMovies.slice(0, 10), 'top-movie-shelf');
+
+                // Render Standard dynamic rows
+                this.renderStandardShelf(hollywood.slice(0, 12), 'hollywood-shelf');
+                this.renderStandardShelf(bollywood.slice(0, 12), 'bollywood-shelf');
+                this.renderStandardShelf(punjabi.slice(0, 12), 'punjabi-shelf');
+                this.renderStandardShelf(series.slice(0, 12), 'series-shelf');
+            }
+            buildCarousel() {
+                const carousel = document.getElementById('hero-carousel-element');
+                if (!carousel) return;
+                clearInterval(this.carouselTimer);
+                carousel.innerHTML = '';
+
+                this.carouselItems.forEach((item, idx) => {
+                    const slide = document.createElement('div');
+                    slide.className = `hero-slide ${idx === 0 ? 'active' : ''}`;
+                    const bg = item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : "https://image.tmdb.org/t/p/original/b33nnax1vYgsXW6YvXMZ96TqOtG.jpg";
+                    slide.style.backgroundImage = `url('${bg}')`;
+                    
+                    slide.innerHTML = `
+                        <div class="hero-overlay"></div>
+                        <div class="hero-content">
+                            <span class="badge" style="position:static; margin-bottom:15px; display:inline-block;">PREMIUM FOCUS</span>
+                            <h1 class="hero-title">${item.title}</h1>
+                            <p class="hero-desc">${item.overview}</p>
+                            <div class="hero-buttons">
+                                <button class="play-btn" onclick="window.StreamVersePlayer.routeToPlayer(${item.id}, '${item.title.replace(/'/g, "\\'")}', '${item.type}', '${item.year}')">
+                                    <i class="fas fa-play"></i> Launch Stream
+                                </button>
+                                <button class="info-btn" onclick="window.StreamVerseApp.searchByTerm('${item.title.replace(/'/g, "\\'")}')">
+                                    <i class="fas fa-info-circle"></i> Discover More
+                                </button>
+                            </div>
+                        </div>`;
+                    carousel.appendChild(slide);
+                });
+
+                // Render dots indices
+                const indicators = document.createElement('div');
+                indicators.className = 'carousel-indicators';
+                this.carouselItems.forEach((_, idx) => {
+                    const dot = document.createElement('div');
+                    dot.className = `indicator-dot ${idx === 0 ? 'active' : ''}`;
+                    dot.onclick = () => this.setCarouselSlide(idx);
+                    indicators.appendChild(dot);
+                });
+                carousel.appendChild(indicators);
+
+                // Initialize internal automatic trigger loop set at 6 seconds
+                this.carouselIndex = 0;
+                this.carouselTimer = setInterval(() => {
+                    this.setCarouselSlide((this.carouselIndex + 1) % this.carouselItems.length);
+                }, 6000);
+            }
+            setCarouselSlide(idx) {
+                const slides = document.querySelectorAll('.hero-slide');
+                const dots = document.querySelectorAll('.indicator-dot');
+                if (slides.length === 0) return;
                 
-                document.getElementById('hero-title-txt').innerText = title;
-                document.getElementById('hero-desc-txt').innerText = desc;
-                document.getElementById('hero-banner-element').style.backgroundImage = `linear-gradient(to top, var(--bg-dark) 5%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85)), url('${bg}')`;
-                document.getElementById('hero-play-trigger').onclick = () => {
-                    window.StreamVersePlayer.routeToPlayer(item.id, title, item.type, item.year);
-                };
+                slides[this.carouselIndex].classList.remove('active');
+                dots[this.carouselIndex].classList.remove('active');
+                
+                this.carouselIndex = idx;
+                
+                slides[this.carouselIndex].classList.add('active');
+                dots[this.carouselIndex].classList.add('active');
+            }
+            renderRankShelf(list, elementId) {
+                const track = document.getElementById(elementId);
+                if (!track) return;
+                track.innerHTML = '';
+                if(list.length === 0) {
+                    track.innerHTML = '<div style="color:var(--text-gray); padding:20px;">No trending matches found.</div>';
+                    return;
+                }
+                list.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'rank-card';
+                    card.innerHTML = `
+                        <div class="rank-number">${index + 1}</div>
+                        <div class="rank-poster-wrapper">
+                            <img class="rank-poster" src="${item.poster}" alt="Media Poster File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                        </div>`;
+                    card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.id, item.title, item.type, item.year);
+                    track.appendChild(card);
+                });
+            }
+            renderStandardShelf(list, elementId) {
+                const track = document.getElementById(elementId);
+                if (!track) return;
+                track.innerHTML = '';
+                if(list.length === 0) {
+                    track.innerHTML = '<div style="color:var(--text-gray); padding:20px;">No available media entries inside indexing layer.</div>';
+                    return;
+                }
+                list.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'movie-card';
+                    card.innerHTML = `
+                        <span class="badge" style="top:8px; left:8px; font-size:9px;">⭐ ${item.rating}</span>
+                        <div class="poster-wrapper">
+                            <img class="movie-poster" src="${item.poster}" alt="Media Poster File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                        </div>
+                        <div class="movie-info">
+                            <strong>${item.title}</strong>
+                            <div class="metadata-row"><span>${item.year}</span><span class="type-pill">${item.type}</span></div>
+                        </div>`;
+                    card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.id, item.title, item.type, item.year);
+                    track.appendChild(card);
+                });
             }
             renderGrid(list) {
                 const container = document.getElementById('movie-grid-container');
@@ -597,7 +1354,7 @@
                     const card = document.createElement('div');
                     card.className = 'movie-card';
                     card.innerHTML = `
-                        <span class="badge">${item.quality}</span>
+                        <span class="badge">⭐ ${item.rating}</span>
                         <div class="poster-wrapper">
                             <img class="movie-poster" src="${item.poster}" alt="Media Resource File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
                         </div>
