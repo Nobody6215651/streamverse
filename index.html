@@ -744,22 +744,22 @@
                 this.nodes = [
                     { 
                         id: "multiembed", 
-                        name: "🛰️ MultiEmbed Global (Main)", 
+                        name: " MultiEmbed Global (Recomended)", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
                     },
                     { 
                         id: "hindidub", 
-                        name: "🇮🇳 Hindi-Dubbed Primary Server", 
+                        name: "Server 2", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://autoembed.co/movie/tmdb/${id}?server=1` : `https://autoembed.co/tv/tmdb/${id}-${s}-${e}` 
                     },
                     { 
                         id: "vidsrc", 
-                        name: "⚡ VidSrc High-Speed Node", 
+                        name: "Comming Soon", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.cc/v2/embed/movie/${id}` : `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}` 
                     },
                     { 
                         id: "smashy", 
-                        name: "🚀 SmashyStream Mirror", 
+                        name: "Comming Soon", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://player.smashy.stream/movie/${id}` : `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}` 
                     }
                 ];
