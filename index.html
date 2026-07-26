@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ========================================================================== */
-        /* STREAMVERSE CINEMATIC ENGINE - HIGH-FIDELITY CORE STYLESHEET */
+        /* STREAMVERSE CINEMATIC ENGINE - HIGH-FIDELITY CORE STYLESHEET              */
         /* ========================================================================== */
         :root {
             --primary: #e50914;
@@ -16,12 +16,12 @@
             --primary-glow: rgba(229, 9, 20, 0.4);
             --bg-dark: #09090b;
             --bg-card: rgba(18, 18, 24, 0.65);
-            --bg-navbar: rgba(9, 9, 11, 0.75);
+            --bg-navbar: rgba(9, 9, 11, 0.85);
             --text-light: #ffffff;
             --text-gray: #a1a1aa;
             --card-border: rgba(255, 255, 255, 0.08);
             --glass-accent: rgba(255, 255, 255, 0.03);
-            --smooth-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --smooth-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -38,32 +38,32 @@
             scroll-behavior: smooth;
         }
 
-        /* High-Performance Custom Scrollbar for Global View */
+        /* High-Performance Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        /* Floating Frosted Glass Capsule Sticky Navigation Header */
+        /* Floating Frosted Glass Capsule Navigation Header */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 4%;
+            padding: 12px 4%;
             background: var(--bg-navbar);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
-            z-index: 99999;
+            z-index: 9999;
             border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             cursor: pointer;
             text-transform: uppercase;
             color: var(--text-light);
@@ -74,13 +74,13 @@
 
         .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
 
-        .nav-links { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
         .nav-links::-webkit-scrollbar { display: none; }
 
         .nav-btn {
             color: var(--text-gray);
             text-decoration: none;
-            padding: 10px 18px;
+            padding: 8px 16px;
             font-size: 13px;
             font-weight: 700;
             border-radius: 20px;
@@ -102,15 +102,16 @@
             box-shadow: 0 0 15px var(--primary-glow);
         }
 
+        /* Search Container & Autocomplete Dropdown Overlay */
         .search-container { position: relative; display: flex; align-items: center; }
 
         #search-bar {
             background: rgba(10, 10, 10, 0.8);
             border: 1px solid var(--card-border);
             color: white;
-            padding: 10px 18px 10px 42px;
+            padding: 9px 16px 9px 38px;
             border-radius: 30px;
-            width: 220px;
+            width: 210px;
             outline: none;
             font-size: 13px;
             transition: var(--smooth-transition);
@@ -118,17 +119,62 @@
 
         #search-bar:focus {
             border-color: var(--primary);
-            width: 320px;
+            width: 300px;
             background: #000;
             box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        .search-icon { position: absolute; left: 16px; color: var(--text-gray); pointer-events: none; }
+        .search-icon { position: absolute; left: 14px; color: var(--text-gray); pointer-events: none; font-size: 13px; }
+
+        .search-autocomplete-box {
+            position: absolute;
+            top: 48px;
+            right: 0;
+            width: 360px;
+            max-height: 420px;
+            background: rgba(12, 12, 16, 0.95);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+            overflow-y: auto;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .autocomplete-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .autocomplete-item:hover {
+            background: rgba(229, 9, 20, 0.15);
+        }
+
+        .autocomplete-thumb {
+            width: 40px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #1a1a1e;
+        }
+
+        .autocomplete-info { display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .autocomplete-title { font-size: 13px; font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .autocomplete-meta { font-size: 11px; color: var(--text-gray); display: flex; gap: 8px; align-items: center; }
 
         /* Dynamic Auto-Sliding Hero Carousel Banner */
         .hero-carousel {
             position: relative;
-            height: 70vh;
+            height: 62vh;
+            min-height: 400px;
             overflow: hidden;
             background-color: #000;
         }
@@ -140,7 +186,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1s ease-in-out;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -148,10 +194,7 @@
             padding: 0 5%;
         }
 
-        .hero-slide.active {
-            opacity: 1;
-            z-index: 10;
-        }
+        .hero-slide.active { opacity: 1; z-index: 10; }
 
         .hero-overlay {
             position: absolute;
@@ -164,296 +207,95 @@
         }
 
         .hero-content {
-            max-width: 750px;
+            max-width: 680px;
             z-index: 12;
             transform: translateY(20px);
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hero-slide.active .hero-content {
-            transform: translateY(0);
-        }
+        .hero-slide.active .hero-content { transform: translateY(0); }
+        .hero-title { font-size: 42px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; text-shadow: 2px 4px 15px rgba(0,0,0,0.9); }
+        .hero-desc { font-size: 14px; color: #e4e4e7; margin-bottom: 20px; line-height: 1.5; text-shadow: 1px 2px 10px rgba(0,0,0,0.9); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .hero-title {
-            font-size: 52px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            line-height: 1.1;
-            text-shadow: 2px 4px 15px rgba(0,0,0,0.9);
-        }
-
-        .hero-desc {
-            font-size: 16px;
-            color: #e4e4e7;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            text-shadow: 1px 2px 10px rgba(0,0,0,0.9);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 12px;
-        }
+        .hero-buttons { display: flex; gap: 12px; }
 
         .play-btn {
             background: var(--text-light);
             color: #000;
             border: none;
-            padding: 14px 32px;
-            font-size: 15px;
+            padding: 12px 28px;
+            font-size: 14px;
             font-weight: 800;
             border-radius: 30px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: var(--smooth-transition);
         }
 
-        .play-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px var(--primary-glow);
-        }
+        .play-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary-glow); }
 
         .info-btn {
             background: rgba(255, 255, 255, 0.15);
             color: var(--text-light);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 14px 32px;
-            font-size: 15px;
+            padding: 12px 28px;
+            font-size: 14px;
             font-weight: 700;
             border-radius: 30px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             backdrop-filter: blur(10px);
             transition: var(--smooth-transition);
         }
 
-        .info-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
+        .info-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
 
-        /* Carousel Slide Dots Indicator Deck */
-        .carousel-indicators {
-            position: absolute;
-            bottom: 25px;
-            right: 5%;
-            z-index: 15;
-            display: flex;
-            gap: 8px;
-        }
+        .carousel-indicators { position: absolute; bottom: 20px; right: 5%; z-index: 15; display: flex; gap: 8px; }
+        .indicator-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: var(--smooth-transition); }
+        .indicator-dot.active { background: var(--primary); width: 24px; border-radius: 4px; box-shadow: 0 0 10px var(--primary); }
 
-        .indicator-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: var(--smooth-transition);
-        }
-
-        .indicator-dot.active {
-            background: var(--primary);
-            width: 28px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* Horizontal Rows Container and Structures */
-        .main-content { padding: 40px 4%; display: flex; flex-direction: column; gap: 40px; }
-        .row-container { display: flex; flex-direction: column; gap: 15px; position: relative; }
-        .row-title { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; }
+        /* Main Content Structures */
+        .main-content { padding: 30px 4%; display: flex; flex-direction: column; gap: 32px; }
+        .row-container { display: flex; flex-direction: column; gap: 12px; position: relative; }
+        .row-title { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 10px; }
         .row-title i { color: var(--primary); }
 
-        /* Branded Dynamic App Channel Badges Grid */
-        .channel-track {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding: 10px 0;
-            scroll-behavior: smooth;
-        }
-        .channel-track::-webkit-scrollbar { display: none; }
-
-        .channel-badge {
-            min-width: 160px;
-            height: 75px;
-            background: linear-gradient(135deg, rgba(20,20,25,0.8), rgba(10,10,12,0.9));
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--smooth-transition);
-        }
-
-        .channel-badge:hover {
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            background: linear-gradient(135deg, rgba(30,30,35,0.9), rgba(15,15,18,0.95));
-        }
-
-        .channel-badge img {
-            max-width: 75%;
-            max-height: 55%;
-            object-fit: contain;
-            opacity: 0.7;
-            transition: var(--smooth-transition);
-        }
-
-        .channel-badge:hover img {
-            opacity: 1;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
-        }
-
-        /* Global Cinematic Scroll Track with Hidden Scrollbar */
-        .shelf-track {
-            display: flex;
-            gap: 18px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding: 10px 0 20px 0;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-        .shelf-track::-webkit-scrollbar { display: none; }
-
-        /* Media Card Structure */
-        .movie-card {
-            min-width: 175px;
-            max-width: 175px;
-            background: var(--bg-card);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            transition: var(--smooth-transition);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px var(--primary-glow);
-            border-color: rgba(229, 9, 20, 0.35);
-        }
-
-        .poster-wrapper { overflow: hidden; position: relative; aspect-ratio: 2/3; background: #0c0c0e; }
-        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .movie-card:hover .movie-poster { transform: scale(1.06); }
-
-        .movie-info { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
-        .movie-info strong { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-light); }
-        
-        .metadata-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text-gray); }
-        .type-pill { background: rgba(255, 255, 255, 0.08); padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; }
-        .badge { position: absolute; top: 10px; left: 10px; background: var(--primary); padding: 4px 8px; font-size: 10px; font-weight: 800; border-radius: 4px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-
-        /* Modern Top 10 Today Row Design with Overlapping Large Numbers */
-        .rank-card {
-            display: flex;
-            align-items: flex-end;
-            position: relative;
-            min-width: 250px;
-            max-width: 250px;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: var(--smooth-transition);
-        }
-
-        .rank-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .rank-number {
-            font-size: 150px;
-            font-weight: 900;
-            line-height: 0.75;
-            color: var(--bg-dark);
-            -webkit-text-stroke: 3px rgba(255, 255, 255, 0.28);
-            letter-spacing: -10px;
-            position: absolute;
-            left: -10px;
-            bottom: -5px;
-            z-index: 1;
-            user-select: none;
-            transition: var(--smooth-transition);
-        }
-
-        .rank-card:hover .rank-number {
-            -webkit-text-stroke: 3px var(--primary);
-            filter: drop-shadow(0 0 15px var(--primary-glow));
-        }
-
-        .rank-poster-wrapper {
-            width: 140px;
-            aspect-ratio: 2/3;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-left: 85px;
-            z-index: 2;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            border: 1px solid var(--card-border);
-            transition: var(--smooth-transition);
-        }
-
-        .rank-card:hover .rank-poster-wrapper {
-            border-color: rgba(229, 9, 20, 0.35);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px var(--primary-glow);
-        }
-
-        .rank-poster {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Interactive CineDice Suggestion Deck Widget */
+        /* Compact CineDice Dashboard Widget */
         .cinedice-panel {
             background: linear-gradient(135deg, rgba(20,20,25,0.7), rgba(10,10,12,0.85));
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 18px 24px;
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1.5fr;
+            grid-template-columns: 1fr 140px 1.2fr;
             align-items: center;
-            gap: 40px;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            margin-top: 10px;
+            gap: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
-        @media(max-width: 950px) {
-            .cinedice-panel { grid-template-columns: 1fr; gap: 30px; justify-items: center; text-align: center; }
+        @media(max-width: 900px) {
+            .cinedice-panel { grid-template-columns: 1fr; gap: 20px; justify-items: center; text-align: center; }
         }
 
-        .cinedice-intro h3 { font-size: 24px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .cinedice-intro h3 { font-size: 18px; font-weight: 900; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
         .cinedice-intro h3 span { color: var(--primary); }
-        .cinedice-intro p { font-size: 14px; color: var(--text-gray); line-height: 1.5; margin-bottom: 20px; }
+        .cinedice-intro p { font-size: 12px; color: var(--text-gray); line-height: 1.4; margin-bottom: 12px; }
 
-        .cinedice-options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .cinedice-options label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); letter-spacing: 0.5px; }
-        
+        .cinedice-options { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        .cinedice-options label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); letter-spacing: 0.5px; }
+
         .dice-select {
             background: rgba(0,0,0,0.6);
             border: 1px solid var(--card-border);
             color: white;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
             outline: none;
             cursor: pointer;
             transition: var(--smooth-transition);
@@ -461,209 +303,120 @@
         }
         .dice-select:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        /* Elegant 3D Hardware Accelerated Cubic Dice Construction */
-        .dice-cube-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
+        /* Hardware Accelerated 3D Cubic Dice Construction */
+        .dice-cube-area { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+        .dice-scene { width: 54px; height: 54px; perspective: 300px; cursor: pointer; }
+        .dice-cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.3, 1); }
+        .dice-face { position: absolute; width: 54px; height: 54px; background: radial-gradient(#27272a, #09090b); border: 1.5px solid var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 10px rgba(229, 9, 20, 0.3); }
 
-        .dice-scene {
-            width: 80px;
-            height: 80px;
-            perspective: 400px;
-            cursor: pointer;
-        }
+        .face-front  { transform: rotateY(  0deg) translateZ(27px); }
+        .face-back   { transform: rotateY(180deg) translateZ(27px); }
+        .face-right  { transform: rotateY( 90deg) translateZ(27px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(27px); }
+        .face-top    { transform: rotateX( 90deg) translateZ(27px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(27px); }
 
-        .dice-cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1);
-        }
-
-        .dice-face {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(#27272a, #09090b);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 15px rgba(229, 9, 20, 0.3), 0 0 15px rgba(0,0,0,0.5);
-        }
-
-        /* 3D Space Transformations for Cube Faces */
-        .face-front  { transform: rotateY(  0deg) translateZ(40px); }
-        .face-back   { transform: rotateY(180deg) translateZ(40px); }
-        .face-right  { transform: rotateY( 90deg) translateZ(40px); }
-        .face-left   { transform: rotateY(-90deg) translateZ(40px); }
-        .face-top    { transform: rotateX( 90deg) translateZ(40px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(40px); }
-
-        /* Dynamic Rendered Dots for Dice Faces */
-        .dice-dots {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            width: 70%;
-            height: 70%;
-            justify-items: center;
-            align-items: center;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--text-light);
-            border-radius: 50%;
-            opacity: 0;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Configuration map for each dice face */
+        .dice-dots { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: 70%; height: 70%; justify-items: center; align-items: center; }
+        .dot { width: 6px; height: 6px; background-color: var(--text-light); border-radius: 50%; opacity: 0; }
         .face-front .dot:nth-child(5) { opacity: 1; background-color: var(--primary); }
-        
-        .face-back .dot:nth-child(1),
-        .face-back .dot:nth-child(9) { opacity: 1; }
-        
-        .face-right .dot:nth-child(1),
-        .face-right .dot:nth-child(5),
-        .face-right .dot:nth-child(9) { opacity: 1; }
-        
-        .face-left .dot:nth-child(1),
-        .face-left .dot:nth-child(3),
-        .face-left .dot:nth-child(7),
-        .face-left .dot:nth-child(9) { opacity: 1; }
-        
-        .face-top .dot:nth-child(1),
-        .face-top .dot:nth-child(3),
-        .face-top .dot:nth-child(5),
-        .face-top .dot:nth-child(7),
-        .face-top .dot:nth-child(9) { opacity: 1; }
-        
-        .face-bottom .dot:nth-child(1),
-        .face-bottom .dot:nth-child(3),
-        .face-bottom .dot:nth-child(4),
-        .face-bottom .dot:nth-child(6),
-        .face-bottom .dot:nth-child(7),
-        .face-bottom .dot:nth-child(9) { opacity: 1; }
+        .face-back .dot:nth-child(1), .face-back .dot:nth-child(9) { opacity: 1; }
+        .face-right .dot:nth-child(1), .face-right .dot:nth-child(5), .face-right .dot:nth-child(9) { opacity: 1; }
+        .face-left .dot:nth-child(1), .face-left .dot:nth-child(3), .face-left .dot:nth-child(7), .face-left .dot:nth-child(9) { opacity: 1; }
+        .face-top .dot:nth-child(1), .face-top .dot:nth-child(3), .face-top .dot:nth-child(5), .face-top .dot:nth-child(7), .face-top .dot:nth-child(9) { opacity: 1; }
+        .face-bottom .dot:nth-child(1), .face-bottom .dot:nth-child(3), .face-bottom .dot:nth-child(4), .face-bottom .dot:nth-child(6), .face-bottom .dot:nth-child(7), .face-bottom .dot:nth-child(9) { opacity: 1; }
 
-        /* Kinetic Animation Loop for Dice Spin */
-        @keyframes diceTumble {
-            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-            100% { transform: rotateX(720deg) rotateY(1080deg) rotateZ(360deg); }
-        }
+        @keyframes diceTumble { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 100% { transform: rotateX(720deg) rotateY(1080deg) rotateZ(360deg); } }
+        .dice-cube.spinning { animation: diceTumble 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) infinite; }
 
-        .dice-cube.spinning {
-            animation: diceTumble 1.4s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
-        }
+        .roll-btn { background: var(--primary); color: white; border: none; padding: 7px 16px; font-size: 11px; font-weight: 800; border-radius: 16px; cursor: pointer; text-transform: uppercase; transition: var(--smooth-transition); box-shadow: 0 4px 12px var(--primary-glow); }
+        .roll-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-        .roll-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 800;
-            border-radius: 20px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: var(--smooth-transition);
-            box-shadow: 0 4px 15px var(--primary-glow);
-        }
+        .dice-result-card { background: rgba(0,0,0,0.4); border: 1px dashed var(--card-border); border-radius: 12px; padding: 12px; display: flex; gap: 12px; opacity: 0; transform: scale(0.95); transition: var(--smooth-transition); width: 100%; min-height: 110px; }
+        .dice-result-card.active { opacity: 1; transform: scale(1); }
+        .dice-res-poster { width: 60px; aspect-ratio: 2/3; object-fit: cover; border-radius: 6px; }
+        .dice-res-details { display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+        .dice-res-title { font-size: 14px; font-weight: 800; }
+        .dice-res-meta { font-size: 10px; color: var(--text-gray); }
+        .dice-res-overview { font-size: 11px; color: #d4d4d8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .roll-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--primary);
-        }
+        /* Shelf Tracks & Cards Layout */
+        .shelf-track { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; padding: 6px 0 16px 0; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .shelf-track::-webkit-scrollbar { display: none; }
 
-        /* Movie Display Card Suggestion Panel */
-        .dice-result-card {
-            background: rgba(0,0,0,0.4);
-            border: 1px dashed var(--card-border);
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            gap: 15px;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: var(--smooth-transition);
-            width: 100%;
-            min-height: 150px;
-        }
+        .movie-card { min-width: 160px; max-width: 160px; background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; transition: var(--smooth-transition); display: flex; flex-direction: column; }
+        .movie-card:hover { transform: translateY(-6px); box-shadow: 0 12px 25px rgba(0,0,0,0.8), 0 0 15px var(--primary-glow); border-color: rgba(229, 9, 20, 0.35); }
+        .poster-wrapper { overflow: hidden; position: relative; aspect-ratio: 2/3; background: #0c0c0e; }
+        .movie-poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .movie-card:hover .movie-poster { transform: scale(1.06); }
+        .movie-info { padding: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .movie-info strong { display: block; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-light); }
+        .metadata-row { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-gray); }
+        .type-pill { background: rgba(255, 255, 255, 0.08); padding: 2px 5px; border-radius: 4px; font-size: 8px; font-weight: 800; text-transform: uppercase; }
+        .badge { position: absolute; top: 8px; left: 8px; background: var(--primary); padding: 3px 6px; font-size: 9px; font-weight: 800; border-radius: 4px; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
-        .dice-result-card.active {
-            opacity: 1;
-            transform: scale(1);
-        }
+        /* Top 10 Overlapping Rank Cards */
+        .rank-card { display: flex; align-items: flex-end; position: relative; min-width: 230px; max-width: 230px; margin-right: 8px; cursor: pointer; transition: var(--smooth-transition); }
+        .rank-card:hover { transform: translateY(-6px); }
+        .rank-number { font-size: 130px; font-weight: 900; line-height: 0.75; color: var(--bg-dark); -webkit-text-stroke: 3px rgba(255, 255, 255, 0.28); letter-spacing: -8px; position: absolute; left: -8px; bottom: -5px; z-index: 1; user-select: none; transition: var(--smooth-transition); }
+        .rank-card:hover .rank-number { -webkit-text-stroke: 3px var(--primary); filter: drop-shadow(0 0 12px var(--primary-glow)); }
+        .rank-poster-wrapper { width: 125px; aspect-ratio: 2/3; border-radius: 10px; overflow: hidden; margin-left: 75px; z-index: 2; box-shadow: 0 10px 20px rgba(0,0,0,0.6); border: 1px solid var(--card-border); transition: var(--smooth-transition); }
+        .rank-poster { width: 100%; height: 100%; object-fit: cover; }
 
-        .dice-res-poster {
-            width: 80px;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        /* Theater / Standalone Player View */
+        #player-page-view { padding: 30px 4%; display: none; }
+        .back-row { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .back-btn, .share-btn { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: 700; font-size: 13px; transition: var(--smooth-transition); display: inline-flex; align-items: center; gap: 8px; }
+        .back-btn:hover, .share-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 5px 18px var(--primary-glow); }
 
-        .dice-res-details {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            justify-content: center;
-        }
+        .theater-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 24px; }
+        @media(max-width: 1050px) { .theater-layout { grid-template-columns: 1fr; } }
 
-        .dice-res-title { font-size: 16px; font-weight: 800; }
-        .dice-res-meta { font-size: 11px; color: var(--text-gray); }
-        .dice-res-overview { font-size: 12px; color: #d4d4d8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-        /* Premium Theater Environment Layout */
-        #player-page-view { padding: 40px 4%; }
-        .back-row { margin-bottom: 25px; }
-        .back-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border); color: white; padding: 12px 24px; border-radius: 30px; cursor: pointer; font-weight: 700; transition: var(--smooth-transition); display: inline-flex; align-items: center; gap: 8px; }
-        .back-btn:hover { background: var(--primary); border-color: var(--primary); box-shadow: 0 5px 20px var(--primary-glow); }
-
-        .theater-layout { display: grid; grid-template-columns: 3.5fr 1.3fr; gap: 30px; }
-        @media(max-width: 1100px) { .theater-layout { grid-template-columns: 1fr; } }
-
-        .video-frame-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid var(--card-border); position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.95); }
+        .video-frame-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 14px; overflow: hidden; border: 1px solid var(--card-border); position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.95); }
         .video-frame-container iframe { width: 100%; height: 100%; display: block; border: none; }
 
-        /* Dynamic Loading Animations */
-        .routing-shimmer { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--text-gray); background: #020202; }
-        .spinner { width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.03); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 15px; }
+        .player-details-card { margin-top: 20px; background: var(--bg-card); border: 1px solid var(--card-border); padding: 20px; border-radius: 14px; }
+        .player-details-card h1 { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+        .player-details-card p { color: var(--text-gray); font-size: 13px; line-height: 1.5; }
+
+        /* Player Sidebar & Server Controls */
+        .control-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .control-widget-box { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; }
+        .control-widget-box h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-gray); margin-bottom: 12px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
+
+        .episodes-dropdown-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        .select-field { display: flex; flex-direction: column; gap: 6px; }
+        .select-field label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); }
+        .select-field select { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: white; padding: 10px; border-radius: 8px; font-size: 12px; outline: none; cursor: pointer; transition: var(--smooth-transition); }
+
+        .server-btn-wrapper { display: flex; flex-direction: column; gap: 8px; }
+        .server-btn { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: #ccc; padding: 10px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; text-align: left; transition: var(--smooth-transition); display: flex; align-items: center; gap: 8px; }
+        .server-btn:hover { background: rgba(255,255,255,0.08); color: white; }
+        .server-btn.active { background: rgba(229, 9, 20, 0.15); border-color: var(--primary); color: white; box-shadow: inset 0 0 10px rgba(229, 9, 20, 0.2); }
+
+        /* Community Commenting Engine */
+        .comments-section { margin-top: 24px; background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px; }
+        .comments-section h3 { font-size: 16px; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .comment-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .comment-input, .comment-textarea { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: white; padding: 10px 14px; border-radius: 8px; font-size: 13px; outline: none; transition: var(--smooth-transition); }
+        .comment-input:focus, .comment-textarea:focus { border-color: var(--primary); }
+        .comment-textarea { resize: vertical; min-height: 70px; }
+        .comment-submit-btn { background: var(--primary); color: white; border: none; padding: 9px 18px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; align-self: flex-start; transition: var(--smooth-transition); }
+        .comment-submit-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        .comments-list { display: flex; flex-direction: column; gap: 12px; }
+        .comment-card { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; }
+        .comment-header { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px; }
+        .comment-author { font-weight: 800; color: var(--primary); }
+        .comment-date { color: var(--text-gray); }
+        .comment-body { font-size: 12px; color: #e4e4e7; line-height: 1.4; }
+
+        /* Dynamic Loading & Fallback Shimmer */
+        .routing-shimmer { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--text-gray); background: #020202; padding: 20px; text-align: center; }
+        .spinner { width: 44px; height: 44px; border: 3px solid rgba(255,255,255,0.05); border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .player-details-card { margin-top: 25px; background: var(--bg-card); border: 1px solid var(--card-border); padding: 25px; border-radius: 16px; }
-        .player-details-card h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; }
-        .player-details-card p { color: var(--text-gray); font-size: 14px; line-height: 1.5; }
-
-        /* Sidebar Console Control Deck */
-        .control-sidebar { display: flex; flex-direction: column; gap: 25px; }
-        .control-widget-box { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; }
-        .control-widget-box h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-gray); margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; }
-
-        .episodes-dropdown-wrapper { display: flex; flex-direction: column; gap: 15px; }
-        .select-field { display: flex; flex-direction: column; gap: 8px; }
-        .select-field label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-gray); }
-        .select-field select { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: white; padding: 12px; border-radius: 8px; font-size: 13px; outline: none; cursor: pointer; transition: var(--smooth-transition); }
-        .select-field select:focus { border-color: var(--primary); }
-
-        /* Server Connection Buttons */
-        .server-btn-wrapper { display: flex; flex-direction: column; gap: 8px; }
-        .server-btn { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); color: #ccc; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: left; transition: var(--smooth-transition); display: flex; align-items: center; gap: 8px; }
-        .server-btn:hover { background: rgba(255,255,255,0.05); color: white; }
-        .server-btn.active { background: rgba(229, 9, 20, 0.12); border-color: var(--primary); color: white; box-shadow: inset 0 0 10px rgba(229, 9, 20, 0.25); }
-
-        /* Blank/Unmatched Result Fallbacks */
-        .empty-query-indicator { padding: 80px 20px; text-align: center; color: var(--text-gray); width: 100%; grid-column: 1 / -1; }
-        .empty-query-indicator i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+        .empty-query-indicator { padding: 60px 20px; text-align: center; color: var(--text-gray); width: 100%; grid-column: 1 / -1; }
+        .empty-query-indicator i { font-size: 36px; color: var(--primary); margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -681,60 +434,38 @@
         </nav>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-bar" placeholder="Search title, genre, year...">
+            <input type="text" id="search-bar" placeholder="Search title, genre, year..." autocomplete="off">
+            <!-- Autocomplete Live Dropdown -->
+            <div id="search-autocomplete-box" class="search-autocomplete-box"></div>
         </div>
     </header>
 
-    <!-- Main Dynamic Content Engine Grid -->
+    <!-- Main Website View -->
     <main id="main-website-view">
-        <!-- Spotlight Carousel Hero Segment -->
+        <!-- Spotlight Carousel Hero -->
         <section class="hero-carousel" id="hero-carousel-element"></section>
 
         <section class="main-content">
-            <!-- Dynamic Category Channel Strip -->
-            <div class="row-container">
-                <h3 class="row-title"><i class="fas fa-layer-group"></i> Featured Networks</h3>
-                <div class="channel-track">
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('netflix')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
-                    </div>
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('amazon prime')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video">
-                    </div>
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('disney')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+">
-                    </div>
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('hulu')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Hulu_Logo.svg" alt="Hulu">
-                    </div>
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('hbo')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/HBO_logo.svg" alt="HBO Max">
-                    </div>
-                    <div class="channel-badge" onclick="window.StreamVerseApp.searchByTerm('apple tv')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Apple_TV_Plus_Logo.svg" alt="Apple TV+">
-                    </div>
-                </div>
-            </div>
-
-            <!-- The CineDice Interaction UI Dashboard Widget -->
+            <!-- Compact CineDice Widget -->
             <div class="row-container">
                 <h3 class="row-title"><i class="fas fa-dice"></i> CineDice Selection Engine</h3>
                 <div class="cinedice-panel">
                     <div class="cinedice-intro">
-                        <h3>Don't know what to watch? <span>Roll the Dice!</span></h3>
-                        <p>Let our dynamic algorithmic curation generator decide for you. Select your target market segment, trigger the kinetic cube engine, and stream instantly.</p>
+                        <h3>Can't decide? <span>Roll the Dice!</span></h3>
+                        <p>Select your market preferences, spin the dynamic 3D decision cube, and launch your stream immediately.</p>
                         <div class="cinedice-options">
-                            <label>Thematic Focus Region</label>
+                            <label>Content Region</label>
                             <select id="dice-region-select" class="dice-select">
-                                <option value="any">Global Content Market (Anywhere)</option>
-                                <option value="Bollywood">Hindi / Bollywood Cinema</option>
-                                <option value="Hollywood">Hollywood Production Matrix</option>
-                                <option value="Punjabi">Punjabi Regional Tracks</option>
+                                <option value="any">Global Cinema (Any Category)</option>
+                                <option value="Bollywood">Bollywood / Hindi Cinema</option>
+                                <option value="Hollywood">Hollywood Production</option>
+                                <option value="Punjabi">Punjabi Cinema</option>
+                                <option value="South">South Indian Cinema</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Dice Rotation Area -->
+                    <!-- Dice Canvas Area -->
                     <div class="dice-cube-area">
                         <div class="dice-scene" onclick="window.CineDiceEngine.triggerRoll()">
                             <div id="dice-element" class="dice-cube show-1">
@@ -749,73 +480,76 @@
                         <button class="roll-btn" onclick="window.CineDiceEngine.triggerRoll()">Roll Dice</button>
                     </div>
 
-                    <!-- Suggestion Card Modal Target -->
+                    <!-- Dice Recommendation Result Card -->
                     <div id="dice-result-wrapper" class="dice-result-card">
-                        <img id="dice-res-poster-img" class="dice-res-poster" src="" alt="Pending Roll">
+                        <img id="dice-res-poster-img" class="dice-res-poster" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='90'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="Pending">
                         <div class="dice-res-details">
-                            <h4 id="dice-res-title-txt" class="dice-res-title">Roll the Dice to Discover</h4>
+                            <h4 id="dice-res-title-txt" class="dice-res-title">Roll to Discover</h4>
                             <div id="dice-res-meta-txt" class="dice-res-meta">Genre | Year | Rating</div>
-                            <p id="dice-res-desc-txt" class="dice-res-overview">Your cinematic discovery recommendation card will render dynamically in this space upon rolling.</p>
-                            <button id="dice-res-play-btn" class="play-btn" style="padding: 8px 16px; font-size: 12px; display: none;">
-                                <i class="fas fa-play"></i> Watch Now
+                            <p id="dice-res-desc-txt" class="dice-res-overview">Your dynamic media selection card will render here upon rolling.</p>
+                            <button id="dice-res-play-btn" class="play-btn" style="padding: 6px 14px; font-size: 11px; display: none;">
+                                <i class="fas fa-play"></i> Stream Now
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Dynamic Shelf Content Areas -->
-            <div id="homepage-rows-deck" style="display: flex; flex-direction: column; gap: 40px;">
-                <!-- Overlapping Top 10 TV Shows Row -->
+            <!-- Dynamic Category Shelves Deck -->
+            <div id="homepage-rows-deck" style="display: flex; flex-direction: column; gap: 32px;">
+                <!-- Top 10 TV Shows Row -->
                 <div class="row-container">
                     <h3 class="row-title"><i class="fas fa-fire"></i> Top 10 TV Shows Today</h3>
                     <div class="shelf-track" id="top-tv-shelf"></div>
                 </div>
 
-                <!-- Overlapping Top 10 Movies Row -->
+                <!-- Top 10 Movies Row -->
                 <div class="row-container">
                     <h3 class="row-title"><i class="fas fa-chart-line"></i> Top 10 Movies Today</h3>
                     <div class="shelf-track" id="top-movie-shelf"></div>
                 </div>
 
-                <!-- Hollywood Shelf Row -->
+                <!-- Hollywood Row -->
                 <div class="row-container">
-                    <h3 class="row-title"><i class="fas fa-film"></i> Hollywood Network Spotlight</h3>
+                    <h3 class="row-title"><i class="fas fa-film"></i> Hollywood Spotlight</h3>
                     <div class="shelf-track" id="hollywood-shelf"></div>
                 </div>
 
-                <!-- Bollywood Shelf Row -->
+                <!-- Bollywood Row -->
                 <div class="row-container">
-                    <h3 class="row-title"><i class="fas fa-om"></i> Bollywood Core Theater</h3>
+                    <h3 class="row-title"><i class="fas fa-om"></i> Bollywood Cinema</h3>
                     <div class="shelf-track" id="bollywood-shelf"></div>
                 </div>
 
-                <!-- Punjabi Shelf Row -->
+                <!-- Punjabi Row -->
                 <div class="row-container">
                     <h3 class="row-title"><i class="fas fa-music"></i> Punjabi Cinema Playlist</h3>
                     <div class="shelf-track" id="punjabi-shelf"></div>
                 </div>
 
-                <!-- Premium Series Shelf Row -->
+                <!-- Web Series Row -->
                 <div class="row-container">
-                    <h3 class="row-title"><i class="fas fa-tv"></i> Premium Series Hub</h3>
+                    <h3 class="row-title"><i class="fas fa-tv"></i> Premium Web Series</h3>
                     <div class="shelf-track" id="series-shelf"></div>
                 </div>
             </div>
 
-            <!-- Categorized/Search Master Grid View Mode (Fallback Display Zone) -->
+            <!-- Master Grid View Mode (Category / Direct Search Target) -->
             <div id="category-grid-box" class="row-container" style="display: none;">
-                <h3 class="row-title" id="current-category-title">All Movies & Premium Web Series</h3>
-                <div class="movie-grid" id="movie-grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 20px;"></div>
+                <h3 class="row-title" id="current-category-title">All Catalog Content</h3>
+                <div class="movie-grid" id="movie-grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px;"></div>
             </div>
         </section>
     </main>
 
-    <!-- Standalone Isolation Media Theater -->
-    <div id="player-page-view" style="display: none;">
+    <!-- Standalone Theater Player View -->
+    <div id="player-page-view">
         <div class="back-row">
             <button class="back-btn" onclick="window.StreamVersePlayer.exitPlayer()">
-                <i class="fas fa-arrow-left"></i> Close Cinema Theater
+                <i class="fas fa-arrow-left"></i> Return to Catalog
+            </button>
+            <button class="share-btn" id="share-link-btn" onclick="window.StreamVersePlayer.copyShareLink()">
+                <i class="fas fa-share-alt"></i> Share Movie Link
             </button>
         </div>
 
@@ -823,36 +557,47 @@
             <div class="player-stage">
                 <div class="video-frame-container" id="video-frame-target"></div>
                 <div class="player-details-card">
-                    <h1 id="player-media-title">Initialization Pipeline...</h1>
-                    <p id="player-media-meta">Syncing Multi-CDN Node Cluster Servers Safely.</p>
+                    <h1 id="player-media-title">Syncing Stream...</h1>
+                    <p id="player-media-meta">Configuring multi-CDN buffer matrix.</p>
+                </div>
+
+                <!-- Comment Subsystem -->
+                <div class="comments-section">
+                    <h3><i class="fas fa-comments"></i> Community Discussion</h3>
+                    <form class="comment-form" id="comment-form" onsubmit="window.StreamVerseComments.postComment(event)">
+                        <input type="text" id="comment-author-input" class="comment-input" placeholder="Your Display Name (Optional)" maxlength="30">
+                        <textarea id="comment-text-input" class="comment-textarea" placeholder="Share your review or thoughts about this title..." required maxlength="500"></textarea>
+                        <button type="submit" class="comment-submit-btn">Post Comment</button>
+                    </form>
+                    <div id="comments-list-container" class="comments-list"></div>
                 </div>
             </div>
 
+            <!-- Sidebar Controls -->
             <div class="control-sidebar">
-                <!-- Ep Navigator Console -->
+                <!-- Episode Selector (Web Series) -->
                 <div class="control-widget-box" id="episodes-dropdown-wrapper" style="display: none;">
-                    <h4><i class="fas fa-layer-group"></i> Episode Management Deck</h4>
+                    <h4><i class="fas fa-layer-group"></i> Episode Navigator</h4>
                     <div class="episodes-dropdown-wrapper">
                         <div class="select-field">
-                            <label>Active Season Block</label>
+                            <label>Season</label>
                             <select id="season-selector"></select>
                         </div>
                         <div class="select-field">
-                            <label>Active Episode Index</label>
+                            <label>Episode</label>
                             <select id="episode-selector"></select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Single Movie Static Info Block -->
                 <div class="control-widget-box" id="movie-only-notice" style="display: block;">
-                    <h4><i class="fas fa-film"></i> Cinematic Node Mode</h4>
-                    <p style="font-size: 13px; color: var(--text-gray); line-height: 1.6;">Streaming single structural content file. Advanced cloud buffering allocation active.</p>
+                    <h4><i class="fas fa-film"></i> Feature Cinema Mode</h4>
+                    <p style="font-size: 12px; color: var(--text-gray); line-height: 1.5;">Single feature stream loaded via multi-CDN infrastructure.</p>
                 </div>
 
-                <!-- Server Distribution Matrix Target Box -->
+                <!-- Server Pool Selection Tabs -->
                 <div class="control-widget-box">
-                    <h4><i class="fas fa-server"></i> Active Stream Servers Pool</h4>
+                    <h4><i class="fas fa-server"></i> Active Streaming Nodes</h4>
                     <div id="series-control-block"></div>
                 </div>
             </div>
@@ -866,7 +611,31 @@
 
         const TMDB_API_KEY = "82e880c89dbf119b940e034ed32a3498";
 
-        // Dynamic API Hydrator Controller
+        // Non-Blocking Ad Script Loader Engine
+        class AdScriptEngine {
+            static injectAdScripts() {
+                try {
+                    if (!document.getElementById('popunder-ad-script')) {
+                        const popScript = document.createElement('script');
+                        popScript.id = 'popunder-ad-script';
+                        popScript.async = true;
+                        popScript.src = '//pl12345678.githack.com/popunder.js'; 
+                        document.body.appendChild(popScript);
+                    }
+                    if (!document.getElementById('socialbar-ad-script')) {
+                        const socialScript = document.createElement('script');
+                        socialScript.id = 'socialbar-ad-script';
+                        socialScript.async = true;
+                        socialScript.src = '//pl87654321.githack.com/socialbar.js'; 
+                        document.body.appendChild(socialScript);
+                    }
+                } catch(e) {
+                    console.warn("Ad Script Engine executed safely with fallback handling.");
+                }
+            }
+        }
+
+        // Database Controller with Dynamic Regional Metrics Calibration
         class DynamicDatabaseController {
             constructor() {
                 this.cache = {};
@@ -887,23 +656,41 @@
             async fetchCategory(category) {
                 if (this.cache[category]) return this.cache[category];
                 let endpoint = '';
+                
                 if (category === 'Web Series') {
-                    endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=hi|en&vote_count.gte=100`;
+                    endpoint = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=hi|en&vote_count.gte=15`;
                 } else {
                     let langParam = 'en';
+                    let minVotes = 100;
+
                     if (category === 'Bollywood') {
                         langParam = 'hi';
+                        minVotes = 20;
                     } else if (category === 'Punjabi') {
+                        // Punjabi threshold relaxation to guarantee catalog hydration
                         langParam = 'pa';
+                        minVotes = 0; 
                     } else if (category === 'South') {
                         langParam = 'te|ta|ml|kn';
+                        minVotes = 10;
                     }
-                    endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=${langParam}&vote_count.gte=100`;
+
+                    endpoint = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_original_language=${langParam}&vote_count.gte=${minVotes}`;
                 }
+
                 try {
                     const response = await fetch(endpoint);
                     const data = await response.json();
-                    const results = this.parseTMDBResults(data.results || [], category);
+                    let results = this.parseTMDBResults(data.results || [], category);
+                    
+                    // Fallback keyword search if Punjabi query yields insufficient results
+                    if (category === 'Punjabi' && results.length < 5) {
+                        const fallbackRes = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=punjabi`);
+                        const fallbackData = await fallbackRes.json();
+                        const fallbackParsed = this.parseTMDBResults(fallbackData.results || [], 'Punjabi');
+                        results = [...results, ...fallbackParsed];
+                    }
+
                     this.cache[category] = results;
                     return results;
                 } catch (e) {
@@ -943,7 +730,7 @@
                         year: (item.release_date || item.first_air_date || "2024").split("-")[0],
                         poster: item.poster_path ? `https://image.tmdb.org/t/p/w400${item.poster_path}` : "https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg",
                         backdrop_path: item.backdrop_path || "",
-                        overview: item.overview || "No plot description available in secure indexing nodes.",
+                        overview: item.overview || "Plot overview is currently pending indexing.",
                         type: isTV ? "tv" : "movie"
                     };
                 });
@@ -951,15 +738,30 @@
         }
         window.StreamVerseDatabase = new DynamicDatabaseController();
 
-        // Consolidated Multi-CDN Routing Core (Sustained User Core Nodes)
+        // Multi-Node CDN Architecture with Dedicated Hindi-Dubbed Option
         class CDNClusterManager {
             constructor() {
                 this.nodes = [
                     { 
                         id: "multiembed", 
-                        name: "🛰️ MultiEmbed Global Network (Recommended)", 
+                        name: "🛰️ MultiEmbed Global (Main)", 
                         generateUrl: (id, s, e, t) => t === 'movie' ? `https://multiembed.mov/?video_id=${id}&tmdb=1` : `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}` 
                     },
+                    { 
+                        id: "hindidub", 
+                        name: "🇮🇳 Hindi-Dubbed Primary Server", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://autoembed.co/movie/tmdb/${id}?server=1` : `https://autoembed.co/tv/tmdb/${id}-${s}-${e}` 
+                    },
+                    { 
+                        id: "vidsrc", 
+                        name: "⚡ VidSrc High-Speed Node", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://vidsrc.cc/v2/embed/movie/${id}` : `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}` 
+                    },
+                    { 
+                        id: "smashy", 
+                        name: "🚀 SmashyStream Mirror", 
+                        generateUrl: (id, s, e, t) => t === 'movie' ? `https://player.smashy.stream/movie/${id}` : `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}` 
+                    }
                 ];
                 Object.freeze(this.nodes);
             }
@@ -967,7 +769,7 @@
         }
         window.HollywoodServers = new CDNClusterManager();
 
-        // TV Show Dynamic Season & Episode Sync Engine
+        // TV Series Metadata Synchronizer
         class MetadataSynchronizer {
             async buildDropdowns(tvId) {
                 const seasonSelect = document.getElementById('season-selector');
@@ -980,8 +782,8 @@
                     const data = await res.json();
                     
                     seasonSelect.innerHTML = "";
-                    let seasons = data.seasons.filter(s => s.season_number > 0);
-                    if(seasons.length === 0) seasons = data.seasons;
+                    let seasons = (data.seasons || []).filter(s => s.season_number > 0);
+                    if(seasons.length === 0) seasons = data.seasons || [];
 
                     seasons.forEach(s => {
                         const opt = document.createElement('option');
@@ -992,10 +794,10 @@
                     });
                 } catch(e) {
                     seasonSelect.innerHTML = "";
-                    for(let i=1; i<=4; i++) {
+                    for(let i=1; i<=3; i++) {
                         const opt = document.createElement('option');
                         opt.value = i; opt.innerText = `Season ${i} (Cloud Backup)`;
-                        opt.setAttribute('data-count', "12");
+                        opt.setAttribute('data-count', "10");
                         seasonSelect.appendChild(opt);
                     }
                 }
@@ -1023,17 +825,106 @@
         }
         window.TVSeriesFixer = new MetadataSynchronizer();
 
-        // Secure Multi-Server Streaming Router
+        // Community Comment System Subsystem
+        class CommunityCommentEngine {
+            constructor() {
+                this.activeMediaId = null;
+                this.lastPostTimestamp = 0;
+            }
+            initForMedia(mediaId) {
+                this.activeMediaId = mediaId;
+                this.renderComments();
+            }
+            getStorageKey() {
+                return `streamverse_comments_v1_${this.activeMediaId}`;
+            }
+            renderComments() {
+                const container = document.getElementById('comments-list-container');
+                if(!container) return;
+                
+                const comments = JSON.parse(localStorage.getItem(this.getStorageKey()) || "[]");
+                if(comments.length === 0) {
+                    container.innerHTML = `<div style="color:var(--text-gray); font-size:12px; padding:10px 0;">No comments posted yet. Be the first to share your thoughts!</div>`;
+                    return;
+                }
+
+                container.innerHTML = comments.map(c => `
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <span class="comment-author">${this.escapeHTML(c.author)}</span>
+                            <span class="comment-date">${c.date}</span>
+                        </div>
+                        <div class="comment-body">${this.escapeHTML(c.text)}</div>
+                    </div>
+                `).join('');
+            }
+            postComment(e) {
+                e.preventDefault();
+                const now = Date.now();
+                if (now - this.lastPostTimestamp < 5000) {
+                    alert("Please wait 5 seconds between posting comments.");
+                    return;
+                }
+
+                const authorInput = document.getElementById('comment-author-input');
+                const textInput = document.getElementById('comment-text-input');
+                
+                const author = authorInput.value.trim() || "Anonymous Film Fan";
+                const text = textInput.value.trim();
+
+                if(!text) return;
+
+                const comments = JSON.parse(localStorage.getItem(this.getStorageKey()) || "[]");
+                comments.unshift({
+                    author: author,
+                    text: text,
+                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                });
+
+                localStorage.setItem(this.getStorageKey(), JSON.stringify(comments));
+                this.lastPostTimestamp = now;
+                textInput.value = "";
+                this.renderComments();
+            }
+            escapeHTML(str) {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            }
+        }
+        window.StreamVerseComments = new CommunityCommentEngine();
+
+        // Player Gateway and Universal Deep Linking Controller
         class PlaybackGateway {
-            constructor() { this.activeId = null; this.activeType = "movie"; this.serverIndex = 0; this.s = 1; this.e = 1; }
-            routeToPlayer(id, title, type, year) {
-                this.activeId = id; this.activeType = type; this.serverIndex = 0;
+            constructor() { 
+                this.activeId = null; 
+                this.activeType = "movie"; 
+                this.activeTitle = "";
+                this.activeYear = "";
+                this.serverIndex = 0; 
+                this.s = 1; 
+                this.e = 1; 
+            }
+            routeToPlayer(id, title, type, year, autoScroll = true) {
+                this.activeId = id; 
+                this.activeType = type; 
+                this.activeTitle = title;
+                this.activeYear = year;
+                this.serverIndex = 0;
+
+                // Sync URL Hash permalink without triggering page reload
+                const hashPath = `#watch?id=${id}&type=${type}&title=${encodeURIComponent(title)}&year=${year}`;
+                if (window.location.hash !== hashPath) {
+                    history.pushState(null, null, hashPath);
+                }
+
                 document.getElementById('main-website-view').style.display = 'none';
                 document.getElementById('player-page-view').style.display = 'block';
                 document.getElementById('player-media-title').innerText = title;
-                document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Advanced Sandbox Safe Buffering`;
+                document.getElementById('player-media-meta').innerText = `${type.toUpperCase()} | ${year} | Multi-CDN Node Active`;
 
                 this.renderServers();
+                window.StreamVerseComments.initForMedia(id);
 
                 if (type === 'tv' || type === 'series') {
                     document.getElementById('episodes-dropdown-wrapper').style.display = 'flex';
@@ -1044,7 +935,7 @@
                     document.getElementById('movie-only-notice').style.display = 'block';
                     this.loadSecureIframe(1,1);
                 }
-                window.scrollTo(0,0);
+                if (autoScroll) window.scrollTo(0,0);
             }
             renderServers() {
                 const block = document.getElementById('series-control-block');
@@ -1072,15 +963,46 @@
                 container.innerHTML = `
                     <div class="routing-shimmer">
                         <div class="spinner"></div>
-                        <p style="font-weight:700;">Connecting Cloud Node Matrix...</p>
-                        <small style="color:var(--primary); margin-top:5px;">Targeting: ${node.id.toUpperCase()}</small>
+                        <p style="font-weight:700;">Connecting Cloud CDN Node...</p>
+                        <small style="color:var(--primary); margin-top:5px;">Target Node: ${node.name}</small>
                     </div>`;
 
                 setTimeout(() => {
-                    container.innerHTML = `<iframe src="${url}" allowfullscreen="true" referrerpolicy="no-referrer"></iframe>`;
-                }, 500);
+                    container.innerHTML = `
+                        <iframe src="${url}" allowfullscreen="true" referrerpolicy="no-referrer" onerror="window.StreamVersePlayer.handlePlayerError()"></iframe>`;
+                }, 400);
+            }
+            handlePlayerError() {
+                const container = document.getElementById('video-frame-target');
+                if(!container) return;
+                container.innerHTML = `
+                    <div class="routing-shimmer">
+                        <i class="fas fa-exclamation-triangle" style="font-size:32px; color:var(--primary); margin-bottom:10px;"></i>
+                        <p>Stream unavailable on active node.</p>
+                        <button class="roll-btn" style="margin-top:12px;" onclick="window.StreamVersePlayer.switchNextServer()">Switch to Next Server</button>
+                    </div>`;
+            }
+            switchNextServer() {
+                const totalNodes = window.HollywoodServers.getNodes().length;
+                this.serverIndex = (this.serverIndex + 1) % totalNodes;
+                this.renderServers();
+                this.loadSecureIframe(this.s, this.e);
+            }
+            copyShareLink() {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btn = document.getElementById('share-link-btn');
+                    const origText = btn.innerHTML;
+                    btn.innerHTML = `<i class="fas fa-check"></i> Link Copied!`;
+                    btn.style.background = 'var(--primary)';
+                    setTimeout(() => {
+                        btn.innerHTML = origText;
+                        btn.style.background = '';
+                    }, 2000);
+                });
             }
             exitPlayer() {
+                history.pushState(null, null, ' ');
                 document.getElementById('player-page-view').style.display = 'none';
                 document.getElementById('main-website-view').style.display = 'block';
                 document.getElementById('video-frame-target').innerHTML = "";
@@ -1088,17 +1010,11 @@
         }
         window.StreamVersePlayer = new PlaybackGateway();
 
-        // 3D CSS Interactive Suggestion Game Engine
+        // 3D CineDice Algorithm Engine
         class CineDiceController {
             constructor() {
                 this.diceElement = null;
                 this.isRolling = false;
-                this.regions = {
-                    any: 'all',
-                    Bollywood: 'Bollywood',
-                    Hollywood: 'Hollywood',
-                    Punjabi: 'Punjabi'
-                };
             }
             init() {
                 this.diceElement = document.getElementById('dice-element');
@@ -1107,14 +1023,11 @@
                 if (this.isRolling) return;
                 this.isRolling = true;
                 
-                // Active CSS hardware-accelerated class transition triggers
                 this.diceElement.className = 'dice-cube spinning';
-                
                 const selectedRegion = document.getElementById('dice-region-select').value;
                 const resultBlock = document.getElementById('dice-result-wrapper');
                 resultBlock.classList.remove('active');
 
-                // Simultaneously perform async TMDB pre-fetching during physical animation spin
                 let dataset = [];
                 if (selectedRegion === 'any') {
                     dataset = await window.StreamVerseDatabase.fetchTrending();
@@ -1133,7 +1046,7 @@
                         const randomItem = dataset[Math.floor(Math.random() * dataset.length)];
                         this.hydrateResult(randomItem);
                     }
-                }, 1500); // 1.5s visual duration matching physical animation loop
+                }, 1200);
             }
             hydrateResult(item) {
                 const poster = document.getElementById('dice-res-poster-img');
@@ -1158,19 +1071,84 @@
         }
         window.CineDiceEngine = new CineDiceController();
 
-        // Master Central Orchestration Controller
+        // Central Orchestration Core & Router
         class CentralApplicationCore {
             constructor() {
                 this.activeCat = "all";
                 this.carouselTimer = null;
                 this.carouselIndex = 0;
                 this.carouselItems = [];
+                this.searchDebounceTimer = null;
             }
             async init() {
-                document.getElementById('search-bar').addEventListener('input', (e) => this.search(e.target.value));
+                AdScriptEngine.injectAdScripts();
                 window.CineDiceEngine.init();
-                await this.filterSection('all');
-                await this.hydrateAllShelves();
+
+                const searchBar = document.getElementById('search-bar');
+                searchBar.addEventListener('input', (e) => this.handleSearchInput(e.target.value));
+
+                // Dismiss search autocomplete overlay on external click
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.search-container')) {
+                        document.getElementById('search-autocomplete-box').style.display = 'none';
+                    }
+                });
+
+                // Deep Linking URL Hash Parser
+                this.parseUrlHash();
+                window.addEventListener('hashchange', () => this.parseUrlHash());
+
+                if (!window.location.hash.includes('#watch')) {
+                    await this.filterSection('all');
+                    await this.hydrateAllShelves();
+                }
+            }
+            parseUrlHash() {
+                const hash = window.location.hash;
+                if (hash.startsWith('#watch')) {
+                    const params = new URLSearchParams(hash.replace('#watch?', ''));
+                    const id = params.get('id');
+                    const type = params.get('type') || 'movie';
+                    const title = decodeURIComponent(params.get('title') || 'Featured Cinema');
+                    const year = params.get('year') || '2024';
+
+                    if (id) {
+                        window.StreamVersePlayer.routeToPlayer(id, title, type, year, true);
+                    }
+                }
+            }
+            async handleSearchInput(query) {
+                clearTimeout(this.searchDebounceTimer);
+                const autocompleteBox = document.getElementById('search-autocomplete-box');
+                const clean = query.trim();
+
+                if (clean.length < 2) {
+                    autocompleteBox.style.display = 'none';
+                    return;
+                }
+
+                this.searchDebounceTimer = setTimeout(async () => {
+                    const results = await window.StreamVerseDatabase.fetchSearch(clean);
+                    if (results.length === 0) {
+                        autocompleteBox.innerHTML = `<div style="padding:12px; font-size:12px; color:var(--text-gray);">No verified titles found.</div>`;
+                    } else {
+                        autocompleteBox.innerHTML = results.slice(0, 5).map(item => `
+                            <div class="autocomplete-item" onclick="window.StreamVerseApp.launchFromSearch(${item.id}, '${item.title.replace(/'/g, "\\'")}', '${item.type}', '${item.year}')">
+                                <img class="autocomplete-thumb" src="${item.poster}" alt="Thumb" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                                <div class="autocomplete-info">
+                                    <div class="autocomplete-title">${item.title}</div>
+                                    <div class="autocomplete-meta"><span>${item.year}</span> <span class="type-pill">${item.type}</span> <span>⭐ ${item.rating}</span></div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                    autocompleteBox.style.display = 'flex';
+                }, 250);
+            }
+            launchFromSearch(id, title, type, year) {
+                document.getElementById('search-autocomplete-box').style.display = 'none';
+                document.getElementById('search-bar').value = '';
+                window.StreamVersePlayer.routeToPlayer(id, title, type, year);
             }
             async filterSection(cat) {
                 this.activeCat = cat;
@@ -1184,36 +1162,13 @@
                 if (cat === 'all') {
                     dynamicRows.style.display = 'flex';
                     gridBox.style.display = 'none';
-                    await this.hydrateAllShelves();
                 } else {
                     dynamicRows.style.display = 'none';
                     gridBox.style.display = 'block';
-                    document.getElementById('current-category-title').innerText = `${cat} Network Catalog`;
+                    document.getElementById('current-category-title').innerText = `${cat} Catalog Matrix`;
                     const list = await window.StreamVerseDatabase.fetchCategory(cat);
                     this.renderGrid(list);
                 }
-            }
-            async search(query) {
-                const clean = query.trim().toLowerCase();
-                const dynamicRows = document.getElementById('homepage-rows-deck');
-                const gridBox = document.getElementById('category-grid-box');
-
-                if(!clean) { 
-                    this.filterSection(this.activeCat); 
-                    return; 
-                }
-
-                dynamicRows.style.display = 'none';
-                gridBox.style.display = 'block';
-                document.getElementById('current-category-title').innerText = `Search Filtering Matrix: "${query}"`;
-                
-                const list = await window.StreamVerseDatabase.fetchSearch(clean);
-                this.renderGrid(list);
-            }
-            async searchByTerm(term) {
-                document.getElementById('search-bar').value = term;
-                await this.search(term);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
             async hydrateAllShelves() {
                 const trendingMovies = await window.StreamVerseDatabase.fetchTrending('movie');
@@ -1223,17 +1178,14 @@
                 const punjabi = await window.StreamVerseDatabase.fetchCategory('Punjabi');
                 const series = await window.StreamVerseDatabase.fetchCategory('Web Series');
 
-                // Dynamic Hero Carousel Loading Strategy
                 if (trendingMovies && trendingMovies.length > 0) {
                     this.carouselItems = trendingMovies.slice(0, 5);
                     this.buildCarousel();
                 }
 
-                // Render Overlapping Rank Top 10 rows
                 this.renderRankShelf(trendingShows.slice(0, 10), 'top-tv-shelf');
                 this.renderRankShelf(trendingMovies.slice(0, 10), 'top-movie-shelf');
 
-                // Render Standard dynamic rows
                 this.renderStandardShelf(hollywood.slice(0, 12), 'hollywood-shelf');
                 this.renderStandardShelf(bollywood.slice(0, 12), 'bollywood-shelf');
                 this.renderStandardShelf(punjabi.slice(0, 12), 'punjabi-shelf');
@@ -1254,22 +1206,18 @@
                     slide.innerHTML = `
                         <div class="hero-overlay"></div>
                         <div class="hero-content">
-                            <span class="badge" style="position:static; margin-bottom:15px; display:inline-block;">PREMIUM FOCUS</span>
+                            <span class="badge" style="position:static; margin-bottom:12px; display:inline-block;">FEATURED SPOTLIGHT</span>
                             <h1 class="hero-title">${item.title}</h1>
                             <p class="hero-desc">${item.overview}</p>
                             <div class="hero-buttons">
                                 <button class="play-btn" onclick="window.StreamVersePlayer.routeToPlayer(${item.id}, '${item.title.replace(/'/g, "\\'")}', '${item.type}', '${item.year}')">
-                                    <i class="fas fa-play"></i> Launch Stream
-                                </button>
-                                <button class="info-btn" onclick="window.StreamVerseApp.searchByTerm('${item.title.replace(/'/g, "\\'")}')">
-                                    <i class="fas fa-info-circle"></i> Discover More
+                                    <i class="fas fa-play"></i> Launch Cinema
                                 </button>
                             </div>
                         </div>`;
                     carousel.appendChild(slide);
                 });
 
-                // Render dots indices
                 const indicators = document.createElement('div');
                 indicators.className = 'carousel-indicators';
                 this.carouselItems.forEach((_, idx) => {
@@ -1280,7 +1228,6 @@
                 });
                 carousel.appendChild(indicators);
 
-                // Initialize internal automatic trigger loop set at 6 seconds
                 this.carouselIndex = 0;
                 this.carouselTimer = setInterval(() => {
                     this.setCarouselSlide((this.carouselIndex + 1) % this.carouselItems.length);
@@ -1304,7 +1251,7 @@
                 if (!track) return;
                 track.innerHTML = '';
                 if(list.length === 0) {
-                    track.innerHTML = '<div style="color:var(--text-gray); padding:20px;">No trending matches found.</div>';
+                    track.innerHTML = '<div style="color:var(--text-gray); padding:15px;">No items populated.</div>';
                     return;
                 }
                 list.forEach((item, index) => {
@@ -1313,7 +1260,7 @@
                     card.innerHTML = `
                         <div class="rank-number">${index + 1}</div>
                         <div class="rank-poster-wrapper">
-                            <img class="rank-poster" src="${item.poster}" alt="Media Poster File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                            <img class="rank-poster" src="${item.poster}" alt="Poster" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
                         </div>`;
                     card.onclick = () => window.StreamVersePlayer.routeToPlayer(item.id, item.title, item.type, item.year);
                     track.appendChild(card);
@@ -1324,16 +1271,16 @@
                 if (!track) return;
                 track.innerHTML = '';
                 if(list.length === 0) {
-                    track.innerHTML = '<div style="color:var(--text-gray); padding:20px;">No available media entries inside indexing layer.</div>';
+                    track.innerHTML = '<div style="color:var(--text-gray); padding:15px;">No items populated inside index.</div>';
                     return;
                 }
                 list.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'movie-card';
                     card.innerHTML = `
-                        <span class="badge" style="top:8px; left:8px; font-size:9px;">⭐ ${item.rating}</span>
+                        <span class="badge">⭐ ${item.rating}</span>
                         <div class="poster-wrapper">
-                            <img class="movie-poster" src="${item.poster}" alt="Media Poster File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                            <img class="movie-poster" src="${item.poster}" alt="Poster" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
                         </div>
                         <div class="movie-info">
                             <strong>${item.title}</strong>
@@ -1347,7 +1294,7 @@
                 const container = document.getElementById('movie-grid-container');
                 if(!container) return; container.innerHTML = "";
                 if(list.length === 0) {
-                    container.innerHTML = `<div class="empty-query-indicator"><i class="fas fa-ban"></i><p>No verified streams match your current parameter.</p></div>`;
+                    container.innerHTML = `<div class="empty-query-indicator"><i class="fas fa-ban"></i><p>No verified streams match your parameter.</p></div>`;
                     return;
                 }
                 list.forEach(item => {
@@ -1356,7 +1303,7 @@
                     card.innerHTML = `
                         <span class="badge">⭐ ${item.rating}</span>
                         <div class="poster-wrapper">
-                            <img class="movie-poster" src="${item.poster}" alt="Media Resource File" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
+                            <img class="movie-poster" src="${item.poster}" alt="Poster" onerror="this.src='https://image.tmdb.org/t/p/w400/8cdcl36Zf7gZ876wMQw8fgyvIEg.jpg'">
                         </div>
                         <div class="movie-info">
                             <strong>${item.title}</strong>
