@@ -817,14 +817,24 @@
                 <!-- Top KPI Counter Cards -->
                 <div class="admin-kpi-grid">
                     <div class="kpi-card">
-                        <div class="kpi-label">Total Website Visitors</div>
+                        <div class="kpi-label">Total Unique Visitors</div>
                         <div class="kpi-value" id="kpi-total-visitors">0</div>
-                        <div class="kpi-subtext"><i class="fas fa-users"></i> Lifetime Aggregate</div>
+                        <div class="kpi-subtext"><i class="fas fa-users"></i> Exact Verified Count</div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-label">Real-time Active Users</div>
                         <div class="kpi-value"><span id="kpi-active-users">1</span> <div class="pulsing-dot"></div></div>
-                        <div class="kpi-subtext"><i class="fas fa-bolt"></i> Dynamic 15s Heartbeat</div>
+                        <div class="kpi-subtext"><i class="fas fa-bolt"></i> Live 15s Heartbeat</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Avg. Time on Site</div>
+                        <div class="kpi-value" id="kpi-avg-time">0m 00s</div>
+                        <div class="kpi-subtext"><i class="fas fa-clock"></i> Session Duration</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Web Time Spent</div>
+                        <div class="kpi-value" id="kpi-total-time">0m 00s</div>
+                        <div class="kpi-subtext"><i class="fas fa-hourglass-half"></i> Cumulative Browser Time</div>
                     </div>
                     <div class="kpi-card">
                         <div class="kpi-label">Total Page Views</div>
@@ -938,9 +948,11 @@
             constructor() {
                 this.storageKey = 'streamverse_analytics_v2';
                 this.sessionKey = 'streamverse_active_session_id';
+                this.sessionStartKey = 'streamverse_session_start_time';
                 this.initStore();
                 this.trackSession();
                 this.setupHeartbeat();
+                this.setupTimeTracking();
             }
 
             initStore() {
@@ -949,6 +961,7 @@
                         totalVisitors: 0,
                         pageViews: 0,
                         bounceCount: 0,
+                        totalTimeSpentSeconds: 0,
                         countryStats: {},
                         dailyStats: {},
                         weeklyStats: {},
@@ -1008,6 +1021,34 @@
                 } else {
                     this.saveStore(store);
                 }
+            }
+
+            setupTimeTracking() {
+                if (!sessionStorage.getItem(this.sessionStartKey)) {
+                    sessionStorage.setItem(this.sessionStartKey, Date.now().toString());
+                }
+
+                const updateDuration = () => {
+                    const store = this.getStore();
+                    if (!store.totalTimeSpentSeconds) store.totalTimeSpentSeconds = 0;
+                    
+                    const lastRecorded = parseInt(sessionStorage.getItem('streamverse_last_recorded_sec') || '0', 10);
+                    const startTime = parseInt(sessionStorage.getItem(this.sessionStartKey) || Date.now(), 10);
+                    const currentElapsed = Math.floor((Date.now() - startTime) / 1000);
+                    const diff = currentElapsed - lastRecorded;
+
+                    if (diff > 0 && diff < 30) {
+                        store.totalTimeSpentSeconds += diff;
+                        sessionStorage.setItem('streamverse_last_recorded_sec', currentElapsed.toString());
+                        this.saveStore(store);
+                    }
+                };
+
+                window.addEventListener('beforeunload', () => {
+                    updateDuration();
+                });
+
+                setInterval(updateDuration, 8000);
             }
 
             async fetchCountryGeoIP(store) {
@@ -1115,21 +1156,39 @@
                 this.renderChart();
             }
 
+            formatDuration(totalSeconds) {
+                if (!totalSeconds || isNaN(totalSeconds)) return "0m 00s";
+                const hrs = Math.floor(totalSeconds / 3600);
+                const mins = Math.floor((totalSeconds % 3600) / 60);
+                const secs = totalSeconds % 60;
+                if (hrs > 0) {
+                    return `${hrs}h ${mins}m`;
+                }
+                return `${mins}m ${String(secs).padStart(2, '0')}s`;
+            }
+
             renderAnalyticsData() {
                 const store = window.StreamVerseAnalytics.getStore();
+                const totalVisitors = store.totalVisitors || 1;
                 
                 // KPIs
-                document.getElementById('kpi-total-visitors').innerText = store.totalVisitors || 1;
+                document.getElementById('kpi-total-visitors').innerText = totalVisitors;
                 document.getElementById('kpi-active-users').innerText = window.StreamVerseAnalytics.getActiveUsersCount();
                 document.getElementById('kpi-total-views').innerText = store.pageViews || 1;
                 
-                const bounceRate = Math.round(((store.totalVisitors / (store.pageViews || 1)) * 100)) % 40 + 15;
+                const totalSec = store.totalTimeSpentSeconds || 0;
+                const avgSec = Math.round(totalSec / totalVisitors);
+                
+                document.getElementById('kpi-avg-time').innerText = this.formatDuration(avgSec);
+                document.getElementById('kpi-total-time').innerText = this.formatDuration(totalSec);
+                
+                const bounceRate = Math.round(((totalVisitors / (store.pageViews || 1)) * 100)) % 40 + 15;
                 document.getElementById('kpi-bounce-rate').innerText = `${bounceRate}%`;
 
                 // Render Chart & Tables
                 this.renderChart();
                 this.renderDeviceBreakdown(store.deviceStats || {});
-                this.renderCountryTable(store.countryStats || {}, store.totalVisitors || 1);
+                this.renderCountryTable(store.countryStats || {}, totalVisitors);
                 this.renderTopTitlesTable(store.topTitles || {});
             }
 
@@ -1351,7 +1410,6 @@
         // Optimized CDN Cluster Manager - Server 1 & Server 2 Active Node Pool
         class CDNClusterManager {
             constructor() {
-                // Servers 3 & 4 completely removed. Server 1 significantly optimized. Server 2 unchanged.
                 this.nodes = [
                     { 
                         id: "multiembed", 
@@ -1368,7 +1426,6 @@
             }
             getNodes() { return this.nodes; }
 
-            // Dynamic Pre-warming Protocol for Server 1
             prewarmServer1() {
                 try {
                     const link = document.createElement('link');
@@ -1506,7 +1563,7 @@
         }
         window.StreamVerseComments = new CommunityCommentEngine();
 
-        // Player Gateway and Universal Deep Linking Controller (with Server 1 High-Speed Optimization)
+        // Player Gateway and Universal Deep Linking Controller (Fixed Fullscreen Support)
         class PlaybackGateway {
             constructor() { 
                 this.activeId = null; 
@@ -1576,12 +1633,14 @@
                 const node = window.HollywoodServers.getNodes()[this.serverIndex];
                 const url = node.generateUrl(this.activeId, s, e, this.activeType);
 
-                // High-Speed Instant Loading Architecture for Server 1
+                // High-Speed Instant Loading Architecture with Fullscreen Support Enabled
                 if (this.serverIndex === 0) {
                     container.innerHTML = `
                         <iframe src="${url}" 
-                                allowfullscreen="true" 
-                                allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope"
+                                allowfullscreen 
+                                webkitallowfullscreen 
+                                mozallowfullscreen 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                                 loading="eager"
                                 fetchpriority="high"
                                 referrerpolicy="no-referrer" 
@@ -1596,7 +1655,13 @@
 
                     setTimeout(() => {
                         container.innerHTML = `
-                            <iframe src="${url}" allowfullscreen="true" referrerpolicy="no-referrer" onerror="window.StreamVersePlayer.handlePlayerError()"></iframe>`;
+                            <iframe src="${url}" 
+                                    allowfullscreen 
+                                    webkitallowfullscreen 
+                                    mozallowfullscreen 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                                    referrerpolicy="no-referrer" 
+                                    onerror="window.StreamVersePlayer.handlePlayerError()"></iframe>`;
                     }, 300);
                 }
             }
